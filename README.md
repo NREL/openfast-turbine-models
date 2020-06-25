@@ -1,5 +1,3 @@
 # OpenFAST Turbine Models
 
-This repository will contain turbine aeroservoelastic models primarily developed
-for research activities at at the National Renewable Energy Laboratory (NREL). 
-
+This repository contains turbine aeroservoelastic models developed for research activities at the National Renewable Energy Laboratory (NREL). 
