@@ -14,6 +14,8 @@ Design by [Eliot Quon](mailto:eliot.quon@nrel.gov) and Pietro Bortolotti
 | cut-out wind speed | 25 m/s | specified |
 | peak shaving | 25% | estimate |
 
+![Turbine Performance](WISDEM/figures/NREL-2.5-116_design_overview.png)
+
 Design approach:
 
 * Start with IEA-3.4-130 reference model
