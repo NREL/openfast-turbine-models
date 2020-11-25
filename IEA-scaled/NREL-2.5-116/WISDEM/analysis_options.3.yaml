@@ -11,7 +11,7 @@ optimization_variables:
         lower_bound: [0.3490658503988659, 0.08726646259971647, 0.08726646259971647, 0., -0.08726646259971647, -0.08726646259971647, -0.08726646259971647, -0.08726646259971647]          # Lower bounds for the twist in [rad] at the n_opt locations
         upper_bound: [0.4363323129985824, 0.3490658503988659, 0.3490658503988659, 0.2617993877991494, 0.2617993877991494, 0.17453292519943295, 0.17453292519943295, 0.08726646259971647] # Upper bounds for the twist in [rad] at the n_opt locations
       chord:
-        flag: False     # Flag to optimize the chord
+        flag: True      # Flag to optimize the chord
         n_opt: 8        # Number of control points along blade span
         min_gain: 0.2   # Nondimensional lower bound at the n_opt locations
         max_gain: 2.0   # Nondimensional upper bound at the n_opt locations
@@ -109,10 +109,10 @@ constraints:
       8_axle: False
       4_axle: False
     stall:
-      flag: False     # Constraint on minimum stall margin
+      flag: True      # Constraint on minimum stall margin
       margin: 0.01744 # Value of minimum stall margin in [rad]
     chord:
-      flag: False # Constraint on maximum chord
+      flag: True  # Constraint on maximum chord
       max: 4.75   # Value of maximum chord in [m]
     frequency:
       flap_above_3P: False
