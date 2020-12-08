@@ -11,7 +11,7 @@ fname_modeling_options = run_dir + "modeling_options.yaml"
 tt = time.time()
 
 # step 0: sanity check, initial IEA-3.4-130-RWT -- NO OPT
-fname_wt_input         = run_dir + "IEA-3.4-130-RWT.yaml"
+fname_wt_input         = run_dir + "IEA-3p4-130-RWT.yaml"
 fname_analysis_options = run_dir + "analysis_options.0.yaml"
 print('STEP 0')
 wt_opt, modeling_options, opt_options = run_wisdem(fname_wt_input, fname_modeling_options, fname_analysis_options)
