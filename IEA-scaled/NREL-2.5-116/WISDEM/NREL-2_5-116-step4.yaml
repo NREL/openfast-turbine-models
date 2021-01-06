@@ -1,5 +1,14 @@
 name: IEA-3.4-130-RWT
 description: version from December 16th 2019
+assembly: 
+    turbine_class: III
+    turbulence_class: A
+    drivetrain: Geared
+    rotor_orientation: Upwind
+    number_of_blades: 3
+    rotor_diameter: 116.59945147261746
+    hub_height: 80.0
+    rated_power: 2500000.
 components:
     blade:
         outer_shape_bem:
@@ -368,20 +377,12 @@ components:
             distance_hub2mb: 1.912
             distance_mb2mb: 0.368
             overhang: 5.0
-            lss_diameter:
-                grid: &id003 [0.0, 0.25, 0.5, 0.75, 1.0]
-                values: [0.577, 0.577, 0.577, 0.577, 0.577]
-            lss_wall_thickness:
-                grid: *id003
-                values: [0.288, 0.288, 0.288, 0.288, 0.288]
+            lss_diameter: [0.577, 0.577]
+            lss_wall_thickness: [0.288,0.288]
             generator_length: 2.0
             hss_length: 1.5
-            hss_diameter:
-                grid: &id004 [0.0, 0.5, 1.0]
-                values: [0.288, 0.288, 0.288]
-            hss_wall_thickness:
-                grid: *id004
-                values: [0.144, 0.144, 0.144]
+            hss_diameter: [0.288, 0.288]
+            hss_wall_thickness: [0.144, 0.144]
             bedplate_flange_width: 1.0
             bedplate_flange_thickness: 0.05
             bedplate_web_thickness: 0.05
@@ -395,28 +396,9 @@ components:
             lss_material: steel
             hss_material: steel
             bedplate_material: steel
-            uptilt: 0.08726
-            distance_hub_mb: 2.0
-            distance_mb_mb: 1.0
-            generator_mass_user: 0.0
             generator_rpm_efficiency_user:
-                grid: [0.0]
-                values: [0.0]
-            access_diameter: 2.0
-            nose_diameter:
                 grid: [0.0, 1.0]
-                values: [0.3, 0.3]
-            nose_wall_thickness:
-                grid: [0.0, 1.0]
-                values: [0.05, 0.05]
-            bedplate_wall_thickness:
-                grid: [0.0, 1.0]
-                values: [0.05, 0.05]
-            brake_mass_user: 0.0
-            hvac_mass_coefficient: 0.08
-            converter_mass_user: 0.0
-            transformer_mass_user: 0.0
-        generator: {generator_type: DFIG, rho_Fe: 7700.0, rho_Fes: 7850.0, rho_Copper: 8900.0, rho_PM: 7450.0, B_r: 1.2, P_Fe0e: 1.0, P_Fe0h: 4.0, S_N: -0.002, alpha_p: 1.0995574287564276, b_r_tau_r: 0.45, b_ro: 0.004, b_s_tau_s: 0.45, b_so: 0.004, freq: 60.0, h_i: 0.001, h_sy0: 0.0, h_w: 0.005, k_fes: 0.9, k_s: 0.2, m: 3.0, mu_0: 1.2566370614359173e-06, mu_r: 1.06, p: 3.0, phi: 1.5707963267948966, ratio_mw2pp: 0.7, resist_Cu: 2.52e-08, y_tau_pr: 0.8333333, rated_rpm: 1200.0, cofi: 0.9, y_tau_p: 0.8, sigma: 21500.0, rad_ag: 0.61, len_s: 0.49, h_s: 0.08, I_0: 40.0, B_symax: 1.3, S_Nmax: -0.2, h_0: 0.01, k_fillr: 0.55, k_fills: 0.65, q1: 5.0, q2: 4.0, C_Cu: 4.786, C_Fe: 0.556, C_Fes: 0.50139, C_PM: 50.0, mass_coefficient: 0.0, q3: 4, d_r: 0.0, h_m: 0.0, n_r: 0.0, t_wr: 0.0, n_s: 0.0, b_st: 0.0, d_s: 0.0, t_ws: 0.0}
+                values: [0.95, 0.95]
     tower:
         outer_shape_bem:
             reference_axis: &id005
@@ -444,7 +426,6 @@ components:
                   thickness:
                       grid: [0.0, 0.1, 0.200092592625, 0.300092592625, 0.40018518512499995, 0.5001851851249999, 0.600185185125, 0.7002777777500001, 0.8002777777500001, 0.9002777777500001, 1.0]
                       values: [0.048225312500000006, 0.042654062500000006, 0.0367559375, 0.031265, 0.026998750000000002, 0.02454625, 0.0238584375, 0.024142499999999997, 0.02448125, 0.024575, 0.024575]
-    foundation: {height: 0.0}
 airfoils:
    -  name: DU08-W-210
       coordinates:
@@ -573,73 +554,170 @@ airfoils:
                 grid: [-3.14, 3.14]
                 values: [0.0, 0.0]
 materials:
-   -  {name: paint, description: UV protection, source: Material coming from ..., orth: 0, rho: 1100, E: 4560000.0, nu: 0.49, G: 1520000.0, ply_t: 0.0005, fvf: .nan, fwf: .nan, waste: 0.25, unit_cost: 7.23, component_id: 0, Xt: 0.0, Xc: 0.0, S: 0.0}
+   -  name: paint
+      description: UV protection
+      source: Material coming from ...
+      orth: 0
+      rho: 1100
+      E: 4.56e+006
+      nu: 0.49
+      G: 1520000.0
+      ply_t: 0.0005
+      waste: 0.25
+      unit_cost: 7.23
+      component_id: 0
+      Xt: 0.0
+      Xc: 0.0
+      S: 0.0
    -  name: triax
       description: Standard triax from ...
       source: Material coming from ...
       orth: 1
       rho: 1845
-      E: [21790000000.0, 14670000000.0, 14670000000.0]
-      G: [9413000000.0, 9413000000.0, 9413000000.0]
+      E: [21.79e+009, 14.67e+009, 14.67e+009]
+      G: [9.413e+009, 9.413e+009, 9.413e+009]
       nu: [0.48, 0.48, 0.48]
       alpha: [0, 0, 0]
-      Xt: [600000000.0, 600000000.0, 600000000.0]
-      Xc: [600000000.0, 600000000.0, 600000000.0]
-      S: [500000000.0, 200000000.0, 200000000.0]
+      Xt: [600.0e+006, 600.0e+006, 600.0e+006]
+      Xc: [600.0e+006, 600.0e+006, 600.0e+006]
+      S: [500.0e+006, 200.0e+006, 200.0e+006]
       fvf: 0.4793
       fwf: 0.6754
       waste: 0.15
       unit_cost: 2.86
       component_id: 2
       area_density_dry: 1.112
-      fiber_density: 2600.0
+      fiber_density: 2600.
       roll_mass: 181.4368
    -  name: biax
       description: Standard biax from ...
       source: Material coming from ...
       orth: 1
       rho: 1845
-      E: [13920000000.0, 13920000000.0, 13920000000.0]
-      G: [11500000000.0, 11500000000.0, 11500000000.0]
+      E: [13.92e+009, 13.92e+009, 13.92e+009]
+      G: [11.5e+009, 11.5e+009, 11.5e+009]
       nu: [0.49, 0.49, 0.49]
       alpha: [0, 0, 0]
-      Xt: [600000000.0, 600000000.0, 600000000.0]
-      Xc: [600000000.0, 600000000.0, 600000000.0]
-      S: [500000000.0, 200000000.0, 200000000.0]
+      Xt: [600.0e+006, 600.0e+006, 600.0e+006]
+      Xc: [600.0e+006, 600.0e+006, 600.0e+006]
+      S: [500.0e+006, 200.0e+006, 200.0e+006]
       fvf: 0.4793
       fwf: 0.6754
       waste: 0.15
-      unit_cost: 3.0
+      unit_cost: 3.00
       component_id: 3
       area_density_dry: 1.112
-      fiber_density: 2600.0
+      fiber_density: 2600.
       roll_mass: 181.4368
    -  name: ud
       description: Standard ud from ...
       source: Material coming from ...
       orth: 1
       rho: 1940
-      E: [42000000000.0, 12300000000.0, 12300000000.0]
-      G: [3470000000.0, 3470000000.0, 3470000000.0]
+      E: [42.00e+009, 12.30e+009, 12.30e+009]
+      G: [3.47e+009, 3.47e+009, 3.47e+009]
       nu: [0.31, 0.31, 0.31]
       alpha: [0, 0, 0]
-      Xt: [600000000.0, 600000000.0, 600000000.0]
-      Xc: [600000000.0, 600000000.0, 600000000.0]
-      S: [500000000.0, 200000000.0, 200000000.0]
+      Xt: [600.0e+006, 600.0e+006, 600.0e+006]
+      Xc: [600.0e+006, 600.0e+006, 600.0e+006]
+      S: [500.0e+006, 200.0e+006, 200.0e+006]
       fvf: 0.5448
       fwf: 0.7302
       waste: 0.05
       unit_cost: 1.87
       component_id: 4
       area_density_dry: 1.858
-      fiber_density: 2600.0
-   -  {name: balsa, description: Balsa filler from ..., source: Material coming from ..., orth: 0, rho: 110, E: 50000000.0, nu: 0.49, alpha: 0.0, Xt: 690000.0, Xc: 400000.0, S: 310000.0, G: 16666666.666666666, waste: 0.2, unit_cost: 13.0, component_id: 1}
-   -  {name: foam, description: Foam filler from ..., source: Material coming from ..., orth: 0, rho: 110, E: 50000000.0, nu: 0.49, alpha: 0.0, Xt: 690000.0, Xc: 400000.0, S: 310000.0, G: 16666666.666666666, waste: 0.2, unit_cost: 13.0, component_id: 1}
-   -  {name: adhesive, description: Adhesive from ..., source: Material coming from ..., orth: 0, rho: 1100, E: 4560000.0, nu: 0.49, alpha: 0.0, Xt: 690000.0, Xc: 400000.0, S: 310000.0, G: 1520000.0}
-   -  {name: resin, description: epoxy, E: 1000000.0, rho: 1150.0, nu: 0.3, orth: 0, unit_cost: 3.63, waste: 0.2}
-   -  {name: steel, description: Steel of the tower, source: 'Standard steel with higher density to account for auxiliary systems of the tower (elevator, stairs, etc)', orth: 0, rho: 8500, E: 210000000000.0, Xy: 450000000.0, nu: 0.3, alpha: 0.0, Xt: 355000000.0, Xc: 355000000.0}
-assembly: {turbine_class: III, turbulence_class: A, drivetrain: Geared, rotor_orientation: Upwind, number_of_blades: 3, rotor_diameter: 116.59945147261746, hub_height: 80.0}
-control: {rated_power: 2500000.0, Vin: 3.0, Vout: 25.0, minOmega: 0.837758041, maxOmega: 1.4660765717, tsr: 9.0, pitch: 0.017453292519943295, maxTS: 80.0, max_pitch_rate: 0.12217304763960307, max_torque_rate: 1500000.0, PC_zeta: 1.0, PC_omega: 0.2, VS_zeta: 1.0, VS_omega: 0.2, max_pitch: 1.57, min_pitch: 0, vs_minspd: 0, ss_vsgain: 1, ss_pcgain: 0.001, ps_percent: 0.8}
+      fiber_density: 2600.
+   -  name: balsa
+      description: Balsa filler from ...
+      source: Material coming from ...
+      orth: 0
+      rho: 110
+      E: 50.0e+006
+      nu: 0.49
+      alpha: 0.0
+      Xt: 0.69e+006
+      Xc: 0.4e+006
+      S: 0.31e+006
+      G: 16666666.666666666
+      waste: 0.2
+      unit_cost: 13.
+      component_id: 1
+   -  name: foam
+      description: Foam filler from ...
+      source: Material coming from ...
+      orth: 0
+      rho: 110
+      E: 50.0e+006
+      nu: 0.49
+      alpha: 0.0
+      Xt: 0.69e+006
+      Xc: 0.4e+006
+      S: 0.31e+006
+      G: 16666666.666666666
+      waste: 0.2
+      unit_cost: 13.
+      component_id: 1
+   -  name: adhesive
+      description: Adhesive from ...
+      source: Material coming from ...
+      orth: 0
+      rho: 1100
+      E: 4.56e+006
+      nu: 0.49
+      alpha: 0.0
+      Xt: 0.69e+006
+      Xc: 0.4e+006
+      S: 0.31e+006
+      G: 1520000.0
+   -  name: resin
+      description: epoxy
+      E: 1.e+6
+      rho: 1150.
+      nu: 0.3
+      orth: 0
+      unit_cost: 3.63
+      waste: 0.2
+   -  name: steel
+      description: Steel of the tower
+      source: Standard steel with higher density to account for auxiliary systems of the tower (elevator, stairs, etc)
+      orth: 0
+      rho: 8500
+      E: 210.e+009
+      Xy: 450.e+6
+      nu: 0.3
+      alpha: 0.0
+      Xt: 355.e+006
+      Xc: 355.e+006
+control:
+    supervisory:
+        Vin: 3.0
+        Vout: 25.0
+        maxTS: 80.
+        rated_power: 2.5e+6
+        minOmega: 0.837758041
+        maxOmega: 1.4660765717
+    pitch:
+        PC_zeta: 1.0
+        PC_omega: 0.2
+        ps_percent: 0.8
+        max_pitch: 1.57
+        max_pitch_rate: 0.12217304763960307 # 7 deg/s
+        min_pitch: 0.017453292519943295
+    torque:
+        control_type: tsr_tracking
+        tsr: 9.
+        VS_zeta: 1.0
+        VS_omega: 0.2
+        max_torque_rate: 1500000.
+        VS_minspd: 0.0
+        VS_maxspd: 2.00000
+    setpoint_smooth:
+        ss_vsgain: 1
+        ss_pcgain: .001
+    shutdown:
+        limit_type: gen_speed
+        limit_value: 2.0
 environment: {air_density: 1.225, air_dyn_viscosity: 1.81e-05, weib_shape_parameter: 2.0, air_speed_sound: 340.0, shear_exp: 0.2, water_density: 1025.0, water_dyn_viscosity: 0.0013351, soil_shear_modulus: 140000000.0, soil_poisson: 0.4, water_depth: 0.0}
 bos: {plant_turbine_spacing: 7, plant_row_spacing: 7, commissioning_pct: 0.01, decommissioning_pct: 0.15, distance_to_substation: 50.0, distance_to_interconnection: 8.0, interconnect_voltage: 130, distance_to_landfall: 100, distance_to_site: 100, port_cost_per_month: 2000000.0, site_auction_price: 0.0, site_assessment_plan_cost: 0.0, site_assessment_cost: 0.0, construction_operations_plan_cost: 0.0, boem_review_cost: 0.0, design_install_plan_cost: 0.0}
 costs: {wake_loss_factor: 0.15, fixed_charge_rate: 0.075, bos_per_kW: 459.0, opex_per_kW: 44.0, turbine_number: 178.0, labor_rate: 58.8, painting_rate: 30.0, blade_mass_cost_coeff: 14.6, hub_mass_cost_coeff: 3.9, pitch_system_mass_cost_coeff: 22.1, spinner_mass_cost_coeff: 11.1, lss_mass_cost_coeff: 11.9, bearing_mass_cost_coeff: 4.5, gearbox_mass_cost_coeff: 12.9, hss_mass_cost_coeff: 6.8, generator_mass_cost_coeff: 12.4, bedplate_mass_cost_coeff: 2.9, yaw_mass_cost_coeff: 8.3, converter_mass_cost_coeff: 18.8, transformer_mass_cost_coeff: 18.8, hvac_mass_cost_coeff: 124.0, cover_mass_cost_coeff: 5.7, elec_connec_machine_rating_cost_coeff: 41.85, platforms_mass_cost_coeff: 17.1, tower_mass_cost_coeff: 2.9, controls_machine_rating_cost_coeff: 21.15, crane_cost: 12000.0}
