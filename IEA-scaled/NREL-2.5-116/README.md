@@ -6,7 +6,6 @@ Design by [Eliot Quon](mailto:eliot.quon@nrel.gov), Pietro Bortolotti, and John 
 | ---------------------- | ------ | ----------- |
 | rated electrical power | 2.5 MW | specified |
 | diameter               | 116 m  | specified |
-| hub radius             | 2 m    | same as IEA-3.4-130 |
 | tower height           | 80 m   | specified |
 | tip-speed ratio        | 9.0    | estimate, increased from IEA-3.4-130 (TSR=8.02) |
 | minimum rotor speed    | 8 RPM  | estimate, increased from IEA-3.4-130 (6.9 RPM) |
