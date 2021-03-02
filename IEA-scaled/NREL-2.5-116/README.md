@@ -2,17 +2,17 @@
 
 Design by [Eliot Quon](mailto:eliot.quon@nrel.gov), Pietro Bortolotti, and John Jasa
 
-| Design Variable | Value | Description |
-| --------------- | ----- | ----------- |
+| Design Variable        | Value  | Description |
+| ---------------------- | ------ | ----------- |
 | rated electrical power | 2.5 MW | specified |
-| diameter | 116 m | specified |
-| hub radius | 2 m | same as IEA-3.4-130 |
-| tower height | 80 m | specified |
-| tip-speed ratio | 9.0 | estimate, increased from IEA-3.4-130 (TSR=8.02) |
-| cut-in wind speed | 3 m/s | specified |
-| rated wind speed | 10.5 m/s | target |
-| cut-out wind speed | 25 m/s | specified |
-| peak shaving | 25% | estimate |
+| diameter               | 116 m  | specified |
+| hub radius             | 2 m    | same as IEA-3.4-130 |
+| tower height           | 80 m   | specified |
+| tip-speed ratio        | 9.0    | estimate, increased from IEA-3.4-130 (TSR=8.02) |
+| minimum rotor speed    | 8 RPM  | estimate, increased from IEA-3.4-130 (6.9 RPM) |
+| maximum rotor speed    | 14 RPM | estimate, increased from IEA-3.4-130 (12.1 RPM) |
+| rated tip speed        | 85 m/s | estimate |
+| peak shaving           | 25%    | estimate |
 
 ![Turbine Performance](WISDEM/figures/NREL-2.5-116_design_overview.png)
 
