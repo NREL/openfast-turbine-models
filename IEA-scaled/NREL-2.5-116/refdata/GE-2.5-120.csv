@@ -1,4 +1,5 @@
 ﻿# https://en.wind-turbine-models.com/turbines/310-ge-general-electric-ge-2.5-120
+# accessed 2020-11-28
 wind speed [m/s],power [kW],Cp,Ct
 3,25,0.13,1.01
 3.5,89,0.3,0.92
