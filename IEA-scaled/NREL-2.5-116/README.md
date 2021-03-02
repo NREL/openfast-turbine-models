@@ -1,6 +1,6 @@
 # NREL 2.5-116
 
-Design by [Eliot Quon](mailto:eliot.quon@nrel.gov) and Pietro Bortolotti
+Design by [Eliot Quon](mailto:eliot.quon@nrel.gov), Pietro Bortolotti, and John Jasa
 
 | Design Variable | Value | Description |
 | --------------- | ----- | ----------- |
