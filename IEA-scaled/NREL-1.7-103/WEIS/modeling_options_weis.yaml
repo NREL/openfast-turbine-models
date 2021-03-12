@@ -22,7 +22,7 @@ WISDEM:
 Level3: # Options for WEIS fidelity level 3 = nonlinear time domain
     flag: True
     simulation:
-        TMax: 120.
+        TMax: 180.
         DT: 0.01
         CompElast: 1
         CompInflow: 1
@@ -56,7 +56,8 @@ Level3: # Options for WEIS fidelity level 3 = nonlinear time domain
     ROSCO:
         flag: True
         SD_Mode: 0 # turn off shutdown
-        PS_Mode: 0 # turn off peak shaving
+        PS_Mode: 1 # turn on pitch saturation
+        ps_percent: 0.7 # peak shaving
         VS_ControlMode: 2 # TSR-tracking control w/ constant torque above rated (using wind-speed estimator)
     
 openfast:
