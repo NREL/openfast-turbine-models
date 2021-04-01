@@ -35,6 +35,8 @@ if rank == 0:
     aopt['constraints']['tower']['stress']['flag'] = True
     aopt['constraints']['tower']['global_buckling']['flag'] = True
     aopt['constraints']['tower']['shell_buckling']['flag'] = True
+    aopt['constraints']['tower']['frequency_1']['flag'] = True
+    aopt['constraints']['tower']['frequency_1']['lower_bound'] = 0.271
     aopt['merit_figure'] = 'tower_mass'
     save_yaml(fname_analysis_options, aopt)
 
@@ -52,7 +54,7 @@ if rank == 0:
     loading = {
         # need to explicitly cast to float, as workaround to what appears to be this issue:
         # https://github.com/SimplyKnownAsG/yamlize/issues/3
-        'mass': float(lastoutput['wt.towerse.tower.mass']['value'][0]),
+        'mass': float(lastoutput['wt.towerse.geom.turb.rna_mass']['value'][0]),
         'center_of_mass': [
             float(val) for val in lastoutput['wt.towerse.geom.turb.rna_cg']['value']
         ],

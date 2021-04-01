@@ -22,7 +22,7 @@ WISDEM:
 Level3: # Options for WEIS fidelity level 3 = nonlinear time domain
     flag: True
     simulation:
-        TMax: 180.
+        TMax: 300.
         DT: 0.01
         CompElast: 1
         CompInflow: 1
@@ -69,7 +69,7 @@ openfast:
         debug_level:        2    # Flag to set the debug level, do not change
     file_management:
         FAST_namingOut:     NREL-1p7-103    # Name of the OpenFAST output files
-        FAST_runDirectory:  ../OpenFAST/power_curve     # Path to folder with the OpenFAST output files
+        FAST_runDirectory:  outputs/power_curve     # Path to folder with the OpenFAST output files
     dlc_settings:
         run_power_curve:   True
         run_IEC:           False
