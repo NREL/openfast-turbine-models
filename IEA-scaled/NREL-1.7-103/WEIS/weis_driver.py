@@ -6,11 +6,14 @@ import os, time, sys
 ## File management
 run_dir                = os.path.dirname( os.path.realpath(__file__) ) + os.sep
 fname_wt_input         = run_dir + "NREL-1p7-103.yaml"
-fname_modeling_options = run_dir + "modeling_options_weis.yaml"
 fname_analysis_options = run_dir + "analysis_options_weis.yaml"
 
 
 tt = time.time()
+fname_modeling_options = run_dir + "modeling_options_weis.1.yaml"
+wt_opt, modeling_options, opt_options = run_weis(fname_wt_input, fname_modeling_options, fname_analysis_options)
+
+fname_modeling_options = run_dir + "modeling_options_weis.2.yaml"
 wt_opt, modeling_options, opt_options = run_weis(fname_wt_input, fname_modeling_options, fname_analysis_options)
 
 if MPI:

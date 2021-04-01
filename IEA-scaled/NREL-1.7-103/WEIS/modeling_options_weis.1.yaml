@@ -62,14 +62,14 @@ Level3: # Options for WEIS fidelity level 3 = nonlinear time domain
     
 openfast:
     analysis_settings:
-        Analysis_Level:     2          # Flag to set the call to OpenFAST. 1 - generate OpenFAST model, 2 - generate and run OpenFAST model
+        Analysis_Level:     1          # Flag to set the call to OpenFAST. 1 - generate OpenFAST model, 2 - generate and run OpenFAST model
         update_hub_nacelle: True
         update_tower:       True
         generate_af_coords: True
         debug_level:        2    # Flag to set the debug level, do not change
     file_management:
         FAST_namingOut:     NREL-1p7-103    # Name of the OpenFAST output files
-        FAST_runDirectory:  ../OpenFAST/power_curve     # Path to folder with the OpenFAST output files
+        FAST_runDirectory:  ../OpenFAST     # Path to folder with the OpenFAST output files
     dlc_settings:
         run_power_curve:   True
         run_IEC:           False
