@@ -1,3 +1,4 @@
+# nDV: 8
 from wisdem import run_wisdem
 from wisdem.commonse.mpi_tools  import MPI
 from helpers import load_yaml, save_yaml
@@ -38,13 +39,10 @@ if rank == 0:
                                   f'NREL-1p7-103-step{istep-1}-modeling.yaml'))
     save_yaml(fname_modeling_options, mopt)
 
-# Note: omega range does not get written out
-# - decrease min rotor speed to avoid pitching in Region 1.5
-# - increase max rotor speed for smaller rotor
-model_changes = {
-    'control.minOmega': 0.0, # [rad/s] ~= 5 RPM, don't pitch in Region 1.5
-    'control.maxOmega': 1.6504854369, # [rad/s] == 15.8 RPM ==> Vtip = 85 m/s
-}
+if MPI:
+    MPI.COMM_WORLD.Barrier()
+
+model_changes = {}
 
 tt = time.time()
 

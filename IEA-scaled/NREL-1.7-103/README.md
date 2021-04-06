@@ -8,7 +8,7 @@ Design by [Eliot Quon](mailto:eliot.quon@nrel.gov), Pietro Bortolotti, and John 
 | diameter               | 103 m    | specified |
 | tower height           | 80 m     | specified |
 | tip-speed ratio        | 9.0      | estimate, increased from IEA-3.4-130 (TSR=8.02) |
-| minimum rotor speed    | 0 RPM    | specified, decreased from IEA-3.4-130 (6.9 RPM) |
+| minimum rotor speed    | 8 RPM    | estimate, increased from IEA-3.4-130 (6.9 RPM) |
 | maximum rotor speed    | 15.8 RPM | estimate, increased from IEA-3.4-130 (12.1 RPM) |
 | rated tip speed        | 85 m/s   | estimate |
 | peak shaving           | 30%      | estimate |
