@@ -48,15 +48,23 @@ def check_blade_freqs(steps,verbose=True):
             print('  flap mode freqs [Hz]:',flapfreqs)
             print('  edge mode freqs [Hz]:',edgefreqs)
             print('  3P, 6P freqs [Hz]:',3*Omg,6*Omg)
-            print('')
             
         # check 1st natural frequencies
-        assert (flapfreqs[0] > 1.1*3*Omg), f'WARNING: 1st flap freq too low in step {istep}'
+        assert (flapfreqs[0] > 3*Omg), f'WARNING: 1st flap freq too low in step {istep}'
+        if (flapfreqs[0] < 1.1*3*Omg):
+            freq_3P = flapfreqs[0]/(3*Omg)
+            print(f'WARNING: 1st flap freq does not have 10% buffer above 3P in step {istep}, ratio={freq_3P}')
         assert (edgefreqs[0] > flapfreqs[0]), f'WARNING: 1st edge freq less than 1st flap freq in step {istep}'
 
         # check 2nd natural frequencies
-        assert (flapfreqs[1] > 1.1*6*Omg), f'WARNING: 2nd flap freq too low in step {istep}'
+        assert (flapfreqs[1] > 6*Omg), f'WARNING: 2nd flap freq too low in step {istep}'
+        if (flapfreqs[1] < 1.1*6*Omg):
+            freq_6P = flapfreqs[1]/(6*Omg)
+            print(f'WARNING: 2nd flap freq does not have 10% buffer above 6P in step {istep}, ratio={freq_6P}')
         assert (edgefreqs[1] > flapfreqs[1]), f'WARNING: 2nd edge freq less than 2nd flap freq in step {istep}'
+
+        if verbose:
+            print('')
         
 def check_tower_freqs(steps,verbose=True):
     """Warn if tower is soft-stiff by design"""
@@ -76,16 +84,11 @@ def check_tower_freqs(steps,verbose=True):
         if verbose:
             print('  tower fore-aft mode freqs [Hz]:',towerFAfreqs)
             print('  tower side-side mode freqs [Hz]:',towerSSfreqs)
-        #assert (towerFAfreqs[0] > Omg), 'WARNING: 1st FA freq too low'
-        #assert (towerSSfreqs[0] > Omg), 'WARNING: 1st SS freq too low'
-        #assert (towerFAfreqs[0] < 2*Omg), 'WARNING: 1st FA freq too high'
-        #assert (towerSSfreqs[0] < 2*Omg), 'WARNING: 1st SS freq too high'
+        assert (towerFAfreqs[0] > Omg), 'WARNING: 1st FA freq too low for soft-stiff design'
         if (towerFAfreqs[0] < 1.1*Omg):
-            print(f'WARNING: 1st FA freq too low in step {istep}')
+            print(f'WARNING: 1st FA freq does not have 10% buffer above 1P in step {istep}')
+        assert (towerSSfreqs[0] > Omg), 'WARNING: 1st SS freq too low for soft-stiff design'
         if (towerSSfreqs[0] < 1.1*Omg):
-            print(f'WARNING: 1st SS freq too low in step {istep}')
-        if (towerFAfreqs[0] > 3*Omg):
-            print(f'WARNING: 1st FA freq too high in step {istep}')
-        if (towerSSfreqs[0] > 3*Omg):
-            print(f'WARNING: 1st SS freq too high in step {istep}')
-        print('')
+            print(f'WARNING: 1st SS freq does not have 10% buffer above 1P in step {istep}')
+        if verbose:
+            print('')
