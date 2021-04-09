@@ -37,13 +37,15 @@ def check_blade_freqs(steps,verbose=True):
         fpath = glob.glob(f'outputs.{istep}/*.pkl')[0]
         if verbose: print(f'Step {istep}: {fpath}')
         turb = load_pickle(fpath)
+        pfx = 'comp.wt.' if istep > 1 else 'wt.'
+
         try:
-            flapfreqs = turb['wt.rs.frame.flap_mode_freqs']['value']
-            edgefreqs = turb['wt.rs.frame.edge_mode_freqs']['value']
+            flapfreqs = turb[pfx+'rotorse.rs.frame.flap_mode_freqs']['value']
+            edgefreqs = turb[pfx+'rotorse.rs.frame.edge_mode_freqs']['value']
         except KeyError:
             if verbose: print('No RotorSE\n')
             continue
-        Omg = turb['wt.rp.powercurve.compute_power_curve.rated_Omega']['value'][0]/60.
+        Omg = turb[pfx+'rotorse.rp.powercurve.compute_power_curve.rated_Omega']['value'][0]/60.
         if verbose:
             print('  flap mode freqs [Hz]:',flapfreqs)
             print('  edge mode freqs [Hz]:',edgefreqs)
@@ -67,28 +69,39 @@ def check_blade_freqs(steps,verbose=True):
             print('')
         
 def check_tower_freqs(steps,verbose=True):
-    """Warn if tower is soft-stiff by design"""
+    """Warn if tower is not soft-stiff by design"""
     Omg = None
     for istep in steps:
         fpath = glob.glob(f'outputs.{istep}/*.pkl')[0]
         if verbose: print(f'Step {istep}: {fpath}')
         turb = load_pickle(fpath)
+        pfx = 'comp.wt.' if istep > 1 else 'wt.'
+
         try:
-            Omg = turb['wt.rp.powercurve.compute_power_curve.rated_Omega']['value'][0]/60.
+            Omg = turb[pfx+'rotorse.rp.powercurve.compute_power_curve.rated_Omega']['value'][0]/60.
         except KeyError:
             if verbose: print('  No RotorSE')
         else:
             if verbose: print('  1P, 3P freqs [Hz]:',1*Omg,3*Omg)
-        towerFAfreqs = turb['wt.towerse.post.x_mode_freqs']['value']
-        towerSSfreqs = turb['wt.towerse.post.y_mode_freqs']['value']
+        towerFAfreqs = turb[pfx+'towerse.post.x_mode_freqs']['value']
+        towerSSfreqs = turb[pfx+'towerse.post.y_mode_freqs']['value']
         if verbose:
             print('  tower fore-aft mode freqs [Hz]:',towerFAfreqs)
             print('  tower side-side mode freqs [Hz]:',towerSSfreqs)
+
+        # check fore-aft natural frequencies
         assert (towerFAfreqs[0] > Omg), 'WARNING: 1st FA freq too low for soft-stiff design'
         if (towerFAfreqs[0] < 1.1*Omg):
             print(f'WARNING: 1st FA freq does not have 10% buffer above 1P in step {istep}')
+        if (towerFAfreqs[0] > 3*Omg):
+            print(f'WARNING: 1st FA freq too high in step {istep}')
+
+        # check side-side natural frequencies
         assert (towerSSfreqs[0] > Omg), 'WARNING: 1st SS freq too low for soft-stiff design'
         if (towerSSfreqs[0] < 1.1*Omg):
             print(f'WARNING: 1st SS freq does not have 10% buffer above 1P in step {istep}')
+        if (towerSSfreqs[0] > 3*Omg):
+            print(f'WARNING: 1st SS freq too high in step {istep}')
+
         if verbose:
             print('')
