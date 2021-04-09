@@ -1,6 +1,6 @@
 import numpy as np
 import pandas as pd
-import os
+import os, platform
 import pyFAST.linearization.linearization as lin
 # import pyFAST.linearization.LinearModel as lin_mod
 import pyFAST.case_generation.case_gen as case_gen
@@ -12,8 +12,10 @@ import yaml
 import scipy as sp
 
 
+on_login_node = platform.node() in ['el'+str(m) for m in range(10)]
+on_dav_node = platform.node() in ['ed'+str(m) for m in range(10)]
+parallel_flag = (os.cpu_count() >= 16) and (not on_login_node) and (not on_dav_node)
 
-import matplotlib.pyplot as plt
 
 def run_linearization():
     """ Example to run a set of OpenFAST simulations (linearizations)
@@ -40,7 +42,7 @@ def run_linearization():
     of_dir           = '/home/equon/WEIS/local'
     this_dir         = os.path.dirname(__file__)
     ref_dir          = '../OpenFAST'   # Folder where the fast input files are located (will be copied)
-    out_dir          = os.path.join(this_dir,'output')     # Output folder (will be created)
+    out_dir          = os.path.join(this_dir,'outputs')     # Output folder (will be created)
     main_file        = 'NREL-1p7-103.fst'  # Main file in ref_dir, used as a template
     FAST_EXE         = os.path.join(of_dir,'bin/openfast') # Location of a FAST exe (and dll)
 
@@ -48,7 +50,7 @@ def run_linearization():
     #op = pd.read_csv('../NREL-1.7-103_openfast.csv').set_index('Wind1VelX_[m/s]')
     op = pd.read_csv('../NREL-1.7-103_openfast.csv').set_index('rotor speed [RPM]')
     op = op.loc[op['Wind1VelX_[m/s]'] <= 11]
-    GenTorque = op['GenTq_[kN-m]'] * 1000.
+    GenTorque = op['generator torque [kN-m]'] * 1000.
     minRotSpeed = op.index[0]
 
     # --- Defining the parametric study  (list of dictionnaries with keys as FAST parameters)
@@ -125,8 +127,12 @@ def run_linearization():
     #runner.writeBatch(os.path.join(out_dir,'_RUN_ALL.bat'),fastfiles,fastExe=FAST_EXE)
 
     # --- Running the simulations
-#    runner.run_fastfiles(fastfiles,fastExe=FAST_EXE,parallel=False,showOutputs=True)
-#    runner.run_fastfiles(fastfiles,fastExe=FAST_EXE,parallel=True,showOutputs=True,nCores=4)
+    if parallel_flag:
+        nCores = min(len(RotSpeeds), os.cpu_count())
+        runner.run_fastfiles(fastfiles,fastExe=FAST_EXE,parallel=True,showOutputs=True,nCores=nCores)
+    else:
+        #runner.run_fastfiles(fastfiles,fastExe=FAST_EXE,parallel=False,showOutputs=True) # causes error when calling wait()
+        runner.run_fastfiles(fastfiles,fastExe=FAST_EXE,parallel=True,showOutputs=True,nCores=1)
 
     # --- Simple Postprocessing
     # (averaging each signal over the last period for each simulation)
@@ -139,6 +145,9 @@ def run_linearization():
 
 
 if __name__ == '__main__':
+    print('on eagle login node:',on_login_node)
+    print('on eagle DAV node:',on_dav_node)
+    print('is parallel run:',parallel_flag)
 
     # 1. Run linearizations
     outfiles = run_linearization()
