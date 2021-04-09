@@ -31,6 +31,9 @@ if rank == 0:
     aopt['constraints']['blade']['stall']['flag'] = True
     save_yaml(fname_analysis_options, aopt)
 
+if MPI:
+    MPI.COMM_WORLD.Barrier()
+
 tt = time.time()
 
 wt_opt, modeling_options, opt_options = run_wisdem(
