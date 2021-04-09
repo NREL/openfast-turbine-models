@@ -10,9 +10,8 @@ fname_analysis_options = run_dir + "analysis_options_weis.yaml"
 
 
 tt = time.time()
-fname_modeling_options = run_dir + "modeling_options_weis.1.yaml"
-wt_opt, modeling_options, opt_options = run_weis(fname_wt_input, fname_modeling_options, fname_analysis_options)
 
+# Analysis level 2: Run power curve sweep
 fname_modeling_options = run_dir + "modeling_options_weis.2.yaml"
 wt_opt, modeling_options, opt_options = run_weis(fname_wt_input, fname_modeling_options, fname_analysis_options)
 
