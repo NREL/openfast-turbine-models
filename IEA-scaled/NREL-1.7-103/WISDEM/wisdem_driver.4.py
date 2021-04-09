@@ -29,7 +29,11 @@ if rank == 0:
     aopt['driver']['optimization']['flag'] = True
     aopt['driver']['optimization']['tol'] = 1e-4
     aopt['design_variables']['blade']['aero_shape']['twist']['flag'] = True
+    aopt['design_variables']['blade']['aero_shape']['twist']['max_increase'] = 0.02
+    aopt['design_variables']['blade']['aero_shape']['twist']['max_decrease'] = 0.02
     aopt['design_variables']['blade']['aero_shape']['chord']['flag'] = True
+    aopt['design_variables']['blade']['aero_shape']['chord']['max_increase'] = 1.1
+    aopt['design_variables']['blade']['aero_shape']['chord']['max_decrease'] = 0.9
     aopt['constraints']['blade']['stall']['flag'] = True
     aopt['constraints']['blade']['chord']['flag'] = True
     save_yaml(fname_analysis_options, aopt)

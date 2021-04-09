@@ -38,8 +38,9 @@ if rank == 0:
     aopt['constraints']['tower']['shell_buckling']['flag'] = True
     aopt['constraints']['tower']['frequency_1']['flag'] = True
    #aopt['constraints']['tower']['frequency_1']['lower_bound'] = 0.270 # 10% over 1P cut-out
-    aopt['constraints']['tower']['frequency_1']['lower_bound'] = 0.295 # 20% over 1P cut-out -- openfast tends to underpredict
-    aopt['constraints']['tower']['frequency_1']['upper_bound'] = 0.315 # 10% below 3P cut-in, minOmega=7RPM
+   #aopt['constraints']['tower']['frequency_1']['lower_bound'] = 0.295 # 20% over 1P cut-out -- openfast tends to underpredict
+    aopt['constraints']['tower']['frequency_1']['lower_bound'] = 0.31
+   #aopt['constraints']['tower']['frequency_1']['upper_bound'] = 0.315 # 10% below 3P cut-in, minOmega=7RPM
     aopt['merit_figure'] = 'tower_mass'
     save_yaml(fname_analysis_options, aopt)
 
@@ -53,32 +54,32 @@ if rank == 0:
 
     # - apply loading so we can skip RotorSE
     pklfile = os.path.join(run_dir, f'outputs.{istep-1}', f'NREL-1p7-103-step{istep-1}.pkl')
-    pklprefix = 'comp.' if MPI else ''
     lastoutput = load_pickle(pklfile)
+    pklprefix = 'comp.wt.'
     loading = {
         # need to explicitly cast to float, as workaround to what appears to be this issue:
         # https://github.com/SimplyKnownAsG/yamlize/issues/3
-        'mass': float(lastoutput[pklprefix+'wt.towerse.geom.turb.rna_mass']['value'][0]),
+        'mass': float(lastoutput[pklprefix+'towerse.geom.turb.rna_mass']['value'][0]),
         'center_of_mass': [
-            float(val) for val in lastoutput[pklprefix+'wt.towerse.geom.turb.rna_cg']['value']
+            float(val) for val in lastoutput[pklprefix+'towerse.geom.turb.rna_cg']['value']
         ],
         'moment_of_inertia': [
-            float(lastoutput[pklprefix+'wt.towerse.pre.mIxx']['value'][0]),
-            float(lastoutput[pklprefix+'wt.towerse.pre.mIyy']['value'][0]),
-            float(lastoutput[pklprefix+'wt.towerse.pre.mIzz']['value'][0]),
-            float(lastoutput[pklprefix+'wt.towerse.pre.mIxy']['value'][0]),
-            float(lastoutput[pklprefix+'wt.towerse.pre.mIxz']['value'][0]),
-            float(lastoutput[pklprefix+'wt.towerse.pre.mIyz']['value'][0]),
+            float(lastoutput[pklprefix+'towerse.pre.mIxx']['value'][0]),
+            float(lastoutput[pklprefix+'towerse.pre.mIyy']['value'][0]),
+            float(lastoutput[pklprefix+'towerse.pre.mIzz']['value'][0]),
+            float(lastoutput[pklprefix+'towerse.pre.mIxy']['value'][0]),
+            float(lastoutput[pklprefix+'towerse.pre.mIxz']['value'][0]),
+            float(lastoutput[pklprefix+'towerse.pre.mIyz']['value'][0]),
         ],
         'loads': [
             {
                 'force': [
-                    float(val) for val in lastoutput[pklprefix+'wt.towerse.pre.rna_F']['value']
+                    float(val) for val in lastoutput[pklprefix+'towerse.pre.rna_F']['value']
                 ],
                 'moment': [
-                    float(val) for val in lastoutput[pklprefix+'wt.towerse.pre.rna_M']['value']
+                    float(val) for val in lastoutput[pklprefix+'towerse.pre.rna_M']['value']
                 ],
-                'velocity': float(lastoutput[pklprefix+'wt.rp.powercurve.compute_power_curve.rated_V']['value'][0]),
+                'velocity': float(lastoutput[pklprefix+'rotorse.rp.powercurve.compute_power_curve.rated_V']['value'][0]),
             },
         ],
     }

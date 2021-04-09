@@ -17,7 +17,7 @@ for i in `seq 0 $((Nsteps-1))`; do
     fi
     if [ "$i" == 0 ]; then
         echo 'Difference reference and current turbine:'
-        diff outputs.0/refturb.yaml NREL-*.start.yaml || true
+        diff outputs.0/refturb.yaml NREL-*.start.yaml > refturb.diff
     fi
 done
 

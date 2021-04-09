@@ -20,6 +20,7 @@ python -c 'from weis.glue_code.runWEIS import run_weis'
 # perform sequential optimizations
 Nsteps=`ls wisdem_driver.?.py | wc -l`
 for i in `seq 0 $((Nsteps-1))`; do
+    date
     if [ -f "log.step$i" -a -d "outputs.$i" ]; then
         echo "Step $i has already been run"
     else
@@ -33,11 +34,15 @@ for i in `seq 0 $((Nsteps-1))`; do
             echo "Launching $driver with $ncores cores"
             mpirun -v -np $ncores python $driver 2>&1 | tee log.step$i
         fi
+        if [ -z "`grep 'Run time' log.step$i`" ]; then
+            echo "Step $i did not finish?"
+            break
+        fi
     fi
     if [ "$i" == 0 ]; then
         echo 'Difference reference and current turbine:'
-        diff outputs.0/refturb.yaml NREL-*.start.yaml > refturb.diff || true
+        diff outputs.0/refturb.yaml NREL-*.start.yaml > refturb.diff
     fi
 done
 
-echo 'Done.'
+echo "Done at `date`"
