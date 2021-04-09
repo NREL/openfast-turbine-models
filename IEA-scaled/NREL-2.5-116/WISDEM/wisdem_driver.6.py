@@ -1,3 +1,4 @@
+# nDV: 16
 import numpy as np
 from wisdem import run_wisdem
 from wisdem.commonse.mpi_tools  import MPI
@@ -35,6 +36,8 @@ if rank == 0:
     aopt['constraints']['tower']['stress']['flag'] = True
     aopt['constraints']['tower']['global_buckling']['flag'] = True
     aopt['constraints']['tower']['shell_buckling']['flag'] = True
+   #aopt['constraints']['tower']['frequency_1']['flag'] = True
+   #aopt['constraints']['tower']['frequency_1']['lower_bound'] = 0.270 # 10% over 1P cut-out
     aopt['merit_figure'] = 'tower_mass'
     save_yaml(fname_analysis_options, aopt)
 
@@ -42,40 +45,46 @@ if rank == 0:
     mopt = load_yaml(os.path.join(run_dir,
                                   f'outputs.{istep-1}',
                                   f'NREL-2p5-116-step{istep-1}-modeling.yaml'))
+    mopt['WISDEM']['RotorSE']['flag'] = False
+    mopt['WISDEM']['DriveSE']['flag'] = False
     mopt['WISDEM']['TowerSE']['nLC'] = 1
 
     # - apply loading so we can skip RotorSE
     pklfile = os.path.join(run_dir, f'outputs.{istep-1}', f'NREL-2p5-116-step{istep-1}.pkl')
     lastoutput = load_pickle(pklfile)
+    pklprefix = 'comp.wt.'
     loading = {
         # need to explicitly cast to float, as workaround to what appears to be this issue:
         # https://github.com/SimplyKnownAsG/yamlize/issues/3
-        'mass': float(lastoutput['wt.towerse.tower.mass']['value'][0]),
+        'mass': float(lastoutput[pklprefix+'towerse.geom.turb.rna_mass']['value'][0]),
         'center_of_mass': [
-            float(val) for val in lastoutput['wt.towerse.geom.turb.rna_cg']['value']
+            float(val) for val in lastoutput[pklprefix+'towerse.geom.turb.rna_cg']['value']
         ],
         'moment_of_inertia': [
-            float(lastoutput['wt.towerse.pre.mIxx']['value'][0]),
-            float(lastoutput['wt.towerse.pre.mIyy']['value'][0]),
-            float(lastoutput['wt.towerse.pre.mIzz']['value'][0]),
-            float(lastoutput['wt.towerse.pre.mIxy']['value'][0]),
-            float(lastoutput['wt.towerse.pre.mIxz']['value'][0]),
-            float(lastoutput['wt.towerse.pre.mIyz']['value'][0]),
+            float(lastoutput[pklprefix+'towerse.pre.mIxx']['value'][0]),
+            float(lastoutput[pklprefix+'towerse.pre.mIyy']['value'][0]),
+            float(lastoutput[pklprefix+'towerse.pre.mIzz']['value'][0]),
+            float(lastoutput[pklprefix+'towerse.pre.mIxy']['value'][0]),
+            float(lastoutput[pklprefix+'towerse.pre.mIxz']['value'][0]),
+            float(lastoutput[pklprefix+'towerse.pre.mIyz']['value'][0]),
         ],
         'loads': [
             {
                 'force': [
-                    float(val) for val in lastoutput['wt.towerse.pre.rna_F']['value']
+                    float(val) for val in lastoutput[pklprefix+'towerse.pre.rna_F']['value']
                 ],
                 'moment': [
-                    float(val) for val in lastoutput['wt.towerse.pre.rna_M']['value']
+                    float(val) for val in lastoutput[pklprefix+'towerse.pre.rna_M']['value']
                 ],
-                'velocity': float(lastoutput['wt.rp.powercurve.compute_power_curve.rated_V']['value'][0]),
+                'velocity': float(lastoutput[pklprefix+'rotorse.rp.powercurve.compute_power_curve.rated_V']['value'][0]),
             },
         ],
     }
     mopt['WISDEM']['Loading'] = loading
     save_yaml(fname_modeling_options, mopt)
+
+if MPI:
+    MPI.COMM_WORLD.Barrier()
 
 # - calculate new tower profile
 #   reduced max tower diameter to 4.0 m (land-based transport limitations)
@@ -84,19 +93,17 @@ lastmodel = load_yaml(fname_wt_input)
 outerD = lastmodel['components']['tower']['outer_shape_bem']['outer_diameter']
 Dgrid = np.array(outerD['grid'])
 Dvals = np.array(outerD['values'])
-print('tower grid:',Dgrid)
-print('tower diam:',Dvals)
 newouterD = 4.0 * Dvals / Dvals[0]
 kmid = int(len(Dgrid) / 2) # assume evenly spaced grid
 newouterD[kmid:] = newouterD[kmid] \
         + (Dvals[-1]-newouterD[kmid])/(Dgrid[-1]-Dgrid[kmid])*(Dgrid[kmid:]-Dgrid[kmid])
-print('tower diam:',newouterD,'(NEW)')
+if rank == 0:
+    print('tower grid:',Dgrid)
+    print('tower diam:',Dvals)
+    print('tower diam:',newouterD,'(NEW)')
+
 model_changes = {
     'towerse.tower_outer_diameter_in': list(newouterD),
-    # TODO: WORKAROUND, need to omega range does not get written out
-    'control.rated_TSR': 9.0,
-    'control.minOmega': 0.837758041, # [rad/s]
-    'control.maxOmega': 1.4660765717, # [rad/s]
 }
 
 tt = time.time()

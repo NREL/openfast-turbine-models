@@ -1,3 +1,4 @@
+# nDV: 8
 from wisdem import run_wisdem
 from wisdem.commonse.mpi_tools  import MPI
 from helpers import load_yaml, save_yaml
@@ -8,7 +9,7 @@ istep = 2
 ## File management
 run_dir = './'
 fname_wt_input = os.path.join(run_dir, f'outputs.{istep-1}', f'NREL-2p5-116-step{istep-1}.yaml')
-fname_modeling_options = os.path.join(run_dir, 'modeling_options_wisdem.yaml')
+fname_modeling_options = os.path.join(run_dir, 'modeling_options.wisdem.yaml')
 fname_analysis_options = os.path.join(run_dir, f'analysis_options.{istep}.yaml')
 
 if MPI:
@@ -29,6 +30,9 @@ if rank == 0:
     aopt['design_variables']['blade']['aero_shape']['twist']['flag'] = True
     aopt['constraints']['blade']['stall']['flag'] = True
     save_yaml(fname_analysis_options, aopt)
+
+if MPI:
+    MPI.COMM_WORLD.Barrier()
 
 tt = time.time()
 

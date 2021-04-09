@@ -1,3 +1,4 @@
+# nDV: 16
 from wisdem import run_wisdem
 from wisdem.commonse.mpi_tools  import MPI
 from helpers import load_yaml, save_yaml
@@ -26,8 +27,13 @@ if rank == 0:
 
     # - stall- and max-chord-constrained twist & chord opt for AEP
     aopt['driver']['optimization']['flag'] = True
+    aopt['driver']['optimization']['tol'] = 1e-4
     aopt['design_variables']['blade']['aero_shape']['twist']['flag'] = True
+    aopt['design_variables']['blade']['aero_shape']['twist']['max_increase'] = 0.02
+    aopt['design_variables']['blade']['aero_shape']['twist']['max_decrease'] = 0.02
     aopt['design_variables']['blade']['aero_shape']['chord']['flag'] = True
+    aopt['design_variables']['blade']['aero_shape']['chord']['max_increase'] = 1.1
+    aopt['design_variables']['blade']['aero_shape']['chord']['max_decrease'] = 0.9
     aopt['constraints']['blade']['stall']['flag'] = True
     aopt['constraints']['blade']['chord']['flag'] = True
     save_yaml(fname_analysis_options, aopt)
@@ -41,14 +47,10 @@ if rank == 0:
     mopt['WISDEM']['RotorSE']['thrust_shaving_coeff'] = 0.75
     save_yaml(fname_modeling_options, mopt)
 
-# TODO: WORKAROUND (for now) -- new omega range does not get written out
-# - increase TSR to 9 (IEA 3.4: 8.0)
-# - increase rotor speed (omega) range to 8-14 RPM (IEA 3.4: 6.9-12.1)
-model_changes = {
-    'control.rated_TSR': 9.0,
-    'control.minOmega': 0.837758041, # [rad/s]
-    'control.maxOmega': 1.4660765717, # [rad/s]
-}
+if MPI:
+    MPI.COMM_WORLD.Barrier()
+
+model_changes = {}
 
 tt = time.time()
 

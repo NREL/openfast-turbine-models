@@ -1,3 +1,4 @@
+# nDV: 8
 from wisdem import run_wisdem
 from wisdem.commonse.mpi_tools  import MPI
 from helpers import load_yaml, save_yaml
@@ -38,14 +39,10 @@ if rank == 0:
                                   f'NREL-2p5-116-step{istep-1}-modeling.yaml'))
     save_yaml(fname_modeling_options, mopt)
 
-# TODO: WORKAROUND (for now) -- new omega range does not get written out
-# - increase TSR to 9 (IEA 3.4: 8.0)
-# - increase rotor speed (omega) range to 8-14 RPM (IEA 3.4: 6.9-12.1)
-model_changes = {
-    'control.rated_TSR': 9.0,
-    'control.minOmega': 0.837758041, # [rad/s]
-    'control.maxOmega': 1.4660765717, # [rad/s]
-}
+if MPI:
+    MPI.COMM_WORLD.Barrier()
+
+model_changes = {}
 
 tt = time.time()
 

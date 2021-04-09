@@ -1,3 +1,4 @@
+# nDV: 0
 from wisdem import run_wisdem
 from wisdem.commonse.mpi_tools  import MPI
 from helpers import load_yaml, save_yaml
@@ -8,7 +9,7 @@ istep = 1
 ## File management
 run_dir = './'
 fname_wt_input = os.path.join(run_dir, 'NREL-2p5-116.start.yaml')
-fname_modeling_options = os.path.join(run_dir, 'modeling_options_wisdem.yaml')
+fname_modeling_options = os.path.join(run_dir, 'modeling_options.wisdem.yaml')
 fname_analysis_options = os.path.join(run_dir, f'analysis_options.{istep}.yaml')
 
 if MPI:
@@ -27,10 +28,7 @@ if rank == 0:
 
 tt = time.time()
 
-# step 1: manually updated turbine rating, rotor size -- NO OPT
-# - rated_power: 2500000.0 W
-# - rotor_diameter: 116 m
-# - hub_height: 80 m
+# step 1: manually updated turbine geometry, rated power, rotor speed range -- NO OPT
 wt_opt, modeling_options, opt_options = run_wisdem(
     fname_wt_input,
     fname_modeling_options,
