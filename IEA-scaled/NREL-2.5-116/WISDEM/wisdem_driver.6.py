@@ -36,8 +36,9 @@ if rank == 0:
     aopt['constraints']['tower']['stress']['flag'] = True
     aopt['constraints']['tower']['global_buckling']['flag'] = True
     aopt['constraints']['tower']['shell_buckling']['flag'] = True
-   #aopt['constraints']['tower']['frequency_1']['flag'] = True
+    aopt['constraints']['tower']['frequency_1']['flag'] = True
    #aopt['constraints']['tower']['frequency_1']['lower_bound'] = 0.270 # 10% over 1P cut-out
+    aopt['constraints']['tower']['frequency_1']['lower_bound'] = 0.30 # increase lower margin
     aopt['merit_figure'] = 'tower_mass'
     save_yaml(fname_analysis_options, aopt)
 

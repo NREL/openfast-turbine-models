@@ -11,6 +11,5 @@
 . ~/.bashrc
 WEIS
 
-# Analysis level 2: Run power curve sweep
 python runLinTurbine.py
 
