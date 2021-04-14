@@ -1,5 +1,5 @@
 ! Controller parameter input file for the WISDEM tuning wind turbine
-!    - File written using ROSCO version 2.2.0 controller tuning logic on 04/09/21
+!    - File written using ROSCO version 2.2.0 controller tuning logic on 04/13/21
 
 !------- DEBUG ------------------------------------------------------------
 1                   ! LoggingLevel		- {0: write no debug files, 1: write standard output .dbg-file, 2: write standard output .dbg-file and complete avrSWAP-array .dbg2-file}
@@ -50,14 +50,14 @@
 
 !------- VS TORQUE CONTROL ------------------------------------------------
 93.67694000000      ! VS_GenEff			- Generator efficiency mechanical power -> electrical power, [should match the efficiency defined in the generator properties!], [%]
-19992.80856000      ! VS_ArSatTq		- Above rated generator torque PI control saturation, [Nm]
+19992.81662000      ! VS_ArSatTq		- Above rated generator torque PI control saturation, [Nm]
 1500000.000000      ! VS_MaxRat			- Maximum torque rate (in absolute value) in torque controller, [Nm/s].
-21992.08941000      ! VS_MaxTq			- Maximum generator torque in Region 3 (HSS side), [Nm].
+21992.09828000      ! VS_MaxTq			- Maximum generator torque in Region 3 (HSS side), [Nm].
 0.000000000000      ! VS_MinTq			- Minimum generator (HSS side), [Nm].
 81.26253000000      ! VS_MinOMSpd		- Optimal mode minimum speed, cut-in speed towards optimal mode gain path, [rad/s]
 1.068180000000      ! VS_Rgn2K			- Generator torque constant in Region 2 (HSS side), [Nm/(rad/s)^2]
 2500000.000000      ! VS_RtPwr			- Wind turbine rated power [W]
-19992.80856000      ! VS_RtTq			- Rated torque, [Nm].
+19992.81662000      ! VS_RtTq			- Rated torque, [Nm].
 133.4852700000      ! VS_RefSpd			- Rated generator speed [rad/s]
 1                   ! VS_n				- Number of generator PI torque controller gains
 -538.218170000      ! VS_KP				- Proportional gain for generator PI torque controller [-]. (Only used in the transitional 2.5 region if VS_ControlMode =/ 2)
@@ -103,7 +103,7 @@
 !------- MINIMUM PITCH SATURATION -------------------------------------------
 59                  ! PS_BldPitchMin_N  - Number of values in minimum blade pitch lookup table (should equal number of values in PS_WindSpeeds and PS_BldPitchMin)
 3.0000 3.2031 3.4061 3.6092 3.8123 4.0153 4.2184 4.4215 4.6245 4.8276 5.0307 5.2337 5.4368 5.6398 5.8429 6.0460 6.2490 6.4521 6.6552 6.8582 7.0613 7.2644 7.4674 7.6705 7.8736 8.0766 8.2797 8.4828 8.6858 8.8889 9.4444 10.0000 10.5556 11.1111 11.6667 12.2222 12.7778 13.3333 13.8889 14.4444 15.0000 15.5556 16.1111 16.6667 17.2222 17.7778 18.3333 18.8889 19.4444 20.0000 20.5556 21.1111 21.6667 22.2222 22.7778 23.3333 23.8889 24.4444 25.0000               ! PS_WindSpeeds     - Wind speeds corresponding to minimum blade pitch angles [m/s]
-0.00000000 0.00000000 0.00000000 0.00000000 0.00000000 0.00000000 0.00000000 0.00000000 0.00000000 0.00000000 0.00000000 0.00000000 0.00000000 0.00000000 0.00000000 0.00000000 0.00000000 0.00000000 0.00000000 0.00000000 0.00000000 0.00000000 0.00000000 0.00000000 0.00000000 0.00922388 0.02263857 0.03390170 0.04396866 0.05296973 0.06841167 0.08276385 0.09623426 0.10941684 0.12224919 0.13436475 0.14639226 0.15803009 0.16920943 0.18024222 0.19079348 0.20119831 0.21154165 0.22141013 0.23149915 0.24176809 0.25192730 0.26183424 0.27182068 0.28187362 0.29193027 0.30161487 0.31138238 0.32118357 0.33096417 0.34052671 0.34998134 0.35952581 0.36907250               ! PS_BldPitchMin    - Minimum blade pitch angles [rad]
+0.00000000 0.00000000 0.00000000 0.00000000 0.00000000 0.00000000 0.00000000 0.00000000 0.00000000 0.00000000 0.00000000 0.00000000 0.00000000 0.00000000 0.00000000 0.00000000 0.00000000 0.00000000 0.00000000 0.00000000 0.00000000 0.00000000 0.00000000 0.00000000 0.01318596 0.02615425 0.03751985 0.04737197 0.05642371 0.06457336 0.07941682 0.09327473 0.10652075 0.11942617 0.13207851 0.14407980 0.15615097 0.16780832 0.17924405 0.19032673 0.20088407 0.21150080 0.22159154 0.23159465 0.24185740 0.25201809 0.26187124 0.27183381 0.28192239 0.29198900 0.30171088 0.31147379 0.32131301 0.33115301 0.34079270 0.35028477 0.35978945 0.36936794 0.37890928               ! PS_BldPitchMin    - Minimum blade pitch angles [rad]
 
 !------- SHUTDOWN -----------------------------------------------------------
 0.563440000000      ! SD_MaxPit         - Maximum blade pitch angle to initiate shutdown, [rad]
