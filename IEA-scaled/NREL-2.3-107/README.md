@@ -2,16 +2,16 @@
 
 Design by [Eliot Quon](mailto:eliot.quon@nrel.gov)
 
-| Design Variable        | Value  | Description |
-| ---------------------- | ------ | ----------- |
-| rated electrical power | 2.3 MW | specified |
-| diameter               | 107 m  | specified |
-| tower height           | 80 m   | specified |
-| tip-speed ratio        | 9.0    | estimate, from NREL-2.5-116 |
-| minimum rotor speed    | 8 RPM  | estimate, from NREL-2.5-116 |
-| maximum rotor speed    | 14 RPM | estimate, from NREL-2.5-116 |
-| rated tip speed        | 85 m/s | estimate |
-| peak shaving           | 25%    | estimate |
+| Design Variable        | Value   | Description |
+| ---------------------- | ------- | ----------- |
+| rated electrical power | 2.3 MW  | specified |
+| diameter               | 107 m   | specified |
+| tower height           | 80 m    | specified |
+| tip-speed ratio        | 9.0     | estimate, from NREL-2.5-116 |
+| minimum rotor speed    | 6 RPM   | estimate for soft-stiff tower |
+| maximum rotor speed    | 15.2 RPM| estimate based on Vtip |
+| rated tip speed        | 85 m/s  | estimate |
+| peak shaving           | 25%     | estimate |
 
 ![Turbine Performance](WISDEM/figures/NREL-2.3-107_design_overview.png)
 

@@ -28,14 +28,24 @@ if rank == 0:
 
     # - constrained structural opt for tower mass
     aopt['driver']['optimization']['flag'] = True
-   #aopt['driver']['optimization']['tol'] = 1e-6
-   #aopt['driver']['optimization']['max_iter'] = 50
+    aopt['driver']['optimization']['tol'] = 1e-6
+    aopt['driver']['optimization']['step_size'] = 1e-6
+    aopt['driver']['optimization']['max_iter'] = 100
     aopt['design_variables']['tower']['layer_thickness']['flag'] = True
     aopt['design_variables']['tower']['outer_diameter']['flag'] = True
+    aopt['design_variables']['tower']['outer_diameter']['lower_bound'] = 2.0
     aopt['design_variables']['tower']['outer_diameter']['upper_bound'] = 4.0
     aopt['constraints']['tower']['stress']['flag'] = True
     aopt['constraints']['tower']['global_buckling']['flag'] = True
     aopt['constraints']['tower']['shell_buckling']['flag'] = True
+    aopt['constraints']['tower']['d_to_t'] = dict()
+    aopt['constraints']['tower']['d_to_t']['flag'] = True
+    aopt['constraints']['tower']['d_to_t']['lower_bound'] = 80.0
+    aopt['constraints']['tower']['d_to_t']['upper_bound'] = 500.0
+    aopt['constraints']['tower']['taper'] = dict()
+    aopt['constraints']['tower']['taper']['flag'] = True
+    aopt['constraints']['tower']['taper']['lower_bound'] = 0.2
+    aopt['constraints']['tower']['slope']['flag'] = True
     aopt['constraints']['tower']['frequency_1']['flag'] = True
     aopt['constraints']['tower']['frequency_1']['lower_bound'] = 0.28
     aopt['merit_figure'] = 'tower_mass'
@@ -48,6 +58,8 @@ if rank == 0:
     mopt['WISDEM']['RotorSE']['flag'] = False
     mopt['WISDEM']['DriveSE']['flag'] = False
     mopt['WISDEM']['TowerSE']['nLC'] = 1
+    mopt['WISDEM']['TowerSE']['buckling_method'] = 'dnvgl' # Buckling code type [eurocode or dnvgl]
+    mopt['WISDEM']['TowerSE']['buckling_length'] = 30.0
 
     # - apply loading so we can skip RotorSE
     pklfile = os.path.join(run_dir, f'outputs.{istep-1}', f'NREL-2p3-107-step{istep-1}.pkl')
@@ -86,25 +98,7 @@ if rank == 0:
 if MPI:
     MPI.COMM_WORLD.Barrier()
 
-# - calculate new tower profile
-#   reduced max tower diameter to 4.0 m (land-based transport limitations)
-#   assume linear taper from mid-height (original design started from 60%H)
-lastmodel = load_yaml(fname_wt_input)
-outerD = lastmodel['components']['tower']['outer_shape_bem']['outer_diameter']
-Dgrid = np.array(outerD['grid'])
-Dvals = np.array(outerD['values'])
-newouterD = 4.0 * Dvals / Dvals[0]
-kmid = int(len(Dgrid) / 2) # assume evenly spaced grid
-newouterD[kmid:] = newouterD[kmid] \
-        + (Dvals[-1]-newouterD[kmid])/(Dgrid[-1]-Dgrid[kmid])*(Dgrid[kmid:]-Dgrid[kmid])
-if rank == 0:
-    print('tower grid:',Dgrid)
-    print('tower diam:',Dvals)
-    print('tower diam:',newouterD,'(NEW)')
-
-model_changes = {
-    'towerse.tower_outer_diameter_in': list(newouterD),
-}
+model_changes = {}
 
 tt = time.time()
 
