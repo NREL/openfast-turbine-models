@@ -28,14 +28,24 @@ if rank == 0:
 
     # - constrained structural opt for tower mass
     aopt['driver']['optimization']['flag'] = True
-   #aopt['driver']['optimization']['tol'] = 1e-6
+    aopt['driver']['optimization']['tol'] = 1e-6
+    aopt['driver']['optimization']['step_size'] = 1e-6
    #aopt['driver']['optimization']['max_iter'] = 50
     aopt['design_variables']['tower']['layer_thickness']['flag'] = True
     aopt['design_variables']['tower']['outer_diameter']['flag'] = True
+    aopt['design_variables']['tower']['outer_diameter']['lower_bound'] = 2.0
     aopt['design_variables']['tower']['outer_diameter']['upper_bound'] = 4.0
     aopt['constraints']['tower']['stress']['flag'] = True
     aopt['constraints']['tower']['global_buckling']['flag'] = True
     aopt['constraints']['tower']['shell_buckling']['flag'] = True
+    aopt['constraints']['tower']['d_to_t'] = dict()
+    aopt['constraints']['tower']['d_to_t']['flag'] = True
+    aopt['constraints']['tower']['d_to_t']['lower_bound'] = 80.0
+    aopt['constraints']['tower']['d_to_t']['upper_bound'] = 500.0
+    aopt['constraints']['tower']['taper'] = dict()
+    aopt['constraints']['tower']['taper']['flag'] = True
+    aopt['constraints']['tower']['taper']['lower_bound'] = 0.2
+    aopt['constraints']['tower']['slope']['flag'] = True
    #aopt['constraints']['tower']['frequency_1']['flag'] = True
    #aopt['constraints']['tower']['frequency_1']['lower_bound'] = 0.270 # 10% over 1P cut-out
     aopt['merit_figure'] = 'tower_mass'
@@ -48,6 +58,8 @@ if rank == 0:
     mopt['WISDEM']['RotorSE']['flag'] = False
     mopt['WISDEM']['DriveSE']['flag'] = False
     mopt['WISDEM']['TowerSE']['nLC'] = 1
+    mopt['WISDEM']['TowerSE']['buckling_method'] = 'dnvgl' # Buckling code type [eurocode or dnvgl]
+    mopt['WISDEM']['TowerSE']['buckling_length'] = 30.0
 
     # - apply loading so we can skip RotorSE
     pklfile = os.path.join(run_dir, f'outputs.{istep-1}', f'NREL-2p8-127-step{istep-1}.pkl')

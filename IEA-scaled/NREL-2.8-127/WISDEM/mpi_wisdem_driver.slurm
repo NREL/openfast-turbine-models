@@ -1,7 +1,7 @@
 #!/bin/bash
 #SBATCH --account=awaken
-#SBATCH --time=2:00:00
-#SBATCH --job-name=wisdemdesign
+#SBATCH --time=4:00:00
+#SBATCH --job-name=wisdem_design_2.8
 #SBATCH --nodes=1
 #SBATCH --ntasks-per-node=36
 #SBATCH --mail-user eliot.quon@nrel.gov
@@ -37,11 +37,10 @@ for i in `seq 0 $((Nsteps-1))`; do
         if [ -z "`grep 'Run time' log.step$i`" ]; then
             echo "Step $i did not finish?"
             break
+        elif [ "$i" == 0 ]; then
+            echo 'Difference reference and current turbine:'
+            diff outputs.0/refturb.yaml NREL-*.start.yaml > refturb.diff
         fi
-    fi
-    if [ "$i" == 0 ]; then
-        echo 'Difference reference and current turbine:'
-        diff outputs.0/refturb.yaml NREL-*.start.yaml > refturb.diff
     fi
 done
 

@@ -7,10 +7,10 @@
 > description: version from 2021-04-09
 > assembly: {turbine_class: III, turbulence_class: A, drivetrain: Geared, rotor_orientation: Upwind, number_of_blades: 3, hub_height: 88.5, rotor_diameter: 127.0, rated_power: 2800000.0}
 632c632
-<     supervisory: {Vin: 3.0, Vout: 25.0, maxTS: 80.0, rated_power: 3370000.0, minOmega: 0.72256, maxOmega: 1.26711}
+<     supervisory: {Vin: 3.0, Vout: 25.0, maxTS: 80.0, rated_power: 3370000.0}
 ---
 >     supervisory: {Vin: 3.0, Vout: 25.0, maxTS: 80.0, rated_power: 2800000.0}
 634c634
 <     torque: {control_type: tsr_tracking, tsr: 8.01754386, VS_zeta: 1.0, VS_omega: 0.2, max_torque_rate: 1500000.0, VS_minspd: 0.0, VS_maxspd: 2.0}
 ---
->     torque: {control_type: tsr_tracking, tsr: 8.0, VS_zeta: 1.0, VS_omega: 0.2, max_torque_rate: 1500000.0, VS_minspd: 0.837758041, VS_maxspd: 1.3385826772}
+>     torque: {control_type: tsr_tracking, tsr: 8.0, VS_zeta: 1.0, VS_omega: 0.2, max_torque_rate: 1500000.0, VS_minspd: 0.5235987756, VS_maxspd: 1.3385826772}

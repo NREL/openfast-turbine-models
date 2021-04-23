@@ -10,15 +10,15 @@ design_variables:
         n_opt: 8     # Number of control points along blade span
         max_decrease: 0.08722222222222223
         max_increase: 0.08722222222222223
-        index_start: 2
+        index_start: 2 # Lock the first two DVs from blade root
         index_end: 8
       chord:
         flag: False     # Flag to optimize the chord
         n_opt: 8        # Number of control points along blade span
         max_decrease: 0.5
         max_increase: 1.5
-        index_start: 2
-        index_end: 7
+        index_start: 0 # Start by optimizing chord at blade root
+        index_end: 3 # Lock chord at blade tip
       af_positions:
         flag: False     # Flag to optimize the airfoil positions
         af_start: 4     # Index of the first airfoil from blade root that can have the location optimized. First airfoil is number 0. Last airfoil is always locked at blade tip.
@@ -141,10 +141,6 @@ constraints:
     global_buckling:
       flag: False
     shell_buckling:
-      flag: False
-    constr_d_to_t:
-      flag: False
-    constr_taper:
       flag: False
     slope:
       flag: False
