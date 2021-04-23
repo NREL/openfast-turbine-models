@@ -1,5 +1,5 @@
 ! Controller parameter input file for the WISDEM tuning wind turbine
-!    - File written using ROSCO version 2.2.0 controller tuning logic on 04/13/21
+!    - File written using ROSCO version 2.2.0 controller tuning logic on 04/22/21
 
 !------- DEBUG ------------------------------------------------------------
 1                   ! LoggingLevel		- {0: write no debug files, 1: write standard output .dbg-file, 2: write standard output .dbg-file and complete avrSWAP-array .dbg2-file}
@@ -29,9 +29,9 @@
 
 !------- BLADE PITCH CONTROL ----------------------------------------------
 29                  ! PC_GS_n			- Amount of gain-scheduling table entries
-0.085026  0.113433  0.136398  0.156557  0.174814  0.191743  0.207925  0.223028  0.237419  0.251417  0.264896  0.277924  0.290638  0.303048  0.315202  0.326917  0.338547  0.349606  0.360701  0.371851  0.382550  0.392989  0.403405  0.413687  0.423810  0.434100  0.444203  0.453914  0.463435                ! PC_GS_angles	    - Gain-schedule table: pitch angles [rad].
--0.005827  -0.004933  -0.004199  -0.003586  -0.003065  -0.002618  -0.002230  -0.001890  -0.001590  -0.001322  -0.001083  -0.000867  -0.000672  -0.000494  -0.000331  -0.000182  -0.000045  0.000081  0.000199  0.000308  0.000409  0.000504  0.000593  0.000676  0.000754  0.000828  0.000897  0.000963  0.001025                ! PC_GS_KP		- Gain-schedule table: pitch controller kp gains [s].
--0.000617  -0.000556  -0.000506  -0.000465  -0.000430  -0.000399  -0.000373  -0.000350  -0.000330  -0.000311  -0.000295  -0.000281  -0.000267  -0.000255  -0.000244  -0.000234  -0.000225  -0.000216  -0.000208  -0.000201  -0.000194  -0.000188  -0.000182  -0.000176  -0.000171  -0.000166  -0.000161  -0.000156  -0.000152                ! PC_GS_KI		- Gain-schedule table: pitch controller ki gains [-].
+0.084940  0.113365  0.136346  0.156515  0.174780  0.191716  0.207903  0.223009  0.237406  0.251408  0.264892  0.277927  0.290646  0.303064  0.315223  0.326946  0.338581  0.349648  0.360749  0.371907  0.382609  0.393054  0.403474  0.413762  0.423890  0.434185  0.444286  0.454001  0.463523                ! PC_GS_angles	    - Gain-schedule table: pitch angles [rad].
+-0.005829  -0.004935  -0.004201  -0.003587  -0.003067  -0.002620  -0.002232  -0.001892  -0.001591  -0.001324  -0.001084  -0.000869  -0.000673  -0.000495  -0.000333  -0.000184  -0.000047  0.000080  0.000198  0.000307  0.000408  0.000503  0.000592  0.000675  0.000753  0.000827  0.000896  0.000962  0.001024                ! PC_GS_KP		- Gain-schedule table: pitch controller kp gains [s].
+-0.000617  -0.000556  -0.000506  -0.000465  -0.000429  -0.000399  -0.000373  -0.000350  -0.000329  -0.000311  -0.000295  -0.000280  -0.000267  -0.000255  -0.000244  -0.000234  -0.000225  -0.000216  -0.000208  -0.000201  -0.000194  -0.000188  -0.000182  -0.000176  -0.000171  -0.000166  -0.000161  -0.000156  -0.000152                ! PC_GS_KI		- Gain-schedule table: pitch controller ki gains [-].
 0.0  0.0  0.0  0.0  0.0  0.0  0.0  0.0  0.0  0.0  0.0  0.0  0.0  0.0  0.0  0.0  0.0  0.0  0.0  0.0  0.0  0.0  0.0  0.0  0.0  0.0  0.0  0.0  0.0                ! PC_GS_KD			- Gain-schedule table: pitch controller kd gains
 0.0  0.0  0.0  0.0  0.0  0.0  0.0  0.0  0.0  0.0  0.0  0.0  0.0  0.0  0.0  0.0  0.0  0.0  0.0  0.0  0.0  0.0  0.0  0.0  0.0  0.0  0.0  0.0  0.0                ! PC_GS_TF			- Gain-schedule table: pitch controller tf gains (derivative filter)
 1.570000000000      ! PC_MaxPit			- Maximum physical pitch limit, [rad].
@@ -50,17 +50,17 @@
 
 !------- VS TORQUE CONTROL ------------------------------------------------
 93.67694000000      ! VS_GenEff			- Generator efficiency mechanical power -> electrical power, [should match the efficiency defined in the generator properties!], [%]
-19992.81662000      ! VS_ArSatTq		- Above rated generator torque PI control saturation, [Nm]
+19992.81663000      ! VS_ArSatTq		- Above rated generator torque PI control saturation, [Nm]
 1500000.000000      ! VS_MaxRat			- Maximum torque rate (in absolute value) in torque controller, [Nm/s].
-21992.09828000      ! VS_MaxTq			- Maximum generator torque in Region 3 (HSS side), [Nm].
+21992.09829000      ! VS_MaxTq			- Maximum generator torque in Region 3 (HSS side), [Nm].
 0.000000000000      ! VS_MinTq			- Minimum generator (HSS side), [Nm].
 81.26253000000      ! VS_MinOMSpd		- Optimal mode minimum speed, cut-in speed towards optimal mode gain path, [rad/s]
-1.068180000000      ! VS_Rgn2K			- Generator torque constant in Region 2 (HSS side), [Nm/(rad/s)^2]
+1.064070000000      ! VS_Rgn2K			- Generator torque constant in Region 2 (HSS side), [Nm/(rad/s)^2]
 2500000.000000      ! VS_RtPwr			- Wind turbine rated power [W]
-19992.81662000      ! VS_RtTq			- Rated torque, [Nm].
+19992.81663000      ! VS_RtTq			- Rated torque, [Nm].
 133.4852700000      ! VS_RefSpd			- Rated generator speed [rad/s]
 1                   ! VS_n				- Number of generator PI torque controller gains
--538.218170000      ! VS_KP				- Proportional gain for generator PI torque controller [-]. (Only used in the transitional 2.5 region if VS_ControlMode =/ 2)
+-539.417300000      ! VS_KP				- Proportional gain for generator PI torque controller [-]. (Only used in the transitional 2.5 region if VS_ControlMode =/ 2)
 -69.9392700000      ! VS_KI				- Integral gain for generator PI torque controller [s]. (Only used in the transitional 2.5 region if VS_ControlMode =/ 2)
 9.00                ! VS_TSRopt			- Power-maximizing region 2 tip-speed-ratio [rad].
 
@@ -80,7 +80,7 @@
 30      30          ! PerfTableSize     - Size of rotor performance tables, first number refers to number of blade pitch angles, second number referse to number of tip-speed ratios
 59                  ! WE_FOPoles_N      - Number of first-order system poles used in EKF
 3.00 3.20 3.41 3.61 3.81 4.02 4.22 4.42 4.62 4.83 5.03 5.23 5.44 5.64 5.84 6.05 6.25 6.45 6.66 6.86 7.06 7.26 7.47 7.67 7.87 8.08 8.28 8.48 8.69 8.89 9.44 10.00 10.56 11.11 11.67 12.22 12.78 13.33 13.89 14.44 15.00 15.56 16.11 16.67 17.22 17.78 18.33 18.89 19.44 20.00 20.56 21.11 21.67 22.22 22.78 23.33 23.89 24.44 25.00               ! WE_FOPoles_v      - Wind speeds corresponding to first-order system poles [m/s]
--0.03183799 -0.03399305 -0.03614811 -0.03830317 -0.04045823 -0.04261329 -0.04476835 -0.04692342 -0.04907848 -0.05123354 -0.05338860 -0.05554366 -0.05769872 -0.05985379 -0.06200885 -0.06416391 -0.06631897 -0.06847403 -0.07062909 -0.07278415 -0.07493922 -0.07709428 -0.07924934 -0.08140440 -0.08355946 -0.08571452 -0.08786959 -0.09002465 -0.09217971 -0.09335647 -0.05880889 -0.06975618 -0.08391326 -0.10008364 -0.11733158 -0.13636175 -0.15486640 -0.17625860 -0.19698462 -0.21987842 -0.24087237 -0.26269757 -0.28544912 -0.30940205 -0.33160244 -0.35500686 -0.37967125 -0.40206822 -0.42768799 -0.45507031 -0.47933351 -0.50420849 -0.53039082 -0.55634993 -0.58234123 -0.60995011 -0.63837876 -0.66714395 -0.69431740               ! WE_FOPoles        - First order system poles [1/s]
+-0.03160111 -0.03374014 -0.03587917 -0.03801820 -0.04015722 -0.04229625 -0.04443528 -0.04657431 -0.04871334 -0.05085237 -0.05299139 -0.05513042 -0.05726945 -0.05940848 -0.06154751 -0.06368653 -0.06582556 -0.06796459 -0.07010362 -0.07224265 -0.07438167 -0.07652070 -0.07865973 -0.08079876 -0.08293779 -0.08507681 -0.08721584 -0.08935487 -0.09149390 -0.09266585 -0.05850665 -0.06948770 -0.08367299 -0.09987161 -0.11714217 -0.13618766 -0.15470822 -0.17609741 -0.19681747 -0.21970188 -0.24066847 -0.26247182 -0.28519494 -0.30912128 -0.33129331 -0.35468452 -0.37931360 -0.40170959 -0.42732574 -0.45471465 -0.47897983 -0.50387235 -0.53006145 -0.55606651 -0.58210125 -0.60975140 -0.63820396 -0.66703354 -0.69420722               ! WE_FOPoles        - First order system poles [1/s]
 
 !------- YAW CONTROL ------------------------------------------------------
 0.0                 ! Y_ErrThresh		- Yaw error threshold. Turbine begins to yaw when it passes this. [rad^2 s]
@@ -103,10 +103,10 @@
 !------- MINIMUM PITCH SATURATION -------------------------------------------
 59                  ! PS_BldPitchMin_N  - Number of values in minimum blade pitch lookup table (should equal number of values in PS_WindSpeeds and PS_BldPitchMin)
 3.0000 3.2031 3.4061 3.6092 3.8123 4.0153 4.2184 4.4215 4.6245 4.8276 5.0307 5.2337 5.4368 5.6398 5.8429 6.0460 6.2490 6.4521 6.6552 6.8582 7.0613 7.2644 7.4674 7.6705 7.8736 8.0766 8.2797 8.4828 8.6858 8.8889 9.4444 10.0000 10.5556 11.1111 11.6667 12.2222 12.7778 13.3333 13.8889 14.4444 15.0000 15.5556 16.1111 16.6667 17.2222 17.7778 18.3333 18.8889 19.4444 20.0000 20.5556 21.1111 21.6667 22.2222 22.7778 23.3333 23.8889 24.4444 25.0000               ! PS_WindSpeeds     - Wind speeds corresponding to minimum blade pitch angles [m/s]
-0.00000000 0.00000000 0.00000000 0.00000000 0.00000000 0.00000000 0.00000000 0.00000000 0.00000000 0.00000000 0.00000000 0.00000000 0.00000000 0.00000000 0.00000000 0.00000000 0.00000000 0.00000000 0.00000000 0.00000000 0.00000000 0.00000000 0.00000000 0.00000000 0.01318596 0.02615425 0.03751985 0.04737197 0.05642371 0.06457336 0.07941682 0.09327473 0.10652075 0.11942617 0.13207851 0.14407980 0.15615097 0.16780832 0.17924405 0.19032673 0.20088407 0.21150080 0.22159154 0.23159465 0.24185740 0.25201809 0.26187124 0.27183381 0.28192239 0.29198900 0.30171088 0.31147379 0.32131301 0.33115301 0.34079270 0.35028477 0.35978945 0.36936794 0.37890928               ! PS_BldPitchMin    - Minimum blade pitch angles [rad]
+0.00000000 0.00000000 0.00000000 0.00000000 0.00000000 0.00000000 0.00000000 0.00000000 0.00000000 0.00000000 0.00000000 0.00000000 0.00000000 0.00000000 0.00000000 0.00000000 0.00000000 0.00000000 0.00000000 0.00000000 0.00000000 0.00000000 0.00000000 0.00000000 0.01324273 0.02624467 0.03764323 0.04750729 0.05657823 0.06473273 0.07957707 0.09343078 0.10667724 0.11958430 0.13223797 0.14424432 0.15632121 0.16798525 0.17943187 0.19051359 0.20108679 0.21170698 0.22180839 0.23182429 0.24209758 0.25225649 0.26211905 0.27209538 0.28219296 0.29225953 0.30199245 0.31176815 0.32161995 0.33147266 0.34111632 0.35062122 0.36013853 0.36973311 0.37927777               ! PS_BldPitchMin    - Minimum blade pitch angles [rad]
 
 !------- SHUTDOWN -----------------------------------------------------------
-0.563440000000      ! SD_MaxPit         - Maximum blade pitch angle to initiate shutdown, [rad]
+0.563520000000      ! SD_MaxPit         - Maximum blade pitch angle to initiate shutdown, [rad]
 0.418880000000      ! SD_CornerFreq     - Cutoff Frequency for first order low-pass filter for blade pitch angle, [rad/s]
 
 !------- Floating -----------------------------------------------------------

@@ -142,10 +142,6 @@ constraints:
       flag: False
     shell_buckling:
       flag: False
-    constr_d_to_t:
-      flag: False
-    constr_taper:
-      flag: False
     slope:
       flag: False
     frequency_1:
