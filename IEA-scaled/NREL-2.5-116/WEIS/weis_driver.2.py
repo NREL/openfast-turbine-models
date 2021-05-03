@@ -5,7 +5,8 @@ import os, time, sys
 
 ## File management
 run_dir                = os.path.dirname( os.path.realpath(__file__) ) + os.sep
-fname_wt_input         = run_dir + "NREL-2p5-116.yaml"
+#fname_wt_input         = run_dir + "NREL-2p5-116.yaml"
+fname_wt_input         = run_dir + "NREL-2p5-116.servo_opt.yaml"
 fname_analysis_options = run_dir + "analysis_options_weis.yaml"
 
 
