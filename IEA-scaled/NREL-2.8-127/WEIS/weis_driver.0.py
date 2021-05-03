@@ -4,16 +4,13 @@ from wisdem.commonse.mpi_tools  import MPI
 import os, time, sys
 
 ## File management
-run_dir                = os.path.dirname( os.path.realpath(__file__) ) + os.sep
-#fname_wt_input         = run_dir + "NREL-2p8-127.yaml"
-fname_wt_input         = run_dir + "NREL-2p8-127.servo_opt.yaml"
-fname_analysis_options = run_dir + "analysis_options_weis.yaml"
+run_dir                = os.path.dirname( os.path.realpath(__file__) )
+fname_wt_input         = os.path.join(run_dir, 'NREL-2p8-127.yaml')
+fname_modeling_options = os.path.join(run_dir, "modeling_options_weis.0.yaml")
+fname_analysis_options = os.path.join(run_dir, "analysis_options_weis.servo_opt.yaml")
 
 
 tt = time.time()
-
-# Analysis level 1: Generate OpenFAST model
-fname_modeling_options = run_dir + "modeling_options_weis.1.yaml"
 wt_opt, modeling_options, opt_options = run_weis(fname_wt_input, fname_modeling_options, fname_analysis_options)
 
 if MPI:
