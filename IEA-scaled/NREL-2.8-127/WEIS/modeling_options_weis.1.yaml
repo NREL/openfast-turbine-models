@@ -56,7 +56,9 @@ Level3: # Options for WEIS fidelity level 3 = nonlinear time domain
     ROSCO:
         flag: True
         SD_Mode: 0 # turn off shutdown
-        PS_Mode: 1 # turn on pitch saturation
+       #PS_Mode: 1 # turn on peak shaving
+       #PS_Mode: 2 # turn on Cp maximization at low wind speeds
+        PS_Mode: 3 # turn on 1 + 2
         ps_percent: 0.75 # peak shaving
         VS_ControlMode: 2 # TSR-tracking control w/ constant torque above rated (using wind-speed estimator)
     outlist:
@@ -75,6 +77,7 @@ openfast:
     file_management:
         FAST_namingOut:     NREL-2p8-127    # Name of the OpenFAST output files
         FAST_runDirectory:  ../OpenFAST     # Path to folder with the OpenFAST output files
+       #path2dll:           /home/equon/ROSCO/build_ce0510_for_WEIS/libdiscon.so
     dlc_settings:
         run_power_curve:   True
         run_IEC:           False
