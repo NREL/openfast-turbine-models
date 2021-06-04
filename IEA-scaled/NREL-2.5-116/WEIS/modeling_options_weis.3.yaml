@@ -22,7 +22,7 @@ WISDEM:
 Level3: # Options for WEIS fidelity level 3 = nonlinear time domain
     flag: True
     simulation:
-        TMax: 300.
+        TMax: 660.
         DT: 0.01
         CompElast: 1
         CompInflow: 1
@@ -70,6 +70,7 @@ openfast:
     file_management:
         FAST_namingOut:     NREL-2p5-116    # Name of the OpenFAST output files
         FAST_runDirectory:  outputs/DLC1.1  # Path to folder with the OpenFAST output files
+       #path2dll:           /home/equon/ROSCO/build_ce0510_for_WEIS/libdiscon.so
     dlc_settings:
         run_power_curve:   True
         run_IEC:           True

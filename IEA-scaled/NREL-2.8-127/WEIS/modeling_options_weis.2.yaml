@@ -72,7 +72,7 @@ openfast:
     file_management:
         FAST_namingOut:     NREL-2p8-127    # Name of the OpenFAST output files
         FAST_runDirectory:  outputs/power_curve     # Path to folder with the OpenFAST output files
-        path2dll:           /home/equon/ROSCO/build_ce0510_for_WEIS/libdiscon.so
+       #path2dll:           /home/equon/ROSCO/build_ce0510_for_WEIS/libdiscon.so
     dlc_settings:
         run_power_curve:   True
         run_IEC:           False

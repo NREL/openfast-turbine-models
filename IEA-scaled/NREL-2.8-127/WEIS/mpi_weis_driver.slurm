@@ -1,6 +1,6 @@
 #!/bin/bash
 #SBATCH --account=awaken
-#SBATCH --time=4:00:00
+#SBATCH --time=1:00:00
 #SBATCH --job-name=weis_2p8-127
 #SBATCH --nodes=2
 #SBATCH --ntasks-per-node=36
@@ -22,8 +22,7 @@ echo 'Checking for WEIS in environment'
 python -c 'from weis.glue_code.runWEIS import run_weis'
 
 
-echo 'Performing controller tuning...'
-#mpirun -np $nC python weis_driver.0.py
+echo "Performing controller tuning with nC=${nC}..."
 mpiexec -n $nC --bind-to core python weis_driver.0.py
 
 outfile=`ls outputs/*.pkl`
@@ -36,10 +35,10 @@ echo 'Generating OpenFAST model'
 python weis_driver.1.py
 
 
-echo 'Run power curve sweep with steady inflow'
-mpirun -np $((N_pc_pts+1)) python weis_driver.2.py
+echo "Run power curve sweep with steady inflow with nC=$((N_pc_pts+1))"
+mpiexec -n $((N_pc_pts+1)) --bind-to core python weis_driver.2.py
 
 
-echo 'Run DLC 1.1'
-mpirun -np $((N_pc_pts+1)) python weis_driver.3.py
+echo "Run DLC 1.1 with nC=$((N_pc_pts+1))"
+mpiexec -n $((N_pc_pts+1)) --bind-to core python weis_driver.3.py
 
