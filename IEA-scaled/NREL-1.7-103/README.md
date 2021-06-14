@@ -1,4 +1,4 @@
-# NREL 1.7-103
+# NREL 1.7-103 - _UNDER DEVELOPMENT_
 
 Design by [Eliot Quon](mailto:eliot.quon@nrel.gov), Pietro Bortolotti, and John Jasa
 

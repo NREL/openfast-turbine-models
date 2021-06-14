@@ -32,7 +32,7 @@ for i in `seq 0 $((Nsteps-1))`; do
         else
             ncores=$((2*nDV))
             echo "Launching $driver with $ncores cores"
-            mpirun -v -np $ncores python $driver 2>&1 | tee log.step$i
+            mpiexec -n $ncores --bind-to core python $driver 2>&1 | tee log.step$i
         fi
         if [ -z "`grep 'Run time' log.step$i`" ]; then
             echo "Step $i did not finish?"
