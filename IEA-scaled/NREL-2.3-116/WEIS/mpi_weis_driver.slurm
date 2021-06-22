@@ -1,6 +1,6 @@
 #!/bin/bash
 #SBATCH --account=awaken
-#SBATCH --time=4:00:00
+#SBATCH --time=2:00:00
 #SBATCH --job-name=weis_2p3-116
 #SBATCH --nodes=2
 #SBATCH --ntasks-per-node=36
@@ -15,7 +15,7 @@ nC=$((nDV + nDV * nOF)) # Number of cores needed. Make sure to request an approp
 . ~/.bash_profile
 WEIS
 
-
+# check environment
 echo 'Checking for WEIS in environment'
 python -c 'from weis.glue_code.runWEIS import run_weis'
 
@@ -28,7 +28,7 @@ fname=${outfile##*/}
 prefix="${fname%.pkl}"
 cp -v outputs/${prefix}.yaml ${prefix}.servo_opt.yaml
 
-# Note: manually tune torque controller for now
+# Note: manually tune torque controller for now if needed
 
 
 echo 'Generating OpenFAST model'
