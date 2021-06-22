@@ -1,0 +1,96 @@
+General:
+    verbosity: False  # When set to True, the code prints to screen many infos
+
+WISDEM:
+    RotorSE:
+        flag: True
+        spar_cap_ss: Spar_cap_SS
+        spar_cap_ps: Spar_cap_PS
+        peak_thrust_shaving: True
+        thrust_shaving_coeff: 0.788
+        n_pitch_perf_surfaces: 30
+        n_tsr_perf_surfaces: 30
+    TowerSE:
+        flag: True
+    DriveSE:
+        flag: True
+    FloatingSE:
+        flag: False
+    BOS:
+        flag: True
+
+Level3: # Options for WEIS fidelity level 3 = nonlinear time domain
+    flag: True
+    simulation:
+        TMax: 180.
+        DT: 0.01
+        CompElast: 1
+        CompInflow: 1
+        CompAero: 2
+        CompServo: 1
+        CompHydro: 0
+        CompSub: 0
+        CompMooring: 0
+        CompIce: 0
+    linearization:
+        Linearize: False
+    ElastoDyn:
+        flag: True
+        FlapDOF1: True
+        FlapDOF2: True
+        EdgeDOF: True
+        TeetDOF: False
+        DrTrDOF: False 
+        GenDOF: True
+        YawDOF: False  
+        TwFADOF1 : False
+        TwFADOF2 : False
+        TwSSDOF1 : False
+        TwSSDOF2 : False
+        PtfmSgDOF: False
+        PtfmSwDOF: False
+        PtfmHvDOF: False
+        PtfmRDOF : False
+        PtfmPDOF : False
+        PtfmYDOF : False
+    outlist:
+        AeroDyn: {B1N1Alpha: True, B1N1Fx: True, B1N1Fy: True, B1N2Alpha: True, B1N2Fx: True, B1N2Fy: True, B1N3Alpha: True, B1N3Fx: True, B1N3Fy: True, B1N4Alpha: True, B1N4Fx: True, B1N4Fy: True, B1N5Alpha: True, B1N5Fx: True, B1N5Fy: True, B1N6Alpha: True, B1N6Fx: True, B1N6Fy: True, B1N7Alpha: True, B1N7Fx: True, B1N7Fy: True, B1N8Alpha: True, B1N8Fx: True, B1N8Fy: True, B1N9Alpha: True, B1N9Fx: True, B1N9Fy: True, B2N1Alpha: True, B2N1Fx: True, B2N1Fy: True, B2N2Alpha: True, B2N2Fx: True, B2N2Fy: True, B2N3Alpha: True, B2N3Fx: True, B2N3Fy: True, B2N4Alpha: True, B2N4Fx: True, B2N4Fy: True, B2N5Alpha: True, B2N5Fx: True, B2N5Fy: True, B2N6Alpha: True, B2N6Fx: True, B2N6Fy: True, B2N7Alpha: True, B2N7Fx: True, B2N7Fy: True, B2N8Alpha: True, B2N8Fx: True, B2N8Fy: True, B2N9Alpha: True, B2N9Fx: True, B2N9Fy: True, B3N1Alpha: True, B3N1Fx: True, B3N1Fy: True, B3N2Alpha: True, B3N2Fx: True, B3N2Fy: True, B3N3Alpha: True, B3N3Fx: True, B3N3Fy: True, B3N4Alpha: True, B3N4Fx: True, B3N4Fy: True, B3N5Alpha: True, B3N5Fx: True, B3N5Fy: True, B3N6Alpha: True, B3N6Fx: True, B3N6Fy: True, B3N7Alpha: True, B3N7Fx: True, B3N7Fy: True, B3N8Alpha: True, B3N8Fx: True, B3N8Fy: True, B3N9Alpha: True, B3N9Fx: True, B3N9Fy: True, RtAeroPwr: True, RtAeroCp: True, RtAeroCt: True, RtAeroFxh: True, RtAeroFyh: True, RtAeroFzh: True}
+        ElastoDyn: {Azimuth: True, BldPitch1: True, BldPitch2: True, BldPitch3: True, GenSpeed: True, LSSTipMys: True, LSSTipMzs: True, LSShftFys: True, LSShftFzs: True, NacYaw: True, RootFxb1: True, RootFxb2: True, RootFxb3: True, RootFxc1: True, RootFxc2: True, RootFxc3: True, RootFyb1: True, RootFyb2: True, RootFyb3: True, RootFyc1: True, RootFyc2: True, RootFyc3: True, RootFzb1: True, RootFzb2: True, RootFzb3: True, RootFzc1: True, RootFzc2: True, RootFzc3: True, RootMxb1: True, RootMxb2: True, RootMxb3: True, RootMxc1: True, RootMxc2: True, RootMxc3: True, RootMyb1: True, RootMyb2: True, RootMyb3: True, RootMyc1: True, RootMyc2: True, RootMyc3: True, RootMzb1: True, RootMzb2: True, RootMzb3: True, RootMzc1: True, RootMzc2: True, RootMzc3: True, RotSpeed: True, RotThrust: True, RotTorq: True, Spn1MLxb1: True, Spn1MLyb1: True, Spn2MLxb1: True, Spn2MLyb1: True, Spn3MLxb1: True, Spn3MLyb1: True, Spn4MLxb1: True, Spn4MLyb1: True, Spn5MLxb1: True, Spn5MLyb1: True, Spn6MLxb1: True, Spn6MLyb1: True, Spn7MLxb1: True, Spn7MLyb1: True, Spn8MLxb1: True, Spn8MLyb1: True, Spn9MLxb1: True, Spn9MLyb1: True, TipDxb1: True, TipDxb2: True, TipDxb3: True, TipDxc1: True, TipDxc2: True, TipDxc3: True, TipDyb1: True, TipDyb2: True, TipDyb3: True, TipDyc1: True, TipDyc2: True, TipDyc3: True, TipDzb1: True, TipDzb2: True, TipDzb3: True, TipDzc1: True, TipDzc2: True, TipDzc3: True, TwrBsMxt: True, TwrBsMyt: True, TwrBsMzt: True}
+        ServoDyn: {GenPwr: True, GenTq: True}
+        InflowWind: {Wind1Velx: True, Wind1Vely: True, Wind1Velz: True}
+    ROSCO:
+        flag: True
+        SD_Mode: 0 # turn off shutdown
+        PS_Mode: 1 # turn on peak shaving
+       #PS_Mode: 2 # turn on Cp maximization at low wind speeds
+       #PS_Mode: 3 # turn on 1 + 2
+        ps_percent: 0.788 # peak shaving
+        VS_ControlMode: 2 # TSR-tracking control w/ constant torque above rated (using wind-speed estimator)
+    
+openfast:
+    analysis_settings:
+        Analysis_Level:     1          # Flag to set the call to OpenFAST. 1 - generate OpenFAST model, 2 - generate and run OpenFAST model
+        update_hub_nacelle: True
+        update_tower:       True
+        generate_af_coords: True
+        debug_level:        2    # Flag to set the debug level, do not change
+    file_management:
+        FAST_namingOut:     NREL-2p3-116    # Name of the OpenFAST output files
+        FAST_runDirectory:  ../OpenFAST     # Path to folder with the OpenFAST output files
+       #path2dll:           /home/equon/ROSCO/build_ce0510_for_WEIS/libdiscon.so
+    dlc_settings:
+        run_power_curve:   True
+        run_IEC:           False
+        run_blade_fatigue: False
+        Power_Curve:
+            turbulent_power_curve: False # False: Steady Wind, True: Turbulent Inflow
+            U:     [3., 4., 5., 6., 7., 8., 9., 10., 11., 12., 13., 14., 15., 17., 19., 21., 23., 25.] # If running turbulent power curve, can set U:[], and analysis will default to using the IEC - DLC 1.1 results.  This can be used to prevent running redundant turbulent operational cases
+            Seeds: [111,123,1234,12345,123456,42] # Used only when turbulent_power_curve=True
+
+yaml:
+    validate: False    # When set to True, the code runs a yam validation package. This checks whether the yams has the right formatting.
+    path2schema: windIO/windIO/turbine/IEAontology_schema.yaml   # Path to the yams schema to run the validation
+
+xfoil:
+    path       : Xfoil/bin/xfoil # Path to xfoil executable. Only used for blades with distributed aerodynamic control devices 
+    run_parallel: True
