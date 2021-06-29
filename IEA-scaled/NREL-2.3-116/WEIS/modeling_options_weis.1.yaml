@@ -58,14 +58,15 @@ Level3: # Options for WEIS fidelity level 3 = nonlinear time domain
         ElastoDyn: {Azimuth: True, BldPitch1: True, BldPitch2: True, BldPitch3: True, GenSpeed: True, LSSTipMys: True, LSSTipMzs: True, LSShftFys: True, LSShftFzs: True, NacYaw: True, RootFxb1: True, RootFxb2: True, RootFxb3: True, RootFxc1: True, RootFxc2: True, RootFxc3: True, RootFyb1: True, RootFyb2: True, RootFyb3: True, RootFyc1: True, RootFyc2: True, RootFyc3: True, RootFzb1: True, RootFzb2: True, RootFzb3: True, RootFzc1: True, RootFzc2: True, RootFzc3: True, RootMxb1: True, RootMxb2: True, RootMxb3: True, RootMxc1: True, RootMxc2: True, RootMxc3: True, RootMyb1: True, RootMyb2: True, RootMyb3: True, RootMyc1: True, RootMyc2: True, RootMyc3: True, RootMzb1: True, RootMzb2: True, RootMzb3: True, RootMzc1: True, RootMzc2: True, RootMzc3: True, RotSpeed: True, RotThrust: True, RotTorq: True, Spn1MLxb1: True, Spn1MLyb1: True, Spn2MLxb1: True, Spn2MLyb1: True, Spn3MLxb1: True, Spn3MLyb1: True, Spn4MLxb1: True, Spn4MLyb1: True, Spn5MLxb1: True, Spn5MLyb1: True, Spn6MLxb1: True, Spn6MLyb1: True, Spn7MLxb1: True, Spn7MLyb1: True, Spn8MLxb1: True, Spn8MLyb1: True, Spn9MLxb1: True, Spn9MLyb1: True, TipDxb1: True, TipDxb2: True, TipDxb3: True, TipDxc1: True, TipDxc2: True, TipDxc3: True, TipDyb1: True, TipDyb2: True, TipDyb3: True, TipDyc1: True, TipDyc2: True, TipDyc3: True, TipDzb1: True, TipDzb2: True, TipDzb3: True, TipDzc1: True, TipDzc2: True, TipDzc3: True, TwrBsMxt: True, TwrBsMyt: True, TwrBsMzt: True}
         ServoDyn: {GenPwr: True, GenTq: True}
         InflowWind: {Wind1Velx: True, Wind1Vely: True, Wind1Velz: True}
-    ROSCO:
-        flag: True
-        SD_Mode: 0 # turn off shutdown
-        PS_Mode: 1 # turn on peak shaving
-       #PS_Mode: 2 # turn on Cp maximization at low wind speeds
-       #PS_Mode: 3 # turn on 1 + 2
-        ps_percent: 0.788 # peak shaving
-        VS_ControlMode: 2 # TSR-tracking control w/ constant torque above rated (using wind-speed estimator)
+
+ROSCO:
+    flag: True
+    SD_Mode: 0 # turn off shutdown
+    PS_Mode: 1 # turn on peak shaving
+   #PS_Mode: 2 # turn on Cp maximization at low wind speeds
+   #PS_Mode: 3 # turn on 1 + 2
+    ps_percent: 0.788 # peak shaving
+    VS_ControlMode: 2 # TSR-tracking control w/ constant torque above rated (using wind-speed estimator)
     
 openfast:
     analysis_settings:
