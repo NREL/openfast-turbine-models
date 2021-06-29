@@ -7,7 +7,7 @@ WISDEM:
         spar_cap_ss: Spar_cap_SS
         spar_cap_ps: Spar_cap_PS
         peak_thrust_shaving: True
-        thrust_shaving_coeff: 0.75
+        thrust_shaving_coeff: 0.675
         n_pitch_perf_surfaces: 30
         n_tsr_perf_surfaces: 30
     TowerSE:
@@ -53,14 +53,15 @@ Level3: # Options for WEIS fidelity level 3 = nonlinear time domain
         PtfmRDOF : False
         PtfmPDOF : False
         PtfmYDOF : False
-    ROSCO:
-        flag: True
-        SD_Mode: 0 # turn off shutdown
-       #PS_Mode: 1 # turn on peak shaving
-       #PS_Mode: 2 # turn on Cp maximization at low wind speeds
-        PS_Mode: 3 # turn on 1 + 2
-        ps_percent: 0.75 # peak shaving
-        VS_ControlMode: 2 # TSR-tracking control w/ constant torque above rated (using wind-speed estimator)
+
+ROSCO:
+    flag: True
+    SD_Mode: 0 # turn off shutdown
+    PS_Mode: 1 # turn on peak shaving
+   #PS_Mode: 2 # turn on Cp maximization at low wind speeds
+   #PS_Mode: 3 # turn on 1 + 2
+    ps_percent: 0.675 # peak shaving
+    VS_ControlMode: 2 # TSR-tracking control w/ constant torque above rated (using wind-speed estimator)
     
 openfast:
     analysis_settings:

@@ -32,7 +32,7 @@ for i in `seq 0 $((Nsteps-1))`; do
         else
             ncores=$((2*nDV))
             echo "Launching $driver with $ncores cores"
-            mpirun -v -np $ncores python $driver 2>&1 | tee log.step$i
+            mpiexec -n $ncores --bind-to core python $driver 2>&1 | tee log.step$i
         fi
         if [ -z "`grep 'Run time' log.step$i`" ]; then
             echo "Step $i did not finish?"
@@ -40,6 +40,7 @@ for i in `seq 0 $((Nsteps-1))`; do
         elif [ "$i" == 0 ]; then
             echo 'Difference reference and current turbine:'
             diff outputs.0/refturb.yaml NREL-*.start.yaml > refturb.diff
+            cat refturb.diff
         fi
     fi
 done

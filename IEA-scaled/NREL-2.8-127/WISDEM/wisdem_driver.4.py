@@ -27,7 +27,6 @@ if rank == 0:
 
     # - stall- and max-chord-constrained twist & chord opt for AEP
     aopt['driver']['optimization']['flag'] = True
-    aopt['driver']['optimization']['tol'] = 1e-4
     aopt['design_variables']['blade']['aero_shape']['twist']['flag'] = True
     aopt['design_variables']['blade']['aero_shape']['twist']['max_increase'] = 0.02
     aopt['design_variables']['blade']['aero_shape']['twist']['max_decrease'] = 0.02
@@ -42,9 +41,9 @@ if rank == 0:
     mopt = load_yaml(os.path.join(run_dir,
                                   f'outputs.{istep-1}',
                                   f'NREL-2p8-127-step{istep-1}-modeling.yaml'))
-    # - apply 75% peak thrust shaving
+    # - apply 67.5% peak thrust shaving
     mopt['WISDEM']['RotorSE']['peak_thrust_shaving'] = True
-    mopt['WISDEM']['RotorSE']['thrust_shaving_coeff'] = 0.75
+    mopt['WISDEM']['RotorSE']['thrust_shaving_coeff'] = 0.675
     save_yaml(fname_modeling_options, mopt)
 
 if MPI:
