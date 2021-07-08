@@ -53,15 +53,16 @@ Level3: # Options for WEIS fidelity level 3 = nonlinear time domain
         PtfmRDOF : False
         PtfmPDOF : False
         PtfmYDOF : False
-    ROSCO:
-        flag: True
-        SD_Mode: 0 # turn off shutdown
-       #PS_Mode: 1 # turn on peak shaving
-       #PS_Mode: 2 # turn on Cp maximization at low wind speeds
-        PS_Mode: 3 # turn on 1 + 2
-        ps_percent: 0.75 # peak shaving
-        VS_ControlMode: 2 # TSR-tracking control w/ constant torque above rated (using wind-speed estimator)
-    
+
+ROSCO:
+    flag: True
+    SD_Mode: 0 # turn off shutdown
+    PS_Mode: 1 # turn on peak shaving
+   #PS_Mode: 2 # turn on Cp maximization at low wind speeds
+   #PS_Mode: 3 # turn on 1 + 2
+    ps_percent: 0.75 # peak shaving
+    VS_ControlMode: 2 # TSR-tracking control w/ constant torque above rated (using wind-speed estimator)
+
 openfast:
     analysis_settings:
         Analysis_Level:     2          # Flag to set the call to OpenFAST. 1 - generate OpenFAST model, 2 - generate and run OpenFAST model
