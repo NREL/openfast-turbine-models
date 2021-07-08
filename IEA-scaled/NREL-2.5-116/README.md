@@ -11,7 +11,7 @@ Design by [Eliot Quon](mailto:eliot.quon@nrel.gov), Pietro Bortolotti, and John 
 | minimum rotor speed    | 5.5 RPM| estimate for soft-stiff tower |
 | maximum rotor speed    | 14 RPM | estimate based on Vtip |
 | rated tip speed        | 85 m/s | estimate |
-| peak shaving           | 25%    | estimate |
+| peak thrust shaving    | 75%    | estimate |
 
 ![Turbine Performance](WISDEM/figures/NREL-2.5-116_design_overview.png)
 
