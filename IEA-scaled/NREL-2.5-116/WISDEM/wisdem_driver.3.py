@@ -1,3 +1,4 @@
+# nDV: 16
 from wisdem import run_wisdem
 from wisdem.commonse.mpi_tools  import MPI
 from helpers import load_yaml, save_yaml
@@ -8,7 +9,7 @@ istep = 3
 ## File management
 run_dir = './'
 fname_wt_input = os.path.join(run_dir, f'outputs.{istep-1}', f'NREL-2p5-116-step{istep-1}.yaml')
-fname_modeling_options = os.path.join(run_dir, 'modeling_options_wisdem.yaml')
+fname_modeling_options = os.path.join(run_dir, 'modeling_options.wisdem.yaml')
 fname_analysis_options = os.path.join(run_dir, f'analysis_options.{istep}.yaml')
 
 if MPI:
@@ -32,13 +33,10 @@ if rank == 0:
     aopt['constraints']['blade']['chord']['flag'] = True
     save_yaml(fname_analysis_options, aopt)
 
-# - increase TSR to 9 (IEA 3.4: 8.0)
-# - increase rotor speed (omega) range to 8-14 RPM (IEA 3.4: 6.9-12.1)
-model_changes = {
-    'control.rated_TSR': 9.0,
-    'control.minOmega': 0.837758041, # [rad/s]
-    'control.maxOmega': 1.4660765717, # [rad/s]
-}
+if MPI:
+    MPI.COMM_WORLD.Barrier()
+
+model_changes = {}
 
 tt = time.time()
 

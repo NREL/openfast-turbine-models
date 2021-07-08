@@ -83,8 +83,10 @@ def check_tower_freqs(steps,verbose=True):
             if verbose: print('  No RotorSE')
         else:
             if verbose: print('  1P, 3P freqs [Hz]:',1*Omg,3*Omg)
-        towerFAfreqs = turb[pfx+'towerse.post.x_mode_freqs']['value']
-        towerSSfreqs = turb[pfx+'towerse.post.y_mode_freqs']['value']
+       #towerFAfreqs = turb[pfx+'towerse.post.x_mode_freqs']['value']
+       #towerSSfreqs = turb[pfx+'towerse.post.y_mode_freqs']['value']
+        towerFAfreqs = turb[pfx+'towerse.tower.fore_aft_freqs']['value']
+        towerSSfreqs = turb[pfx+'towerse.tower.side_side_freqs']['value']
         if verbose:
             print('  tower fore-aft mode freqs [Hz]:',towerFAfreqs)
             print('  tower side-side mode freqs [Hz]:',towerSSfreqs)

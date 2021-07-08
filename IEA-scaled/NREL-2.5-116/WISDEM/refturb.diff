@@ -1,0 +1,16 @@
+1,3c1,3
+< name: IEA-3.4-130-RWT
+< description: version from December 16th 2019
+< assembly: {turbine_class: III, turbulence_class: A, drivetrain: Geared, rotor_orientation: Upwind, number_of_blades: 3, hub_height: 110.0, rotor_diameter: 130.0, rated_power: 3370000.0}
+---
+> name: NREL-2.5-116
+> description: version from 2021-04-09
+> assembly: {turbine_class: III, turbulence_class: A, drivetrain: Geared, rotor_orientation: Upwind, number_of_blades: 3, hub_height: 80.0, rotor_diameter: 116.0, rated_power: 2500000.0}
+632c632
+<     supervisory: {Vin: 3.0, Vout: 25.0, maxTS: 80.0, rated_power: 3370000.0, minOmega: 0.72256, maxOmega: 1.26711}
+---
+>     supervisory: {Vin: 3.0, Vout: 25.0, maxTS: 80.0, rated_power: 2500000.0}
+634c634
+<     torque: {control_type: tsr_tracking, tsr: 8.01754386, VS_zeta: 1.0, VS_omega: 0.2, max_torque_rate: 1500000.0, VS_minspd: 0.0, VS_maxspd: 2.0}
+---
+>     torque: {control_type: tsr_tracking, tsr: 9.0, VS_zeta: 1.0, VS_omega: 0.2, max_torque_rate: 1500000.0, VS_minspd: 0.5759586532, VS_maxspd: 1.4660765717}

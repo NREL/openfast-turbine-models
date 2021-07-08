@@ -1,0 +1,88 @@
+General:
+    verbosity: False  # When set to True, the code prints to screen many infos
+
+WISDEM:
+    RotorSE:
+        flag: True
+        spar_cap_ss: Spar_cap_SS
+        spar_cap_ps: Spar_cap_PS
+        peak_thrust_shaving: True
+        thrust_shaving_coeff: 0.75
+        n_pitch_perf_surfaces: 30
+        n_tsr_perf_surfaces: 30
+    TowerSE:
+        flag: True
+    DriveSE:
+        flag: True
+    FloatingSE:
+        flag: False
+    BOS:
+        flag: True
+
+Level3: # Options for WEIS fidelity level 3 = nonlinear time domain
+    flag: True
+    simulation:
+        TMax: 300.
+        DT: 0.01
+        CompElast: 1
+        CompInflow: 1
+        CompAero: 2
+        CompServo: 1
+        CompHydro: 0
+        CompSub: 0
+        CompMooring: 0
+        CompIce: 0
+    linearization:
+        Linearize: False
+    ElastoDyn:
+        flag: True
+        FlapDOF1: True
+        FlapDOF2: True
+        EdgeDOF: True
+        TeetDOF: False
+        DrTrDOF: False 
+        GenDOF: True
+        YawDOF: False  
+        TwFADOF1 : False
+        TwFADOF2 : False
+        TwSSDOF1 : False
+        TwSSDOF2 : False
+        PtfmSgDOF: False
+        PtfmSwDOF: False
+        PtfmHvDOF: False
+        PtfmRDOF : False
+        PtfmPDOF : False
+        PtfmYDOF : False
+    ROSCO:
+        flag: True
+        SD_Mode: 0 # turn off shutdown
+        PS_Mode: 1 # turn on pitch saturation
+        ps_percent: 0.75 # peak shaving
+        VS_ControlMode: 2 # TSR-tracking control w/ constant torque above rated (using wind-speed estimator)
+    
+openfast:
+    analysis_settings:
+        Analysis_Level:     2          # Flag to set the call to OpenFAST. 1 - generate OpenFAST model, 2 - generate and run OpenFAST model
+        update_hub_nacelle: True
+        update_tower:       True
+        generate_af_coords: True
+        debug_level:        2    # Flag to set the debug level, do not change
+    file_management:
+        FAST_namingOut:     NREL-2p3-107    # Name of the OpenFAST output files
+        FAST_runDirectory:  outputs/power_curve     # Path to folder with the OpenFAST output files
+    dlc_settings:
+        run_power_curve:   True
+        run_IEC:           False
+        run_blade_fatigue: False
+        Power_Curve:
+            turbulent_power_curve: False # False: Steady Wind, True: Turbulent Inflow
+            U:     [3., 4., 5., 6., 7., 8., 9., 10., 11., 12., 13., 14., 15., 16., 17., 18., 19., 20., 21., 22., 23., 24., 25.] # If running turbulent power curve, can set U:[], and analysis will default to using the IEC - DLC 1.1 results.  This can be used to prevent running redundant turbulent operational cases
+            Seeds: [111,123,1234,12345,123456,42] # Used only when turbulent_power_curve=True
+
+yaml:
+    validate: False    # When set to True, the code runs a yam validation package. This checks whether the yams has the right formatting.
+    path2schema: windIO/windIO/turbine/IEAontology_schema.yaml   # Path to the yams schema to run the validation
+
+xfoil:
+    path       : Xfoil/bin/xfoil # Path to xfoil executable. Only used for blades with distributed aerodynamic control devices 
+    run_parallel: True
