@@ -2,7 +2,7 @@
 Generated with AeroElasticSE FAST driver
 ---------------------------------------------------------------------------------------------------------------
 False                  Echo        - Echo input data to <RootName>.ech (flag)
-2                      WindType    - switch for wind file type (1=steady; 2=uniform; 3=binary TurbSim FF; 4=binary Bladed-style FF; 5=HAWC format; 6=User defined; 7=native Bladed FF)
+1                      WindType    - switch for wind file type (1=steady; 2=uniform; 3=binary TurbSim FF; 4=binary Bladed-style FF; 5=HAWC format; 6=User defined; 7=native Bladed FF)
 0.0                    PropagationDir - Direction of wind propagation (meteoroligical rotation from aligned with X (positive rotates towards -Y) -- degrees)
 0.0                    VFlowAng    - Upflow angle (degrees) (not used for native Bladed format WindType=7)
 1                      NWindVel    - Number of points to output the wind velocity    (0 to 9)
@@ -14,7 +14,7 @@ False                  Echo        - Echo input data to <RootName>.ech (flag)
 88.5                   RefHt       - Reference height for horizontal wind speed      (m)
 0.2                    PLexp       - Power law exponent                              (-)
 ================== Parameters for Uniform wind file   [used only for WindType = 2] ============================
-"/projects/awaken/equon/openfast-turbine-models-PUBLIC/wind/StepWind/NoShr_5-15_Inc1_50s.wnd"                 Filename_Uni - Filename of time series data for uniform wind field.      (-)
+"none"                 Filename_Uni - Filename of time series data for uniform wind field.      (-)
 88.5                   RefHt_Uni   - Reference height for horizontal wind speed                (m)
 1.0                    RefLength   - Reference length for linear horizontal and vertical sheer (-)
 ================== Parameters for Binary TurbSim Full-Field files   [used only for WindType = 3] ==============
