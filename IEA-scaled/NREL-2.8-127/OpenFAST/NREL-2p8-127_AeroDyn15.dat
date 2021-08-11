@@ -101,87 +101,6 @@ False                  SumPrint    - Generate a summary file listing input optio
 0                      NTwOuts     - Number of tower node outputs [0 - 9]  (-)
 0                      TwOutNd     - Tower nodes whose values will be output  (-)
                    OutList             - The next line(s) contains a list of output parameters.  See OutListParameters.xlsx for a listing of available output channels, (-)
-"B1N1Alpha"
-"B1N1Fx"
-"B1N1Fy"
-"B1N2Alpha"
-"B1N2Fx"
-"B1N2Fy"
-"B1N3Alpha"
-"B1N3Fx"
-"B1N3Fy"
-"B1N4Alpha"
-"B1N4Fx"
-"B1N4Fy"
-"B1N5Alpha"
-"B1N5Fx"
-"B1N5Fy"
-"B1N6Alpha"
-"B1N6Fx"
-"B1N6Fy"
-"B1N7Alpha"
-"B1N7Fx"
-"B1N7Fy"
-"B1N8Alpha"
-"B1N8Fx"
-"B1N8Fy"
-"B1N9Alpha"
-"B1N9Fx"
-"B1N9Fy"
-"B2N1Alpha"
-"B2N1Fx"
-"B2N1Fy"
-"B2N2Alpha"
-"B2N2Fx"
-"B2N2Fy"
-"B2N3Alpha"
-"B2N3Fx"
-"B2N3Fy"
-"B2N4Alpha"
-"B2N4Fx"
-"B2N4Fy"
-"B2N5Alpha"
-"B2N5Fx"
-"B2N5Fy"
-"B2N6Alpha"
-"B2N6Fx"
-"B2N6Fy"
-"B2N7Alpha"
-"B2N7Fx"
-"B2N7Fy"
-"B2N8Alpha"
-"B2N8Fx"
-"B2N8Fy"
-"B2N9Alpha"
-"B2N9Fx"
-"B2N9Fy"
-"B3N1Alpha"
-"B3N1Fx"
-"B3N1Fy"
-"B3N2Alpha"
-"B3N2Fx"
-"B3N2Fy"
-"B3N3Alpha"
-"B3N3Fx"
-"B3N3Fy"
-"B3N4Alpha"
-"B3N4Fx"
-"B3N4Fy"
-"B3N5Alpha"
-"B3N5Fx"
-"B3N5Fy"
-"B3N6Alpha"
-"B3N6Fx"
-"B3N6Fy"
-"B3N7Alpha"
-"B3N7Fx"
-"B3N7Fy"
-"B3N8Alpha"
-"B3N8Fx"
-"B3N8Fy"
-"B3N9Alpha"
-"B3N9Fx"
-"B3N9Fy"
 "RtAeroCp"
 "RtAeroCt"
 "RtAeroFxh"
@@ -189,4 +108,35 @@ False                  SumPrint    - Generate a summary file listing input optio
 "RtAeroFzh"
 "RtAeroPwr"
 END of input file (the word "END" must appear in the first 3 columns of this last OutList line)
----------------------------------------------------------------------------------------
+---------------------- NODE OUTPUTS --------------------------------------------
+          1   BldNd_BladesOut  - Blades to output
+         99   BldNd_BlOutNd   - Blade nodes on each blade (currently unused)
+              OutList     - The next line(s) contains a list of output parameters.  See OutListParameters.xlsx, AeroDyn_Nodes tab for a listing of available output channels, (-)
+"VDisx"     - x-component of disturbed wind velocity at each node
+"VDisy"     - y-component of disturbed wind velocity at each node
+"VDisz"     - z-component of disturbed wind velocity at each node
+"VRel"      - Relvative wind speed at each node
+"DynP"      - Dynamic pressure at each node
+"Vindx"     - Axial induced wind velocity at each node
+"Vindy"     - Tangential induced wind velocity at each node
+"AxInd"     - Axial induction factor at each node
+"TnInd"     - Tangential induction factor at each node
+"Alpha"     - Angle of attack at each node
+"Theta"     - Pitch+Twist angle at each node
+"Phi"       - Inflow angle at each node
+"Cl"        - Lift force coefficient at each node
+"Cd"        - Drag force coefficient at each node
+"Cm"        - Pitching moment coefficient at each node
+"Cx"        - Normal force (to plane) coefficient at each node
+"Cy"        - Tangential force (to plane) coefficient at each node
+"Cn"        - Normal force (to chord) coefficient at each node
+"Ct"        - Tangential force (to chord) coefficient at each node
+"Fl"        - Lift force per unit length at each node
+"Fd"        - Drag force per unit length at each node
+"Fx"        - Normal force (to plane) per unit length at each node
+"Fy"        - Tangential force (to plane) per unit length at each node
+"Fn"        - Normal force (to chord) per unit length at each node
+"Ft"        - Tangential force (to chord) per unit length at each node
+"Vx"        - Local axial velocity
+"Vy"        - Local tangential velocity
+END of input file (the word "END" must appear in the first 3 columns of this last OutList line)
