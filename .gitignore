@@ -2,7 +2,6 @@
 __pycache__
 
 # outputs files
-outputs
 log.*
 slurm-*.out
 **/WISDEM/run*/
