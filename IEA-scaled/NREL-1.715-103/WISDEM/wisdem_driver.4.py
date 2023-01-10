@@ -42,7 +42,7 @@ if rank == 0:
     mopt = load_yaml(os.path.join(run_dir,
                                   f'outputs.{istep-1}',
                                   f'NREL-1p715-103-step{istep-1}-modeling.yaml'))
-    # - apply 80% peak thrust shaving
+    # - apply 70% peak thrust shaving
     mopt['WISDEM']['RotorSE']['peak_thrust_shaving'] = True
     mopt['WISDEM']['RotorSE']['thrust_shaving_coeff'] = 0.7
     save_yaml(fname_modeling_options, mopt)
