@@ -10,15 +10,17 @@ class WisdemInterface(object):
     """An interface that will automatically generate driver and input
     files as needed, and then call WISDEM
     """
-
     def __init__(self,
-                 prefix,
+                 turbine_prefix,
                  starting_geometry,
                  default_modeling_options,
                  default_analysis_options,
-                 run_dir='.'):
+                 run_dir='.',
+                 runscript_prefix='run_wisdem'):
         self.run_dir = run_dir
-        self.prefix = prefix
+        self.prefix = turbine_prefix
+        self.runscript_prefix = runscript_prefix
+
         self.mopt = load_yaml(default_modeling_options)
         self.aopt = load_yaml(default_analysis_options)
 
@@ -39,8 +41,8 @@ class WisdemInterface(object):
                                  model_changes={}):
         save_yaml(fpath_analysis_options, self.aopt)
         save_yaml(fpath_modeling_options, self.mopt)
-        driver_fpath = os.path.join(self.run_dir,
-                                    f'wisdem_driver.{self.optstep}.py')
+        driver_fpath = os.path.join(
+                self.run_dir, f'{self.runscript_prefix}.{self.optstep}.py')
         with open(driver_fpath,'w') as f:
             f.write(f'''from wisdem import run_wisdem
 
@@ -125,12 +127,14 @@ wt_opt, modeling_options, opt_options = run_wisdem(
         nranks = min(max(1,n_fd), self.maxranks)
 
         if driver_fpath is None:
-            driver_fpath = f'wisdem_driver.{self.optstep}.py'
+            driver_fpath = f'{self.runscript_prefix}.{self.optstep}.py'
         driver = ['python',driver_fpath]
+
         if n_fd > 0:
             #driver = ['mpiexec','-np',str(nranks),'--bind-to','core'] + driver
             driver = ['mpiexec','-np',str(nranks)] + driver
-        print(' '.join(driver))
+
+        print('Executing:',' '.join(driver))
         with open(f'log.wisdem.{self.optstep}','w') as log:
             subprocess.run(
                     driver, stdout=log, stderr=subprocess.STDOUT, text=True)
