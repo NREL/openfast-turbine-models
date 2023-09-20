@@ -3,7 +3,7 @@ import sys
 import subprocess
 import time
 
-from helpers import load_yaml, save_yaml
+from wisdem_interface.helpers import load_yaml, save_yaml
 
 
 class WisdemInterface(object):

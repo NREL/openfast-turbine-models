@@ -1,7 +1,7 @@
 # nDV: 0
 from wisdem import run_wisdem
 from wisdem.commonse.mpi_tools  import MPI
-from helpers import load_yaml, save_yaml
+from wisdem_interface.helpers import load_yaml, save_yaml
 import os, time, sys
 
 istep = 1

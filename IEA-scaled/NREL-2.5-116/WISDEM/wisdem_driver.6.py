@@ -2,7 +2,7 @@
 import numpy as np
 from wisdem import run_wisdem
 from wisdem.commonse.mpi_tools  import MPI
-from helpers import load_yaml, save_yaml, load_pickle
+from wisdem_interface.helpers import load_yaml, save_yaml, load_pickle
 import os, time, sys
 
 istep = 6
