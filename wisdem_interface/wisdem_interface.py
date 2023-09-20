@@ -140,7 +140,7 @@ wt_opt, modeling_options, opt_options = run_wisdem(
                     driver, stdout=log, stderr=subprocess.STDOUT, text=True)
 
         
-    def optimize(self, geom_path=None):
+    def optimize(self, geom_path=None, rerun=False):
         if self.optstep == 0:
             print('\n=== Running WISDEM baseline case ===')
             assert geom_path is not None
@@ -148,20 +148,26 @@ wt_opt, modeling_options, opt_options = run_wisdem(
             wt_output = f'{self.prefix}-step0.yaml'
         else:
             print('\n=== Running optimization step',self.optstep,'===')
-            wt_input = os.path.join(f'outputs.{self.optstep-1}',f'{self.prefix}-step{self.optstep-1}.yaml')
+            wt_input = os.path.join(f'outputs.{self.optstep-1}',
+                                    f'{self.prefix}-step{self.optstep-1}.yaml')
             wt_output = f'{self.prefix}-step{self.optstep}.yaml'
 
-        self.aopt['general']['folder_output'] = f'outputs.{self.optstep}'
+        outdir = f'outputs.{self.optstep}'
+        self.aopt['general']['folder_output'] = outdir
         self.aopt['general']['fname_output'] = wt_output
         driver_fpath = self._write_inputs_and_driver(
             os.path.join(self.run_dir, wt_input),
             os.path.join(self.run_dir, f'modeling_options.{self.optstep}.yaml'),
             os.path.join(self.run_dir, f'analysis_options.{self.optstep}.yaml'))
 
-        tt = time.time()
-        self._run(driver_fpath)
-        print('Run time: %f'%(time.time()-tt))
-        sys.stdout.flush()
+        if (not os.path.isdir(outdir)) or rerun:
+            tt = time.time()
+            self._run(driver_fpath)
+            print('Run time: %f'%(time.time()-tt))
+            sys.stdout.flush()
+        else:
+            print('Output dir',outdir,'found,'
+                  ' set rerun=True to repeat this optimization step')
 
         self.optstep += 1
 
