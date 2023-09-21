@@ -153,21 +153,27 @@ wt_opt, modeling_options, opt_options = run_wisdem(
                                     f'{self.prefix}-step{self.optstep-1}.yaml')
             wt_output = f'{self.prefix}-step{self.optstep}.yaml'
 
-        outdir = f'outputs.{self.optstep}'
+        outdir = os.path.join(self.run_dir, f'outputs.{self.optstep}')
+        os.makedirs(outdir, exist_ok=True)
         self.aopt['general']['folder_output'] = outdir
         self.aopt['general']['fname_output'] = wt_output
-        driver_fpath = self._write_inputs_and_driver(
-            os.path.join(self.run_dir, wt_input),
-            os.path.join(self.run_dir, f'modeling_options.{self.optstep}.yaml'),
-            os.path.join(self.run_dir, f'analysis_options.{self.optstep}.yaml'))
 
-        if (not os.path.isdir(outdir)) or rerun:
+        fpath_wt_input = os.path.join(self.run_dir, wt_input)
+        fpath_modeling_options = os.path.join(outdir,
+                f'{self.prefix}-step{self.optstep}-modeling.yaml')
+        fpath_analysis_options = os.path.join(outdir,
+                f'{self.prefix}-step{self.optstep}-analysis.yaml')
+        runscript = self._write_inputs_and_runscript(
+                fpath_wt_input, fpath_modeling_options, fpath_analysis_options)
+
+        full_wt_output_path = os.path.join(outdir, wt_output)
+        if (not os.path.isfile(full_wt_output_path)) or rerun:
             tt = time.time()
             self._run(runscript)
             print('Run time: %f'%(time.time()-tt))
             sys.stdout.flush()
         else:
-            print('Output dir',outdir,'found,'
+            print(full_wt_output_path,'found,'
                   ' set rerun=True to repeat this optimization step')
 
         self.optstep += 1
