@@ -7,7 +7,7 @@ from wisdem_interface.helpers import load_yaml, save_yaml
 
 
 class WisdemInterface(object):
-    """An interface that will automatically generate driver and input
+    """An interface that will automatically generate runscript and input
     files as needed, and then call WISDEM
     """
     def __init__(self,
@@ -16,10 +16,12 @@ class WisdemInterface(object):
                  default_modeling_options,
                  default_analysis_options,
                  run_dir='.',
-                 runscript_prefix='run_wisdem'):
+                 runscript_prefix='run_wisdem',
+                 mpirun='mpirun'):
         self.run_dir = run_dir
         self.prefix = turbine_prefix
         self.runscript_prefix = runscript_prefix
+        self.mpirun = mpirun
 
         self.mopt = load_yaml(default_modeling_options)
         self.aopt = load_yaml(default_analysis_options)
@@ -34,16 +36,16 @@ class WisdemInterface(object):
         self.optimize(starting_geometry)
 
 
-    def _write_inputs_and_driver(self,
-                                 fpath_wt_input,
-                                 fpath_modeling_options,
-                                 fpath_analysis_options,
-                                 model_changes={}):
+    def _write_inputs_and_runscript(self,
+                                    fpath_wt_input,
+                                    fpath_modeling_options,
+                                    fpath_analysis_options,
+                                    model_changes={}):
         save_yaml(fpath_analysis_options, self.aopt)
         save_yaml(fpath_modeling_options, self.mopt)
-        driver_fpath = os.path.join(
+        runscript = os.path.join(
                 self.run_dir, f'{self.runscript_prefix}.{self.optstep}.py')
-        with open(driver_fpath,'w') as f:
+        with open(runscript,'w') as f:
             f.write(f'''from wisdem import run_wisdem
 
 wt_opt, modeling_options, opt_options = run_wisdem(
@@ -52,7 +54,7 @@ wt_opt, modeling_options, opt_options = run_wisdem(
     '{fpath_analysis_options}',
     overridden_values={str(model_changes)}
 )''')
-        return driver_fpath
+        return runscript
 
 
     def _get_num_finite_differences(self):
@@ -122,22 +124,21 @@ wt_opt, modeling_options, opt_options = run_wisdem(
         return n_fd
 
 
-    def _run(self, driver_fpath=None):
+    def _run(self, runscript=None):
         n_fd = self._get_num_finite_differences()
         nranks = min(max(1,n_fd), self.maxranks)
 
-        if driver_fpath is None:
-            driver_fpath = f'{self.runscript_prefix}.{self.optstep}.py'
-        driver = ['python',driver_fpath]
+        if runscript is None:
+            runscript = f'{self.runscript_prefix}.{self.optstep}.py'
+        runscript = ['python',runscript]
 
         if n_fd > 0:
-            #driver = ['mpiexec','-np',str(nranks),'--bind-to','core'] + driver
-            driver = ['mpiexec','-np',str(nranks)] + driver
+            runscript = [self.mpirun,'-n',str(nranks)] + runscript
 
-        print('Executing:',' '.join(driver))
+        print('Executing:',' '.join(runscript))
         with open(f'log.wisdem.{self.optstep}','w') as log:
             subprocess.run(
-                    driver, stdout=log, stderr=subprocess.STDOUT, text=True)
+                    runscript, stdout=log, stderr=subprocess.STDOUT, text=True)
 
         
     def optimize(self, geom_path=None, rerun=False):
@@ -162,7 +163,7 @@ wt_opt, modeling_options, opt_options = run_wisdem(
 
         if (not os.path.isdir(outdir)) or rerun:
             tt = time.time()
-            self._run(driver_fpath)
+            self._run(runscript)
             print('Run time: %f'%(time.time()-tt))
             sys.stdout.flush()
         else:
