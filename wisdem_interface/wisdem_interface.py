@@ -28,7 +28,7 @@ class WisdemInterface(object):
 
         try:
             self.maxranks = int(os.environ['SLURM_NTASKS'])
-        except ValueError:
+        except KeyError:
             self.maxranks = 1
         print('Maximum number of MPI ranks =',self.maxranks)
 
