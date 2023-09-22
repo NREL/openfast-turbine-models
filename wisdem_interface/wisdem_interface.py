@@ -33,7 +33,13 @@ class WisdemInterface(object):
         print('Maximum number of MPI ranks =',self.maxranks)
 
         self.optstep = 0
-        self.optimize(starting_geometry)
+        self.optlabels = []
+        self.outfpaths = []
+        self.optimize(label='Baseline',geom_path=starting_geometry)
+
+
+    def __del__(self):
+        self._write_postproc_script()
 
 
     def _write_inputs_and_runscript(self,
@@ -55,6 +61,18 @@ wt_opt, modeling_options, opt_options = run_wisdem(
     overridden_values={str(model_changes)}
 )''')
         return runscript
+
+
+    def _write_postproc_script(self):
+        fpath = f'compare_{self.prefix}_designs.sh'
+        labels = [f'"{label}"' for label in self.optlabels]
+        cmd = 'compare_designs ' \
+            + ' '.join(self.outfpaths) \
+            + ' --labels ' \
+            + ' '.join(labels)
+        with open(fpath,'w') as f:
+            f.write(cmd)
+        print('\nWrote postprocessing script',fpath)
 
 
     def _get_num_finite_differences(self):
@@ -141,7 +159,11 @@ wt_opt, modeling_options, opt_options = run_wisdem(
                     runscript, stdout=log, stderr=subprocess.STDOUT, text=True)
 
         
-    def optimize(self, geom_path=None, rerun=False):
+    def optimize(self, label=None, geom_path=None, rerun=False):
+        if label is None:
+            label = f'Opt step {self.optstep}'
+        self.optlabels.append(label)
+
         if self.optstep == 0:
             print('\n=== Running WISDEM baseline case ===')
             assert geom_path is not None
@@ -167,6 +189,7 @@ wt_opt, modeling_options, opt_options = run_wisdem(
                 fpath_wt_input, fpath_modeling_options, fpath_analysis_options)
 
         full_wt_output_path = os.path.join(outdir, wt_output)
+        self.outfpaths.append(full_wt_output_path)
         if (not os.path.isfile(full_wt_output_path)) or rerun:
             tt = time.time()
             self._run(runscript)
