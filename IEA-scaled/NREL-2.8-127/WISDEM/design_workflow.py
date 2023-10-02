@@ -2,25 +2,26 @@
 from wisdem_interface import WisdemInterface
 
 # my wisdem-env on NREL Eagle HPC has some quirks...
-import os
-condaroot = os.environ['CONDA_PREFIX']
-mpirun = os.path.join(condaroot,'bin','mpirun')
+#import os
+#condaroot = os.environ['CONDA_PREFIX']
+#mpirun = os.path.join(condaroot,'bin','mpirun')
+
+#TOL = 1e-4  # should be good enough (default)
+TOL = 1e-5  # change in twist/chord should be negligible at this point
+#TOL = 1e-6  # should not be needed!
 
 wiz = WisdemInterface(
     turbine_prefix='NREL-2.8-127',
     starting_geometry='NREL-2.8-127.start.yaml',
     default_modeling_options='modeling_options.wisdem.yaml',
     default_analysis_options='analysis_options.start.yaml',
-    mpirun=mpirun)
-
-# Set optimization params
-wiz.aopt['driver']['optimization']['flag'] = True
-wiz.aopt['driver']['optimization']['tol'] = 1e-5  # change in twist/chord should be negligible
-#wiz.aopt['driver']['optimization']['tol'] = 1e-6  # should not be needed!
+    #mpirun=mpirun,
+    tol=TOL)
 
 # Baseline model options
 wiz.mopt['WISDEM']['RotorSE']['peak_thrust_shaving'] = True
 wiz.mopt['WISDEM']['RotorSE']['thrust_shaving_coeff'] = 0.72
+
 
 #===============================================================================
 #
@@ -41,6 +42,7 @@ wiz.aopt['constraints']['blade']['stall']['margin'] = 0.05235987756  # [rad] == 
 
 wiz.optimize('Opt twist')
 
+
 # 2. Add chord optimization with max-chord constraint (note: n_opt=8 control pts)
 #    Don't change the shape near the root
 #
@@ -50,6 +52,7 @@ wiz.aopt['design_variables']['blade']['aero_shape']['chord']['index_end'] = 7  #
 wiz.aopt['constraints']['blade']['chord']['flag'] = True
 
 wiz.optimize('Opt twist+chord')
+
 
 #===============================================================================
 #
