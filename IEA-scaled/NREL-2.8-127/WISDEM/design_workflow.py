@@ -113,7 +113,11 @@ wiz.write_postproc_script()
 
 # 4. Finally, optimize the tower mass
 #
+# Turn off previous optimizations/constraints
+wiz.reset()
+
 # Apply previous RNA loading
+wiz.mopt['WISDEM']['n_dlc'] = 1
 wiz.mopt['WISDEM']['Loading'] = wiz.rna_loading # updated after the last optimize call
 
 # Don't need to use the rotor and drivetrain modules now
@@ -121,10 +125,6 @@ wiz.mopt['WISDEM']['RotorSE']['flag'] = False
 wiz.mopt['WISDEM']['DriveSE']['flag'] = False
 wiz.mopt['WISDEM']['TowerSE']['buckling_method'] = 'dnvgl' # Buckling code type [eurocode or dnvgl]
 #wiz.mopt['WISDEM']['TowerSE']['buckling_length'] = 30.0 # Buckling length factor in Eurocode safety check
-
-# Turn off previous optimizations
-wiz.aopt['design_variables']['blade']['structure']['spar_cap_ss']['flag'] = False
-wiz.aopt['design_variables']['blade']['structure']['spar_cap_ps']['flag'] = False
 
 # Turn on tower optimization
 wiz.aopt['merit_figure'] = 'tower_mass'
@@ -148,5 +148,7 @@ wiz.aopt['constraints']['tower']['slope']['flag'] = True
 #wiz.aopt['constraints']['tower']['frequency_1']['flag'] = True
 #wiz.aopt['constraints']['tower']['frequency_1']['lower_bound'] = 0.270 # 10% over 1P cut-out
 
-wiz.optimize('Min tower mass')
+wiz.optimize('Min tower mass', serial=True) # TowerSE alone runs very quickly
 
+
+#wiz.write_postproc_script()
