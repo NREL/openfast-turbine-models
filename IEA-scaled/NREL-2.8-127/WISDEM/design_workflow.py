@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+import numpy as np
 from wisdem_interface import WisdemInterface
 
 # my wisdem-env on NREL Eagle HPC has some quirks...
@@ -132,8 +133,10 @@ wiz.aopt['design_variables']['tower']['outer_diameter']['flag'] = True
 wiz.aopt['design_variables']['tower']['layer_thickness']['flag'] = True
 
 # Add realistic land-based turbine constraints
-wiz.aopt['design_variables']['tower']['outer_diameter']['lower_bound'] = 2.0
-wiz.aopt['design_variables']['tower']['outer_diameter']['upper_bound'] = 4.0
+Dmin = 2.0 # [m]
+Dmax = 4.0 # [m]
+wiz.aopt['design_variables']['tower']['outer_diameter']['lower_bound'] = Dmin
+wiz.aopt['design_variables']['tower']['outer_diameter']['upper_bound'] = Dmax
 wiz.aopt['constraints']['tower']['stress']['flag'] = True
 wiz.aopt['constraints']['tower']['global_buckling']['flag'] = True
 wiz.aopt['constraints']['tower']['shell_buckling']['flag'] = True
@@ -144,11 +147,22 @@ wiz.aopt['constraints']['tower']['taper'] = dict(flag=True,
                                                  lower_bound=0.2)
 wiz.aopt['constraints']['tower']['slope']['flag'] = True
 
-# Additional dynamics constraints
+# Apply additional dynamics constraints
 #wiz.aopt['constraints']['tower']['frequency_1']['flag'] = True
 #wiz.aopt['constraints']['tower']['frequency_1']['lower_bound'] = 0.270 # 10% over 1P cut-out
 
-wiz.optimize('Min tower mass', serial=True) # TowerSE alone runs very quickly
+#wiz.optimize('Min tower mass', serial=True) # TowerSE alone runs very quickly
 
+# Modify initial tower profile
+tower_diam = wiz.get_tower_diameter()
+tower_zpts = wiz.get_tower_zpts()
+tower_grid = (tower_zpts - tower_zpts[0]) / (tower_zpts[-1] - tower_zpts[0])
+scaling = Dmax / tower_diam[0]
+scaled_diam = tower_diam * scaling
+scaled_diam = np.maximum(scaled_diam, Dmin)
+wiz.optimize('Min tower mass', serial=True,
+             override_dict={
+                 'towerse.tower_outer_diameter_in': scaled_diam,
+             })
 
 #wiz.write_postproc_script()
