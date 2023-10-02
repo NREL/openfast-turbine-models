@@ -50,6 +50,7 @@ wiz.aopt['design_variables']['blade']['aero_shape']['chord']['flag'] = True
 wiz.aopt['design_variables']['blade']['aero_shape']['chord']['index_start'] = 2
 wiz.aopt['design_variables']['blade']['aero_shape']['chord']['index_end'] = 7  # exclude the tip
 wiz.aopt['constraints']['blade']['chord']['flag'] = True
+wiz.aopt['constraints']['blade']['chord']['max'] = 4.5
 
 wiz.optimize('Opt twist+chord')
 
@@ -70,10 +71,45 @@ wiz.aopt['design_variables']['blade']['aero_shape']['chord']['flag'] = False
 wiz.aopt['merit_figure'] = 'blade_mass'
 wiz.aopt['design_variables']['blade']['structure']['spar_cap_ss']['flag'] = True
 wiz.aopt['design_variables']['blade']['structure']['spar_cap_ps']['flag'] = True
-wiz.aopt['constraints']['blade']['tip_deflection']['flag'] = True
-wiz.aopt['constraints']['blade']['tip_deflection']['margin'] = 1/0.7 # max tip deflection cannot exceed 70%
 
+# - this does _not_ converge due to tip deflection constraint (blade mass = 12666.5037462894 kg)
+#wiz.aopt['constraints']['blade']['tip_deflection']['flag'] = True
+#wiz.aopt['constraints']['blade']['tip_deflection']['margin'] = 1/0.7 # cannot exceed 70%
+#wiz.optimize('Min blade mass')
+
+# Some tweaks to help with convergence...
+
+# - this converges: blade mass = 13292.1028188629
+#wiz.aopt['design_variables']['blade']['structure']['spar_cap_ss']['max_decrease'] = 0.75
+#wiz.aopt['design_variables']['blade']['structure']['spar_cap_ps']['max_decrease'] = 0.75
+#wiz.optimize('Min blade mass')
+
+# -this converges: blade mass = 13054.2240454714
+wiz.aopt['design_variables']['blade']['structure']['spar_cap_ss']['max_decrease'] = 0.71
+wiz.aopt['design_variables']['blade']['structure']['spar_cap_ps']['max_decrease'] = 0.71
 wiz.optimize('Min blade mass')
+
+# - optimization fails (tol=1e-5), even though trends appear convergent
+#wiz.aopt['design_variables']['blade']['structure']['spar_cap_ss']['max_decrease'] = 0.7
+#wiz.aopt['design_variables']['blade']['structure']['spar_cap_ps']['max_decrease'] = 0.7
+#wiz.optimize('Min blade mass')
+
+# - this does _not_ converge
+#wiz.aopt['design_variables']['blade']['structure']['spar_cap_ss']['max_decrease'] = 0.667
+#wiz.aopt['design_variables']['blade']['structure']['spar_cap_ps']['max_decrease'] = 0.667
+#wiz.optimize('Min blade mass')
+
+# - this converges with a relaxed tip constraint : blade mass = 12798.5043640817
+#wiz.aopt['design_variables']['blade']['structure']['spar_cap_ss']['max_decrease'] = 0.667
+#wiz.aopt['design_variables']['blade']['structure']['spar_cap_ps']['max_decrease'] = 0.667
+#wiz.aopt['constraints']['blade']['tip_deflection']['margin'] = 1/0.75 # max tip deflection cannot exceed 75%
+#wiz.optimize('Min blade mass')
+
+
+# write the postprocessing script at this point because comparing with the
+# tower-optimization output does not work (because RotorSE is turned off)
+wiz.write_postproc_script()
+
 
 # 4. Finally, optimize the tower mass
 #
