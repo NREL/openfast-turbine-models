@@ -9,7 +9,7 @@ The design process involves rescaling an existing reference wind turbine (RWT) t
 
 ### Software Stack
 
-* [WISDEM](https://wisdem.readthedocs.io) -- uses OpenMDAO to optimize a turbine geometry for realistic aeroelastic performance subject to appropriate system constraints; includes numerous submodels, e.g., CCBlade for blade-element momentum theory aerodynamic analysis and pyFrame3DD for structural analysis
+* [WISDEM](https://wisdem.readthedocs.io/en/master/how_wisdem_works.html) -- uses OpenMDAO to optimize a turbine geometry for realistic aeroelastic performance subject to appropriate system constraints; includes numerous submodels, e.g., CCBlade for blade-element momentum theory aerodynamic analysis and pyFrame3DD for structural analysis
 * [WEIS](https://weis.readthedocs.io) -- performs multi-fidelity co-design with a time-domain aeroservo[hydro]elastic solver, OpenFAST, in the loop
 * [OpenFAST](https://openfast.readthedocs.io) -- individual turbine or wind-farm model (FAST.Farm); can simulate steady or turbulent inflow; structural analysis may be performed by ElastoDyn (Euler-Bernoulli beam theory) or BeamDyn (geometrically exact beam theory)
 * [ROSCO](https://rosco.readthedocs.io/) -- reference open-source controller that may be used in OpenFAST (specified as a "Bladed-style DLL" controller in ServoDyn); when compiled, produces a libdiscon.so controller that uses a specified DISCON.IN file
