@@ -1,6 +1,6 @@
 #!/bin/bash
-#SBATCH --account=car
-#SBATCH --time=1:00:00
+#SBATCH --account=awaken
+#SBATCH --time=2:00:00
 #SBATCH --job-name=wisdem_design
 #SBATCH --nodes=1
 #SBATCH --ntasks-per-node=36
