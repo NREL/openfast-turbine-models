@@ -67,7 +67,6 @@ ROSCO:
     zeta_vs: 1.0        # (default) Torque controller desired damping ratio [-]
     omega_vs: 0.2       # (default) Torque controller desired natural frequency [rad/s]
     VS_ControlMode: 2   # (default) TSR-tracking PI w/ constant torque above rated
-
     
 DLC_driver:
     DLCs:

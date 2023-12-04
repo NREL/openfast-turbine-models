@@ -16,11 +16,10 @@ weis-env
 echo "Note: The default mpirun is `which mpirun`"
 echo ''
 
-echo "Started design at `date`"
+echo "Started DLCs at `date`"
 echo ''
 
-echo "Performing controller tuning with nC=${nC}..."
-mpirun -n $nC --bind-to=core python weis_driver.py &> log.weis.dlc1p1
+mpirun -n $nC --bind-to=core python weis_driver.dlc_1p1.py &> log.weis.dlc_1p1
 
-echo "Finished design at `date`"
+echo "Finished DLCs at `date`"
 echo ''
