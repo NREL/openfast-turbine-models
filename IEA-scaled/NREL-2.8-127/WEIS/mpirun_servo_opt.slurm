@@ -1,6 +1,6 @@
 #!/bin/bash
 #SBATCH --account=awaken
-#SBATCH --time=24:00:00
+#SBATCH --time=4:00:00
 #SBATCH --job-name=weis_servo_opt
 #SBATCH --nodes=1
 #SBATCH --mail-user eliot.quon@nrel.gov
@@ -30,6 +30,6 @@ nC=$((nwspds+1))
 echo ''
 echo "Started DLC 1.1 at `date` with $nC cores"
 
-mpirun -n $nC --bind-to=core python weis_driver.dlc_1p1.py &> log.weis.dlc_1p1
+mpirun -n $nC --bind-to=core python weis_driver.dlc1p1.py &> log.weis.dlc1p1
 
 echo "Finished DLC 1.1 at `date`"
