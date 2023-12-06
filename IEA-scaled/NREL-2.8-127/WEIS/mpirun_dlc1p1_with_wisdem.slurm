@@ -19,7 +19,7 @@ echo ''
 echo "Started DLCs at `date`"
 echo ''
 
-mpirun -n $nC --bind-to=core python weis_driver.dlc_1p1.py &> log.weis.dlc_1p1
+mpirun -n $nC --bind-to=core python weis_driver.dlc1p1_with_wisdem.py &> log.weis.dlc_1p1
 
 echo "Finished DLCs at `date`"
 echo ''

@@ -2,12 +2,12 @@ General:
     verbosity: False  # When set to True, the code prints to screen many infos
     openfast_configuration:
       OF_run_fst: NREL-2p8-127 # Name of the OpenFAST output files
-      OF_run_dir: outputs/servo_opt # Path to folder with the OpenFAST output files
+      OF_run_dir: outputs/DLC1p1 # Path to folder with the OpenFAST output files
       use_exe: True
 
 WISDEM:
     RotorSE:
-        flag: True
+        flag: False
         spar_cap_ss: Spar_cap_SS
         spar_cap_ps: Spar_cap_PS
         te_ss: TE_reinforcement_SS
@@ -17,14 +17,17 @@ WISDEM:
         peak_thrust_shaving: True
         thrust_shaving_coeff: 0.72 # TODO: should match WISDEM modeling options
     TowerSE:
-        flag: True
+        flag: False
     DriveSE:
-        flag: True
+        flag: False
     FloatingSE:
         flag: False
 
 Level3: # Options for WEIS fidelity level 3 = nonlinear time domain
     flag: True
+    from_openfast: True # ignore WISDEM, use model generated during servo opt
+    openfast_file: OF_run_fst_0
+    openfast_dir: working_dir/outputs/servo_opt/rank_0
     simulation:
         DT: 0.01
         CompElast: 1
@@ -58,20 +61,26 @@ Level3: # Options for WEIS fidelity level 3 = nonlinear time domain
 
 ROSCO:
     flag: True
+    tuning_yaml: /path/to/NREL2p8_tuning.yaml # TODO: required if from_openfast=True
     SD_Mode: 0          # (default) turn off shutdown
     PS_Mode: 1          # pitch saturation: peak shaving
     ps_percent: 0.72    # TODO: peak shaving should match WISDEM modeling options
-    U_pc: [12.]         # (default) List of wind speeds to schedule pitch control zeta and omega
-    zeta_pc: [1.0]      # (default) List of pitch controller desired damping ratio at U_pc [-]
-    omega_pc: [0.2]     # (default) List of pitch controller desired natural frequency at U_pc [rad/s]
+    U_pc: [12.]         # List of wind speeds to schedule pitch control zeta and omega -- TODO: should match servo_opt
+    zeta_pc: [1.0]      # (default) List of pitch controller desired damping ratio at U_pc [-] -- TODO: should match servo_opt result
+    omega_pc: [0.2]     # (default) List of pitch controller desired natural frequency at U_pc [rad/s] -- TODO: should match servo_opt result
     zeta_vs: 1.0        # (default) Torque controller desired damping ratio [-]
     omega_vs: 0.2       # (default) Torque controller desired natural frequency [rad/s]
     VS_ControlMode: 2   # (default) TSR-tracking PI w/ constant torque above rated
+    IPC_ControlMode: 0  # (default) Turn Individual Pitch Control (IPC) for fatigue load reductions (pitch contribution) (0- off, 1- 1P reductions, 2- 1P+2P reduction)
     
 DLC_driver:
     DLCs:
+        #
+        # Currently supported IEC 1.1, 1.3, 1.4, 1.5, 5.1, 6.1, 6.3, or define a Custom one
+        #
         - DLC: "1.1"
-          wind_speed: [16]
+          #ws_bin_size: 2
+          wind_speed: [3,5,7,9,11,13,15,17,19,21]
+          #Seeds: [42, 88, 123, 456, 567, 789]
           n_seeds: 6
-          analysis_time: 600.
-          transient_time: 120.
+
