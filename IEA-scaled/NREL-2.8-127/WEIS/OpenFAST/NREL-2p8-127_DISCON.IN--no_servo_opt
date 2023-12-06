@@ -1,5 +1,5 @@
 ! Controller parameter input file for the WEIS Turbine wind turbine
-!    - File written using ROSCO version 2.6.0 controller tuning logic on 12/05/23
+!    - File written using ROSCO version 2.6.0 controller tuning logic on 12/04/23
 
 !------- DEBUG ------------------------------------------------------------
 1                   ! LoggingLevel		- {0: write no debug files, 1: write standard output .dbg-file, 2: LoggingLevel 1 + ROSCO LocalVars (.dbg2) 3: LoggingLevel 2 + complete avrSWAP-array (.dbg3)}
@@ -38,8 +38,8 @@
 !------- BLADE PITCH CONTROL ----------------------------------------------
 30                  ! PC_GS_n			- Amount of gain-scheduling table entries
 0.059917  0.088372  0.111069  0.130187  0.147532  0.163756  0.178834  0.193168  0.206785  0.219550  0.232516  0.244617  0.256554  0.268323  0.279355  0.290420  0.301340  0.311793  0.322265  0.332665  0.342631  0.352626  0.362645  0.372193  0.381760  0.391333  0.400573  0.409643  0.418773  0.427943                ! PC_GS_angles	    - Gain-schedule table: pitch angles [rad].
--0.010307  -0.008909  -0.007769  -0.006822  -0.006021  -0.005337  -0.004744  -0.004226  -0.003770  -0.003364  -0.003002  -0.002676  -0.002382  -0.002114  -0.001870  -0.001646  -0.001440  -0.001250  -0.001075  -0.000911  -0.000760  -0.000618  -0.000486  -0.000361  -0.000245  -0.000135  -0.000032  0.000066  0.000158  0.000246                ! PC_GS_KP		- Gain-schedule table: pitch controller kp gains [s].
--0.000951  -0.000854  -0.000775  -0.000710  -0.000655  -0.000608  -0.000567  -0.000531  -0.000499  -0.000472  -0.000447  -0.000424  -0.000404  -0.000385  -0.000368  -0.000353  -0.000339  -0.000326  -0.000314  -0.000302  -0.000292  -0.000282  -0.000273  -0.000264  -0.000256  -0.000249  -0.000242  -0.000235  -0.000228  -0.000222                ! PC_GS_KI		- Gain-schedule table: pitch controller ki gains [-].
+-0.008477  -0.007266  -0.006277  -0.005455  -0.004761  -0.004167  -0.003653  -0.003204  -0.002808  -0.002457  -0.002143  -0.001860  -0.001605  -0.001372  -0.001161  -0.000967  -0.000788  -0.000623  -0.000471  -0.000330  -0.000198  -0.000075  0.000040  0.000147  0.000248  0.000344  0.000433  0.000518  0.000598  0.000674                ! PC_GS_KP		- Gain-schedule table: pitch controller kp gains [s].
+-0.001770  -0.001590  -0.001444  -0.001322  -0.001219  -0.001131  -0.001055  -0.000989  -0.000930  -0.000878  -0.000831  -0.000790  -0.000752  -0.000717  -0.000686  -0.000657  -0.000631  -0.000606  -0.000584  -0.000563  -0.000543  -0.000525  -0.000508  -0.000492  -0.000477  -0.000463  -0.000450  -0.000437  -0.000425  -0.000414                ! PC_GS_KI		- Gain-schedule table: pitch controller ki gains [-].
 0.000000  0.000000  0.000000  0.000000  0.000000  0.000000  0.000000  0.000000  0.000000  0.000000  0.000000  0.000000  0.000000  0.000000  0.000000  0.000000  0.000000  0.000000  0.000000  0.000000  0.000000  0.000000  0.000000  0.000000  0.000000  0.000000  0.000000  0.000000  0.000000  0.000000                ! PC_GS_KD			- Gain-schedule table: pitch controller kd gains
 0.000000  0.000000  0.000000  0.000000  0.000000  0.000000  0.000000  0.000000  0.000000  0.000000  0.000000  0.000000  0.000000  0.000000  0.000000  0.000000  0.000000  0.000000  0.000000  0.000000  0.000000  0.000000  0.000000  0.000000  0.000000  0.000000  0.000000  0.000000  0.000000  0.000000                ! PC_GS_TF			- Gain-schedule table: pitch controller tf gains (derivative filter)
 1.570000000000      ! PC_MaxPit			- Maximum physical pitch limit, [rad].
@@ -86,7 +86,7 @@
 97.0                ! WE_GearboxRatio	- Gearbox ratio [>=1],  [-]
 21628871.80433       ! WE_Jtot			- Total drivetrain inertia, including blades, hub and casted generator inertia to LSS, [kg m^2]
 1.225               ! WE_RhoAir			- Air density, [kg m^-3]
-"NREL-2p8-127_0_Cp_Ct_Cq.txt"      ! PerfFileName      - File containing rotor performance tables (Cp,Ct,Cq) (absolute path or relative to this file)
+"NREL-2p8-127_Cp_Ct_Cq.txt"      ! PerfFileName      - File containing rotor performance tables (Cp,Ct,Cq) (absolute path or relative to this file)
 20      20          ! PerfTableSize     - Size of rotor performance tables, first number refers to number of blade pitch angles, second number referse to number of tip-speed ratios
 60                  ! WE_FOPoles_N      - Number of first-order system poles used in EKF
 3.0000 3.2414 3.4828 3.7241 3.9655 4.2069 4.4483 4.6897 4.9310 5.1724 5.4138 5.6552 5.8966 6.1379 6.3793 6.6207 6.8621 7.1034 7.3448 7.5862 7.8276 8.0690 8.3103 8.5517 8.7931 9.0345 9.2759 9.5172 9.7586 10.0000 10.5000 11.0000 11.5000 12.0000 12.5000 13.0000 13.5000 14.0000 14.5000 15.0000 15.5000 16.0000 16.5000 17.0000 17.5000 18.0000 18.5000 19.0000 19.5000 20.0000 20.5000 21.0000 21.5000 22.0000 22.5000 23.0000 23.5000 24.0000 24.5000 25.0000               ! WE_FOPoles_v      - Wind speeds corresponding to first-order system poles [m/s]
