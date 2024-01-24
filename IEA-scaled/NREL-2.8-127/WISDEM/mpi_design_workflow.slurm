@@ -18,6 +18,7 @@ echo ''
 
 python design_workflow.py
 
+echo ''
 echo "Finished design at `date`"
 echo ''
 
