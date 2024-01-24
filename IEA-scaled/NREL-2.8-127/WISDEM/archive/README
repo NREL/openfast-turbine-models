@@ -1,0 +1,9 @@
+# starting from the most recent IEA geom (commit c036f783b160604b133a2e4b7317320fde055743 from
+# https://github.com/IEAWindTask37/IEA-3.4-130-RWT)
+vimdiff NREL-2.8-127.start.yaml--based_on_RWT_from_IEA_c036f78 \
+        /projects/awaken/equon/IEA-3.4-130-RWT/yaml/IEA-3.4-130-RWT.yaml
+
+# starting from the same RWT geometry as the legacy model (commit
+# cfce0319f1175b993f1f6dc185b8bcd0775b39e6 from https://github.com/wisdem/weis)
+vimdiff NREL-2.8-127.start.yaml--based_on_RWT_from_WEISv1.1_cfce031 \
+        ../../../legacy_models/IEA-3p4-130-RWT.yaml
