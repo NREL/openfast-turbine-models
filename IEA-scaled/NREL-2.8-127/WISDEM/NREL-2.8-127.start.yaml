@@ -671,9 +671,9 @@ control:
         min_pitch: 0.
     torque:
         control_type: tsr_tracking
-        tsr: 8.0 # estimated
+        tsr: 9.75 # estimated from Bortolotti et al 2020 J Phys Conf Ser
         max_torque_rate: 1500000.
-        VS_minspd: 0.6806784083 # == 6.5 RPM, estimated
+        VS_minspd: 0.7853981634 # == 7.5 RPM, estimated from Brown et al 2023 Wind Energ Sci
         VS_maxspd: 1.3858267717 # 1.1*(maxTS/(rotor_diameter/2))
         VS_zeta: 1.0
         VS_omega: 0.2
