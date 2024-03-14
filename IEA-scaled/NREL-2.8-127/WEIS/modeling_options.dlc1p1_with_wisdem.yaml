@@ -60,7 +60,7 @@ ROSCO:
     flag: True
     SD_Mode: 0          # (default) turn off shutdown
     PS_Mode: 1          # pitch saturation: peak shaving
-    ps_percent: 0.8     # TODO: peak shaving should match WISDEM modeling options
+    ps_percent: 0.85    # TODO: peak shaving should match WISDEM modeling options
     U_pc: [12.]         # (default) List of wind speeds to schedule pitch control zeta and omega
     zeta_pc: [1.0]      # (default) List of pitch controller desired damping ratio at U_pc [-]
     omega_pc: [0.2]     # (default) List of pitch controller desired natural frequency at U_pc [rad/s]

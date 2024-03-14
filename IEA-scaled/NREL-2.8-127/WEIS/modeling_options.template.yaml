@@ -64,7 +64,7 @@ ROSCO:
     tuning_yaml: /path/to/NREL2p8_tuning.yaml # TODO: required if from_openfast=True
     SD_Mode: 0          # (default) turn off shutdown
     PS_Mode: 1          # pitch saturation: peak shaving
-    ps_percent: 0.8     # TODO: peak shaving should match WISDEM modeling options
+    ps_percent: 0.85    # TODO: peak shaving should match WISDEM modeling options
     U_pc: [12.]         # List of wind speeds to schedule pitch control zeta and omega -- TODO: should match servo_opt
     zeta_pc: [1.0]      # (default) List of pitch controller desired damping ratio at U_pc [-] -- TODO: should match servo_opt result
     omega_pc: [0.2]     # (default) List of pitch controller desired natural frequency at U_pc [rad/s] -- TODO: should match servo_opt result

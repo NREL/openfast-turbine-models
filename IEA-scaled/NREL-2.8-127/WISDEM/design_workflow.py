@@ -21,7 +21,7 @@ wiz = WisdemInterface(
 
 # Baseline model options
 wiz.mopt['WISDEM']['RotorSE']['peak_thrust_shaving'] = True
-wiz.mopt['WISDEM']['RotorSE']['thrust_shaving_coeff'] = 0.80
+wiz.mopt['WISDEM']['RotorSE']['thrust_shaving_coeff'] = 0.85
 
 
 #===============================================================================
