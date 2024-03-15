@@ -1,15 +1,14 @@
 name: NREL-2.8-127
-description: based on WEIS/examples/05_IEA-3.4-130-RWT/IEA-3p4-130-RWT.yaml version from 2022-07-27 (commit 2c30dff)
- 
+description: based on WEIS/examples/05_IEA-3.4-130-RWT/IEA-3p4-130-RWT.yaml version from 2024-03-06 (commit 5076e9d)
 assembly:
     turbine_class: III
     turbulence_class: A
     drivetrain: Geared
     rotor_orientation: Upwind
     number_of_blades: 3
-    hub_height: 88.5
+    hub_height: 89.
     rotor_diameter: 127.
-    rated_power: 2.8e+6
+    rated_power: 2.82e+6
 components:
     blade:
         outer_shape_bem:
@@ -289,8 +288,8 @@ components:
             diameter: 3.0
             uptilt: 0.08726 # 5 deg
             distance_tt_hub: 2.
-            distance_hub2mb: 1.912
-            distance_mb2mb: 0.368
+            distance_hub_mb: 1.912
+            distance_mb_mb: 0.368
             overhang: 5.
             lss_diameter: [0.577, 0.577]
             lss_wall_thickness: [0.288, 0.288]
@@ -624,8 +623,8 @@ materials:
       unit_cost: 13.
       component_id: 1
    -  name: adhesive
-      description: Adhesive from ...
-      source: Material coming from ...
+      description: Sample adhesive
+      source: https://www.nrel.gov/docs/fy19osti/73585.pdf
       orth: 0
       rho: 1100
       E: 4.56e+006
@@ -635,6 +634,7 @@ materials:
       Xc: 0.4e+006
       S: 0.31e+006
       G: 1520000.0
+      unit_cost: 9.0
    -  name: resin
       description: epoxy
       E: 1.e+6
@@ -660,29 +660,18 @@ control:
     supervisory:
         Vin: 3.0
         Vout: 25.0
-        maxTS: 80.
-        rated_power: 2.8e+6
+        maxTS: 90.
     pitch:
-        PC_zeta: 1.0
-        PC_omega: 0.2
-        ps_percent: 0.8
+        ps_percent: 0.7
         max_pitch: 1.57
         max_pitch_rate: 0.12217304763960307 # 7 deg/s
         min_pitch: 0.
     torque:
         control_type: tsr_tracking
-        tsr: 9.75 # estimated from Bortolotti et al 2020 J Phys Conf Ser
+        tsr: 10.0
         max_torque_rate: 1500000.
-        VS_minspd: 0.7853981634 # == 7.5 RPM, estimated from Brown et al 2023 Wind Energ Sci
-        VS_maxspd: 1.3858267717 # 1.1*(maxTS/(rotor_diameter/2))
-        VS_zeta: 1.0
-        VS_omega: 0.2
-    setpoint_smooth:
-        ss_vsgain: 1
-        ss_pcgain: .001
-    shutdown:
-        limit_type: gen_speed
-        limit_value: 2.0
+        VS_minspd: 0.7330382858376184 # == 7.0 RPM, estimated from Brown et al 2023 Wind Energ Sci
+        VS_maxspd: 1.4173228346456692 # == maxTS/(rotor_diameter/2) = 13.5 RPM
 environment:
     air_density: 1.225
     air_dyn_viscosity: 1.81e-5

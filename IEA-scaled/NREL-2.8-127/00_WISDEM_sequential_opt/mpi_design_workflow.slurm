@@ -1,9 +1,8 @@
 #!/bin/bash
 #SBATCH --account=awaken
-#SBATCH --time=2:00:00
+#SBATCH --time=4:00:00
 #SBATCH --job-name=wisdem_design
 #SBATCH --nodes=1
-#SBATCH --ntasks-per-node=36
 #SBATCH --mail-user eliot.quon@nrel.gov
 #SBATCH --mail-type BEGIN,END,FAIL
 
@@ -23,3 +22,4 @@ echo "Finished design at `date`"
 echo ''
 
 sh compare_NREL-2.8-127_designs.sh
+mv outputs figures

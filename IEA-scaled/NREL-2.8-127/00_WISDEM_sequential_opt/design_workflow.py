@@ -21,7 +21,7 @@ wiz = WisdemInterface(
 
 # Baseline model options
 wiz.mopt['WISDEM']['RotorSE']['peak_thrust_shaving'] = True
-wiz.mopt['WISDEM']['RotorSE']['thrust_shaving_coeff'] = 0.85
+wiz.mopt['WISDEM']['RotorSE']['thrust_shaving_coeff'] = 0.70
 
 
 #===============================================================================
@@ -34,12 +34,16 @@ wiz.mopt['WISDEM']['RotorSE']['thrust_shaving_coeff'] = 0.85
 #
 #wiz.aopt['merit_figure'] = 'AEP'
 wiz.aopt['merit_figure'] = 'Cp'  # optimize for aerodynamic performance
-wiz.aopt['design_variables']['blade']['aero_shape']['twist']['flag'] = True
-wiz.aopt['design_variables']['blade']['aero_shape']['twist']['index_start'] = 2
-#wiz.aopt['design_variables']['blade']['aero_shape']['twist']['index_end'] = 7  # excluding the tip hurts convergence
-wiz.aopt['design_variables']['blade']['aero_shape']['twist']['index_end'] = 8  # allow tip twist to change
-wiz.aopt['constraints']['blade']['stall']['flag'] = True
-wiz.aopt['constraints']['blade']['stall']['margin'] = 0.05235987756  # [rad] == 3 deg
+
+twistDV = wiz.aopt['design_variables']['blade']['aero_shape']['twist']
+twistDV['flag'] = True
+twistDV['index_start'] = 2
+#twistDV['index_end'] = 7  # excluding the tip seems to hurt convergence
+twistDV['index_end'] = 8  # allow tip twist to change
+
+blade_constraint = wiz.aopt['constraints']['blade']
+blade_constraint['stall']['flag'] = True
+blade_constraint['stall']['margin'] = 0.05235987756  # [rad] == 3 deg
 
 wiz.optimize('Opt twist')
 
@@ -47,11 +51,17 @@ wiz.optimize('Opt twist')
 # 2. Add chord optimization with max-chord constraint (note: n_opt=8 control pts)
 #    Don't change the shape near the root
 #
-wiz.aopt['design_variables']['blade']['aero_shape']['chord']['flag'] = True
-wiz.aopt['design_variables']['blade']['aero_shape']['chord']['index_start'] = 2
-wiz.aopt['design_variables']['blade']['aero_shape']['chord']['index_end'] = 7  # exclude the tip
-wiz.aopt['constraints']['blade']['chord']['flag'] = True
-wiz.aopt['constraints']['blade']['chord']['max'] = 4.5
+chordDV = wiz.aopt['design_variables']['blade']['aero_shape']['chord']
+chordDV['flag'] = True
+chordDV['index_start'] = 2
+chordDV['index_end'] = 7  # exclude the tip
+
+blade_constraint['chord']['flag'] = True
+blade_constraint['chord']['max'] = 4.5
+
+# penalize outboard loading to get a more realistic chord distribution
+blade_constraint['moment_coefficient']['flag'] = True
+blade_constraint['moment_coefficient']['max'] = 0.16
 
 wiz.optimize('Opt twist+chord')
 
@@ -63,48 +73,47 @@ wiz.optimize('Opt twist+chord')
 #
 # 3. Switch to structural optimization, with blade mass as the figure of merit
 #
-# Turn off previous optimizations
-wiz.aopt['design_variables']['blade']['aero_shape']['twist']['flag'] = False
-wiz.aopt['design_variables']['blade']['aero_shape']['chord']['flag'] = False
+wiz.reset() # Turn off all previous optimizations/constraints
+blade_constraint = wiz.aopt['constraints']['blade'] # Need to set this again after reset
+
+wiz.aopt['merit_figure'] = 'blade_mass'
 
 # Turn on spar cap thickness optimization for both the suction and pressure
 # sides, constrained by tip deflection
-wiz.aopt['merit_figure'] = 'blade_mass'
-wiz.aopt['design_variables']['blade']['structure']['spar_cap_ss']['flag'] = True
-wiz.aopt['design_variables']['blade']['structure']['spar_cap_ps']['flag'] = True
+spar_cap_ss = wiz.add_blade_struct_dv('Spar_Cap_SS')
+spar_cap_ps = wiz.add_blade_struct_dv('Spar_Cap_PS')
 
-# - this does _not_ converge due to tip deflection constraint (blade mass = 12666.5037462894 kg)
-#wiz.aopt['constraints']['blade']['tip_deflection']['flag'] = True
-#wiz.aopt['constraints']['blade']['tip_deflection']['margin'] = 1/0.7 # cannot exceed 70%
-#wiz.optimize('Min blade mass')
+blade_constraint['tip_deflection']['flag'] = True
+blade_constraint['tip_deflection']['margin'] = 1/0.7 # cannot exceed 70% (default)
 
-# Some tweaks to help with convergence...
-
-# - this converges: blade mass = 13292.1028188629
-#wiz.aopt['design_variables']['blade']['structure']['spar_cap_ss']['max_decrease'] = 0.75
-#wiz.aopt['design_variables']['blade']['structure']['spar_cap_ps']['max_decrease'] = 0.75
-#wiz.optimize('Min blade mass')
-
-# -this converges: blade mass = 13054.2240454714
-wiz.aopt['design_variables']['blade']['structure']['spar_cap_ss']['max_decrease'] = 0.71
-wiz.aopt['design_variables']['blade']['structure']['spar_cap_ps']['max_decrease'] = 0.71
 wiz.optimize('Min blade mass')
 
-# - optimization fails (tol=1e-5), even though trends appear convergent
-#wiz.aopt['design_variables']['blade']['structure']['spar_cap_ss']['max_decrease'] = 0.7
-#wiz.aopt['design_variables']['blade']['structure']['spar_cap_ps']['max_decrease'] = 0.7
-#wiz.optimize('Min blade mass')
 
-# - this does _not_ converge
-#wiz.aopt['design_variables']['blade']['structure']['spar_cap_ss']['max_decrease'] = 0.667
-#wiz.aopt['design_variables']['blade']['structure']['spar_cap_ps']['max_decrease'] = 0.667
-#wiz.optimize('Min blade mass')
-
-# - this converges with a relaxed tip constraint : blade mass = 12798.5043640817
-#wiz.aopt['design_variables']['blade']['structure']['spar_cap_ss']['max_decrease'] = 0.667
-#wiz.aopt['design_variables']['blade']['structure']['spar_cap_ps']['max_decrease'] = 0.667
-#wiz.aopt['constraints']['blade']['tip_deflection']['margin'] = 1/0.75 # max tip deflection cannot exceed 75%
-#wiz.optimize('Min blade mass')
+# #
+# # 4. Add additional constraints for 3P separation
+# #
+# # Note: 3P freq: 0.675 Hz
+# blade_constraint['frequency']['first_flap']['flag'] = True
+# blade_constraint['frequency']['first_flap']['target'] = 0.6075 # 10% margin
+# blade_constraint['frequency']['first_flap']['acceptable_error'] = 0.03375 # 5% of 3P
+# blade_constraint['frequency']['first_edge']['flag'] = True
+# blade_constraint['frequency']['first_edge']['target'] = 0.7425 # 10% margin
+# blade_constraint['frequency']['first_edge']['acceptable_error'] = 0.03375 # 5% of 3P
+# blade_constraint['strains_spar_cap_ss']['flag'] = True
+# blade_constraint['strains_spar_cap_ps']['flag'] = True
+# blade_constraint['strains_te_ss']['flag'] = True
+# blade_constraint['strains_te_ps']['flag'] = True
+# 
+# # ... and degrees of freedom to make that achievable
+# max_change = dict(max_decrease=0.2, max_increase=5.0) # default multiplicative factor: 0.5, 1.5
+# shell_skin  = wiz.add_blade_struct_dv('Shell_skin',         index_start=3,index_end=8,**max_change)
+# LE_reinf    = wiz.add_blade_struct_dv('LE_reinf',           index_start=1,index_end=7,**max_change)
+# TE_reinf_ss = wiz.add_blade_struct_dv('TE_reinforcement_SS',index_start=1,index_end=7,**max_change)
+# TE_reinf_ps = wiz.add_blade_struct_dv('TE_reinforcement_PS',index_start=1,index_end=7,**max_change)
+# spar_cap_ss['index_start'] = 1; spar_cap_ss['index_end'] = 7 # for manufacturability
+# spar_cap_ps['index_start'] = 1; spar_cap_ps['index_end'] = 7 # for manufacturability
+# 
+# wiz.optimize('Min blade mass, target freq')
 
 
 # write the postprocessing script at this point because comparing with the
@@ -112,57 +121,3 @@ wiz.optimize('Min blade mass')
 wiz.write_postproc_script()
 
 
-# 4. Finally, optimize the tower mass
-#
-# Turn off previous optimizations/constraints
-wiz.reset()
-
-# Apply previous RNA loading
-wiz.mopt['WISDEM']['n_dlc'] = 1
-wiz.mopt['WISDEM']['Loading'] = wiz.rna_loading # updated after the last optimize call
-
-# Don't need to use the rotor and drivetrain modules now
-wiz.mopt['WISDEM']['RotorSE']['flag'] = False
-wiz.mopt['WISDEM']['DriveSE']['flag'] = False
-wiz.mopt['WISDEM']['TowerSE']['buckling_method'] = 'dnvgl' # Buckling code type [eurocode or dnvgl]
-#wiz.mopt['WISDEM']['TowerSE']['buckling_length'] = 30.0 # Buckling length factor in Eurocode safety check
-
-# Turn on tower optimization
-wiz.aopt['merit_figure'] = 'tower_mass'
-wiz.aopt['design_variables']['tower']['outer_diameter']['flag'] = True
-wiz.aopt['design_variables']['tower']['layer_thickness']['flag'] = True
-
-# Add realistic land-based turbine constraints
-Dmin = 2.0 # [m]
-Dmax = 4.0 # [m]
-wiz.aopt['design_variables']['tower']['outer_diameter']['lower_bound'] = Dmin
-wiz.aopt['design_variables']['tower']['outer_diameter']['upper_bound'] = Dmax
-wiz.aopt['constraints']['tower']['stress']['flag'] = True
-wiz.aopt['constraints']['tower']['global_buckling']['flag'] = True
-wiz.aopt['constraints']['tower']['shell_buckling']['flag'] = True
-wiz.aopt['constraints']['tower']['d_to_t'] = dict(flag=True,
-                                                  lower_bound=80.0,
-                                                  upper_bound=500.0)
-wiz.aopt['constraints']['tower']['taper'] = dict(flag=True,
-                                                 lower_bound=0.2)
-wiz.aopt['constraints']['tower']['slope']['flag'] = True
-
-# Apply additional dynamics constraints
-#wiz.aopt['constraints']['tower']['frequency_1']['flag'] = True
-#wiz.aopt['constraints']['tower']['frequency_1']['lower_bound'] = 0.270 # 10% over 1P cut-out
-
-#wiz.optimize('Min tower mass', serial=True) # TowerSE alone runs very quickly
-
-# Modify initial tower profile
-tower_diam = wiz.get_tower_diameter()
-tower_zpts = wiz.get_tower_zpts()
-tower_grid = (tower_zpts - tower_zpts[0]) / (tower_zpts[-1] - tower_zpts[0])
-scaling = Dmax / tower_diam[0]
-scaled_diam = tower_diam * scaling
-scaled_diam = np.maximum(scaled_diam, Dmin)
-wiz.optimize('Min tower mass', serial=True,
-             override_dict={
-                 'towerse.tower_outer_diameter_in': scaled_diam,
-             })
-
-#wiz.write_postproc_script()
