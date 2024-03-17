@@ -469,7 +469,7 @@ components:
                     values: [0.0, 10.8, 21.61, 32.41, 43.22, 54.02, 64.82, 75.63, 86.43, 97.23, 108.0]
             outer_diameter:
                 grid: [0.0, 0.1, 0.20009259259259257, 0.3000925925925926, 0.40018518518518514, 0.5001851851851852, 0.6001851851851852, 0.7002777777777778, 0.8002777777777779, 0.9002777777777778, 1.0]
-                values: [3.999999999999999, 4.0, 3.8898710796472535, 3.7826608176740706, 3.544279386250297, 3.2884110838051384, 3.0382667849792133, 2.7393578446344726, 2.4917581455483018, 2.1753094608191685, 2.0]
+                values: [4.0, 3.999999999999999, 3.999999999999999, 4.0, 4.0, 4.0, 4.0, 3.9471453659082694, 3.510962729313252, 2.951717675794445, 2.2499443404736166]
             drag_coefficient:
                 grid: [0.0, 1.0]
                 values: [0.5, 0.5]
@@ -481,7 +481,7 @@ components:
                   material: steel
                   thickness:
                       grid: [0.0, 0.1, 0.20009259259259257, 0.3000925925925926, 0.40018518518518514, 0.5001851851851852, 0.6001851851851852, 0.7002777777777778, 0.8002777777777779, 0.9002777777777778, 1.0]
-                      values: [0.028784786935503123, 0.021817508396879896, 0.024260869687246504, 0.019361031426261673, 0.021888797614085003, 0.019269320523171905, 0.021696139045495836, 0.018548738151184335, 0.021149753031015846, 0.015861578226664345, 0.01922586043988549]
+                      values: [0.03522201036910245, 0.027238005395256587, 0.02887531188537649, 0.022854696056000132, 0.020699024885724032, 0.016699144132572407, 0.014801221832777165, 0.01068578158248611, 0.011115136590637642, 0.008802094210490845, 0.017727755539324014]
 airfoils:
    -  name: DU08-W-210
       coordinates:
@@ -684,4 +684,4 @@ control:
     torque: {control_type: tsr_tracking, tsr: 10.0, max_torque_rate: 1500000.0, VS_minspd: 0.7330382858376184, VS_maxspd: 1.413716694115407}
 environment: {air_density: 1.225, air_dyn_viscosity: 1.81e-05, weib_shape_parameter: 2.0, air_speed_sound: 340.0, shear_exp: 0.2, water_density: 1025.0, water_dyn_viscosity: 0.0013351, soil_shear_modulus: 140000000.0, soil_poisson: 0.4, gravity: 9.80665, air_pressure: 103500.0, air_vapor_pressure: 1700.0, water_depth: 0.0, V_mean: 0.0}
 bos: {plant_turbine_spacing: 7, plant_row_spacing: 7, commissioning_pct: 0.01, decommissioning_pct: 0.15, distance_to_substation: 50.0, distance_to_interconnection: 8.0, interconnect_voltage: 130, distance_to_landfall: 100, distance_to_site: 100, port_cost_per_month: 2000000.0, site_auction_price: 0.0, site_assessment_plan_cost: 0.0, site_assessment_cost: 0.0, construction_operations_plan_cost: 0.0, boem_review_cost: 0.0, design_install_plan_cost: 0.0}
-costs: {wake_loss_factor: 0.15, fixed_charge_rate: 0.075, bos_per_kW: 459.0, opex_per_kW: 44.0, turbine_number: 178.0, labor_rate: 58.8, painting_rate: 30.0, blade_mass_cost_coeff: 11.168384708557605, hub_mass_cost_coeff: 3.8999999999999995, pitch_system_mass_cost_coeff: 22.1, spinner_mass_cost_coeff: 11.1, lss_mass_cost_coeff: 11.9, bearing_mass_cost_coeff: 4.5, gearbox_mass_cost_coeff: 12.9, hss_mass_cost_coeff: 6.8, generator_mass_cost_coeff: 2.9611326240371096, bedplate_mass_cost_coeff: 2.9, yaw_mass_cost_coeff: 8.3, converter_mass_cost_coeff: 18.8, transformer_mass_cost_coeff: 18.8, hvac_mass_cost_coeff: 123.99999999999999, cover_mass_cost_coeff: 5.7, elec_connec_machine_rating_cost_coeff: 41.85, platforms_mass_cost_coeff: 17.1, tower_mass_cost_coeff: 2.178362440274557, controls_machine_rating_cost_coeff: 21.15, crane_cost: 12000.0, gearbox_torque_cost: 49.999999999999986, electricity_price: 0.04, reserve_margin_price: 120.0, capacity_credit: 0.0, benchmark_price: 0.071}
+costs: {wake_loss_factor: 0.15, fixed_charge_rate: 0.075, bos_per_kW: 459.0, opex_per_kW: 44.0, turbine_number: 178.0, labor_rate: 58.8, painting_rate: 30.0, blade_mass_cost_coeff: 11.168384708557605, hub_mass_cost_coeff: 3.8999999999999995, pitch_system_mass_cost_coeff: 22.1, spinner_mass_cost_coeff: 11.1, lss_mass_cost_coeff: 11.9, bearing_mass_cost_coeff: 4.5, gearbox_mass_cost_coeff: 12.9, hss_mass_cost_coeff: 6.8, generator_mass_cost_coeff: 2.9611326240371096, bedplate_mass_cost_coeff: 2.9, yaw_mass_cost_coeff: 8.3, converter_mass_cost_coeff: 18.8, transformer_mass_cost_coeff: 18.8, hvac_mass_cost_coeff: 123.99999999999999, cover_mass_cost_coeff: 5.7, elec_connec_machine_rating_cost_coeff: 41.85, platforms_mass_cost_coeff: 17.1, tower_mass_cost_coeff: 2.222862658372276, controls_machine_rating_cost_coeff: 21.15, crane_cost: 12000.0, gearbox_torque_cost: 49.999999999999986, electricity_price: 0.04, reserve_margin_price: 120.0, capacity_credit: 0.0, benchmark_price: 0.071}
