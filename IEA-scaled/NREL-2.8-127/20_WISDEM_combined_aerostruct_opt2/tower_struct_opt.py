@@ -1,14 +1,23 @@
 import os
+import glob
 from wisdem import run_wisdem
 from wisdem_interface.helpers import generate_tower_modeling_yaml
 
+# grab latest blade optimization output dir
+outdirs = sorted(glob.glob('aerostruct.?'))
+assert len(outdirs) > 0
+last_opt_dir = outdirs[-1]
+print('Last blade optimization found:',last_opt_dir)
+
+# set input files
 mydir = os.path.dirname(os.path.realpath(__file__))  # get path to this file
-fname_wt_input         = os.path.join(mydir, "aerostruct.1/NREL-2.8-127.yaml")
+fname_wt_input         = os.path.join(mydir, f"{last_opt_dir}/NREL-2.8-127.yaml")
 fname_modeling_options = os.path.join(mydir, "modeling_options.tower.yaml")
 fname_analysis_options = os.path.join(mydir, "analysis_options.tower.yaml")
 
 # extract loading from blade optimization
-generate_tower_modeling_yaml('aerostruct.1/NREL-2.pkl', fname_modeling_options)
+# note: there's an output bug so the pkl filename is truncated
+generate_tower_modeling_yaml(f'{last_opt_dir}/NREL-2.pkl', fname_modeling_options)
 
 # scaled from the IEA-3.4 RWT
 scaled_tower_diam = [
