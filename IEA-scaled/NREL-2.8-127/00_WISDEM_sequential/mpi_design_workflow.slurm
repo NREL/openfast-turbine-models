@@ -2,7 +2,7 @@
 #SBATCH --account=awaken
 #SBATCH --time=4:00:00
 #SBATCH --job-name=wisdem_design
-#SBATCH --nodes=1
+#SBATCH --ntasks=36
 #SBATCH --mail-user eliot.quon@nrel.gov
 #SBATCH --mail-type BEGIN,END,FAIL
 

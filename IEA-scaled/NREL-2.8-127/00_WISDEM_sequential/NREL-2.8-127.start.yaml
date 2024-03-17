@@ -662,7 +662,7 @@ control:
         Vout: 25.0
         maxTS: 90.
     pitch:
-        ps_percent: 0.7
+        ps_percent: 0.77
         max_pitch: 1.57
         max_pitch_rate: 0.12217304763960307 # 7 deg/s
         min_pitch: 0.
@@ -671,7 +671,7 @@ control:
         tsr: 10.0
         max_torque_rate: 1500000.
         VS_minspd: 0.7330382858376184 # == 7.0 RPM, estimated from Brown et al 2023 Wind Energ Sci
-        VS_maxspd: 1.4173228346456692 # == maxTS/(rotor_diameter/2) = 13.5 RPM
+        VS_maxspd: 1.413716694115407  # == maxTS/(rotor_diameter/2) = 13.5 RPM
 environment:
     air_density: 1.225
     air_dyn_viscosity: 1.81e-5
