@@ -14,14 +14,17 @@ echo "Note: The default mpirun is `which mpirun`"
 echo "Started design at `date`"
 echo ''
 
+# Optimize without the stall margin constraint
 mpirun -np 94 python blade_aerostruct_opt.0.py
 python create_conv_plots.py analysis_options.0.yaml
 
+# Smooth the blade twist distribution and then re-run opt with that fixed
 python smooth_geom.py aerostruct.0/NREL-2.8-127.yaml \
                       aerostruct.0/NREL-2.8-127_smooth_twist.yaml
 mpirun -np 82 python blade_aerostruct_opt.1.py
 python create_conv_plots.py analysis_options.1.yaml
 
+# Finally, optimize everything with the stall margin constraint
 mpirun -np 94 python blade_aerostruct_opt.2.py
 python create_conv_plots.py analysis_options.2.yaml
 
