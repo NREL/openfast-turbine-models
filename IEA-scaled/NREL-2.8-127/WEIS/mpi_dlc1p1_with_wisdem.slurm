@@ -7,7 +7,7 @@
 #SBATCH --mail-user eliot.quon@nrel.gov
 #SBATCH --mail-type BEGIN,END,FAIL
 
-nwspds=10  # == modeling_options['DLC_driver']['n_cases'] == number of wind speeds
+nwspds=18  # == modeling_options['DLC_driver']['n_cases'] == number of wind speeds
 nC=$((nwspds+1))
 
 # load environment
