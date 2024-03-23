@@ -1,25 +1,27 @@
 #!/bin/bash
 #SBATCH --account=awaken
 #SBATCH --time=1:00:00
-#SBATCH --job-name=weis_sweep
+#SBATCH --job-name=weis_dlcs
 #SBATCH --nodes=1
-#SBATCH --ntasks-per-node=36
+#SBATCH --ntasks-per-node=104
 #SBATCH --mail-user eliot.quon@nrel.gov
 #SBATCH --mail-type BEGIN,END,FAIL
+#SBATCH --output=logs/log.opt.%j
+#SBATCH --reservation=weto-debug
+#SBATCH --qos=standby
 
-nwspds=18  # == modeling_options['DLC_driver']['n_cases'] == number of wind speeds
-nC=$((nwspds+1))
+nC=80
 
 # load environment
-. ~/.bashrc
-weis-env
-echo "Note: The default mpirun is `which mpirun`"
-echo ''
+source ~/.bashrc
+conda activate weis-env
+which python
 
 echo "Started DLCs at `date`"
 echo ''
 
-mpirun -n $nC --bind-to=core python weis_driver.dlc1p1_with_wisdem.py &> log.weis.dlc1p1
+# Note: This approach uses WISDEM to generate the OpenFAST model
+mpiexec -n $nC python weis_driver.dlc1p1_with_wisdem.py
 
 echo "Finished DLCs at `date`"
 echo ''

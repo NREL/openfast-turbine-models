@@ -1,11 +1,16 @@
-peneral:
+General:
     verbosity: False  # When set to True, the code prints to screen many infos
     openfast_configuration:
       OF_run_fst: NREL-2p8-127 # Name of the OpenFAST output files
-      OF_run_dir: outputs/DLC1p1 # Path to folder with the OpenFAST output files
+      #OF_run_dir: outputs/DLC1p1 # Path to folder with the OpenFAST output files -- set the output file in analysis options so it's all together
       use_exe: True
       save_iterations: True
       save_timeseries: True
+      allow_fails: True
+      # to speedup calculations, use custom compiled version instead of conda version
+      FAST_exe: /home/equon/openfast/build/glue-codes/openfast/openfast
+      turbsim_exe: /home/equon/openfast/build/modules/turbsim/turbsim
+      path2dll: /home/equon/ROSCO/rosco/controller/build/libdiscon.so # ROSCO
 
 WISDEM:
     RotorSE:
@@ -60,15 +65,14 @@ Level3: # Options for WEIS fidelity level 3 = nonlinear time domain
 
 ROSCO:
     flag: True
-    SD_Mode: 0          # (default) turn off shutdown
-    PS_Mode: 1          # pitch saturation: peak shaving
-    ps_percent: 0.77    # TODO: peak shaving should match WISDEM modeling options
-    U_pc: [12.]         # (default) List of wind speeds to schedule pitch control zeta and omega
-    zeta_pc: [1.0]      # (default) List of pitch controller desired damping ratio at U_pc [-]
-    omega_pc: [0.2]     # (default) List of pitch controller desired natural frequency at U_pc [rad/s]
-    zeta_vs: 1.0        # (default) Torque controller desired damping ratio [-]
-    omega_vs: 0.2       # (default) Torque controller desired natural frequency [rad/s]
+    tuning_yaml: /home/equon/ROSCO/Examples/Tune_Cases/NREL2p8.yaml
+    IPC_ControlMode: 0
     VS_ControlMode: 2   # (default) TSR-tracking PI w/ constant torque above rated
+    VS_ConstPower: 1
+    PS_Mode: 3          # pitch saturation: peak shaving
+    ps_percent: 0.77    # TODO: peak shaving should match WISDEM modeling options
+    DISCON:
+        VS_MinOMSpd: 71.1047137262  # TODO: make this match WISDEM VS_minspd * gear_ratio
     
 DLC_driver:
     DLCs:

@@ -1,5 +1,5 @@
 general:
-    folder_output: outputs
+    folder_output: outputs/1_full_dlcs
     fname_output: NREL-2p8-127
 #design_variables:
 #  control:
