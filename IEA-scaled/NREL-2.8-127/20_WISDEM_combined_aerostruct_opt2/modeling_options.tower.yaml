@@ -1,0 +1,23 @@
+# loading generated from /lustre/eaglefs/projects/awaken/equon/openfast-turbine-models-PUBLIC/IEA-scaled/NREL-2.8-127/20_WISDEM_combined_aerostruct_opt2/run/aerostruct.1/NREL-2.pkl
+General:
+  verbosity: false    # When set to True, the code prints to screen lots of info
+
+WISDEM:
+  RotorSE:
+    flag: false
+  TowerSE:
+    flag: true
+  DriveSE:
+    flag: false
+  BOS:
+    flag: false
+  n_dlc: 1
+  Loading:
+    mass: 147032.40522396992
+    center_of_mass: [-3.197782327997915, -0.08025788801131727, 1.2312837408794228]
+    moment_of_inertia: [25503011.94408626, 18363950.943289097, 18266642.982461695,
+      -8.229569150179486, -76050.0158821753, 11218.251332282005]
+    loads:
+    - force: [616618.8705433157, 1613.4153756835076, -969367.4067968206]
+      moment: [4851659.760907991, 197366.36168096817, 489825.60579901695]
+      velocity: 10.56139623487896
