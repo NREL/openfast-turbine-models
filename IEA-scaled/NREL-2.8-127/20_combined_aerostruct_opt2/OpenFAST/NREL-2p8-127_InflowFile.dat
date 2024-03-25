@@ -15,11 +15,11 @@ False                  VelInterpCubic - Use cubic interpolation for velocity in 
 89.0                   RefHt       - Reference height for horizontal wind speed      (m)
 0.2                    PLexp       - Power law exponent                              (-)
 ================== Parameters for Uniform wind file   [used only for WindType = 2] ============================
-"/scratch/equon/WEIS_AWAKEN/outputs/1_full_dlcs/openfast_runs/rank_0/wind/NREL-2p8-127_0_NTM_U19.000000_Seed744789066.0.bts" Filename_Uni - Filename of time series data for uniform wind field.      (-)
+"/kfs3/scratch/equon/WEIS_AWAKEN_new_ps_pct/outputs/1_full_dlcs/openfast_runs/rank_0/wind/NREL-2p8-127_0_NTM_U19.000000_Seed744789066.0.bts" Filename_Uni - Filename of time series data for uniform wind field.      (-)
 89.0                   RefHt_Uni   - Reference height for horizontal wind speed                (m)
 127.03234836702956     RefLength   - Reference length for linear horizontal and vertical sheer (-)
 ================== Parameters for Binary TurbSim Full-Field files   [used only for WindType = 3] ==============
-"/scratch/equon/WEIS_AWAKEN/outputs/1_full_dlcs/openfast_runs/rank_0/wind/NREL-2p8-127_0_NTM_U19.000000_Seed744789066.0.bts" FileName_BTS - Name of the Full field wind file to use (.bts)
+"/kfs3/scratch/equon/WEIS_AWAKEN_new_ps_pct/outputs/1_full_dlcs/openfast_runs/rank_0/wind/NREL-2p8-127_0_NTM_U19.000000_Seed744789066.0.bts" FileName_BTS - Name of the Full field wind file to use (.bts)
 ================== Parameters for Binary Bladed-style Full-Field files   [used only for WindType = 4] =========
 "none"                 FilenameRoot - Rootname of the full-field wind file to use (.wnd, .sum)
 False                  TowerFile   - Have tower file (.twr) (flag)
