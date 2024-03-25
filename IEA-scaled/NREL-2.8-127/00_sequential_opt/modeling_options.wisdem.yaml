@@ -1,0 +1,14 @@
+General:
+    verbosity: False  # When set to True, the code prints to screen many infos
+
+WISDEM:
+    RotorSE:
+        flag: True
+        spar_cap_ss: Spar_Cap_SS # Name in the yaml of the spar cap laminate on the suction side
+        spar_cap_ps: Spar_Cap_PS # Name in the yaml of the spar cap laminate on the suction side
+        n_pc: 30
+        #fix_pitch_regI12: True
+    TowerSE:
+        flag: True
+    DriveSE:
+        flag: True
