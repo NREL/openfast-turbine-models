@@ -4,8 +4,8 @@
 WISDEM model redesigned with current software stack:
 
 * [IEA Task 37: 3.4 MW RWT](https://github.com/IEAWindTask37/IEA-3.4-130-RWT) (c036f783b160604b133a2e4b7317320fde055743) - includes more comprehensive model data for the reference wind turbine (RWT)
-* [WISDEM](https://github.com/WISDEM/WISDEM) v3.13.x (228fb93b0e1c67db23efb705c55512898ebfee6d)
-* [WEIS](https://github.com/WISDEM/WEIS) v1.2.x (5076e9d94691b8cc7236440db4a55b8e00569446)
+* [WISDEM](https://github.com/WISDEM/WISDEM) v3.13.x (228fb93b0e1c67db23efb705c55512898ebfee6d, on NREL Eagle HPC)
+* [WEIS](https://github.com/WISDEM/WEIS) v1.2.x (76a1213579160a7b3446ec993e62d5f51c292f1f, on NREL Kestrel HPC)
 
 The starting RWT geometry is based on the example provided in the WEIS repository, last modified 2022-07-27 (commit 2c30dff082f6cc9a091da8db8eb2ed2c2bb9728f)
 
