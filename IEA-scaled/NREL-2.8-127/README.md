@@ -1,5 +1,6 @@
 # NREL-2.8-127
-2.8 MW turbine with 127 m diameter rotor, default hub height is 89 m
+_2.8 MW turbine with 127 m diameter rotor, default hub height is 89 m_
+
 
 WISDEM model redesigned with current software stack:
 
@@ -10,12 +11,30 @@ WISDEM model redesigned with current software stack:
 The starting RWT geometry is based on the example provided in the WEIS repository, last modified 2022-07-27 (commit 2c30dff082f6cc9a091da8db8eb2ed2c2bb9728f)
 
 To get started, modifications to the baseline turbine geometry can be shown with
-`diff ../IEA-3p4-130-RWT.yaml NREL-2.8-127.start.yaml` inside the "WISDEM" directories.
+`diff ../IEA-3p4-130-RWT.yaml NREL-2.8-127.start.yaml` inside the design directories.
 
 The final geometry was designed in two steps:
 
 1. Complete aerostructural optimization, but without stall margin constraint
 2. Repeat with stall margin constrained to >= 3 deg
 
-Differences between the legacy and current OpenFAST models are listed in
-[this README](legacy_model_comparison/prev_model_updated_for_OpenFASTv3.5/README.diff).
+**AWAKEN modelers should use the OpenFAST model in `20_combined_aerostruct_opt2/OpenFAST`**.
+
+
+## Differences between the current and legacy OpenFAST model
+
+|                        | legacy model | AWAKEN |
+| ---------------------- | ------------ | ------ |
+| _WISDEM inputs_        |              |        |
+| rated power (MW)       | 2.8          | 2.82   |
+| hub height (m)         | 88.5         | 89     |
+| max chord (m)          | 4.75         | 3.83   |
+| rated TSR              | 8            | 10     |
+| minimum RPM            | 5.0          | 7.0    |
+| rated RPM              | 12.0         | 13.5   |
+| _optimization outputs_ |              |        |
+| blade mass (tons)      | 12.9         | 14.0   |
+| blade flap freq (Hz)   | 0.835        | 0.636  |
+| blade edge freq (Hz)   | 1.33         | 0.746  |
+| tower mass (tons)      | 190          | 183    |
+| tower 1st freq (Hz)    | 0.237        | 0.27   |
