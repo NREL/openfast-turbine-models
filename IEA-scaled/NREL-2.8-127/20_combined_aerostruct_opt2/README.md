@@ -1,3 +1,6 @@
+This is the combined aerostructural optimization approach, which simultaneously optimizes
+aerodynamic performance and minimizes blade mass, given frequency (and other) constraints.
+
 * `NREL-2.8-127.start.yaml` is the RWT geometry modified tgo have the target turbine specifications
 
 * `mpi_aerostruct_opt.slurm` is the HPC job submission script that runs the following optimizations:
