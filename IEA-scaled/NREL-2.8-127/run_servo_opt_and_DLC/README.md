@@ -1,12 +1,5 @@
 # WEIS driver
 
-* The input geometry comes from the WISDEM design (step 4), which includes
-  aerostructural optimizations for the blade and tower
-* The resulting openfast model (in the OpenFAST folder) was automatically
-  generated during the controls optimization
-* The optimized pitch controller inputs are omega_pc=0.266, zeta_pc=1.500
-  resulting in a rotor overspeed of 14.1%.
-
 Scripts:
 
 * `mpirun_servo_opt.slurm` calls `weis_driver.servo_opt.py`, followed by
