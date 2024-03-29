@@ -23,7 +23,7 @@ WISDEM:
         n_pitch_perf_surfaces: 20 # (default)
         peak_thrust_shaving: True
         #thrust_shaving_coeff: 0.77 # TODO: should match WISDEM modeling options
-        thrust_shaving_coeff: 0.84 # Updated to improve turbulent power curve match with data
+        thrust_shaving_coeff: 0.87 # Updated to improve turbulent power curve match with data
     TowerSE:
         flag: True
     DriveSE:
@@ -72,7 +72,7 @@ ROSCO:
     VS_ConstPower: 1
     PS_Mode: 3          # pitch saturation: peak shaving
     #ps_percent: 0.77    # TODO: peak shaving should match WISDEM modeling options
-    ps_percent: 0.84     # Updated to improve turbulent power curve match with data
+    ps_percent: 0.87     # Updated to improve turbulent power curve match with data
     DISCON:
         VS_MinOMSpd: 71.1047137262  # TODO: make this match WISDEM VS_minspd * gear_ratio
     
@@ -83,7 +83,7 @@ DLC_driver:
         #
         - DLC: "1.1"
           #ws_bin_size: 2
-          wind_speed: [3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]
+          wind_speed: [3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25]
           #Seeds: [42, 88, 123, 456, 567, 789]
           n_seeds: 6
         # - DLC: "1.1"    # Reduced list for debugging
