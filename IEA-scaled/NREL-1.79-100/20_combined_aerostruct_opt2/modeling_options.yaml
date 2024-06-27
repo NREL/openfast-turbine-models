@@ -1,0 +1,17 @@
+General:
+    verbosity: False  # When set to True, the code prints to screen many infos
+
+WISDEM:
+    RotorSE:
+        flag: True
+        spar_cap_ss: Spar_cap_ss # Name in the yaml of the spar cap laminate on the suction side
+        spar_cap_ps: Spar_cap_ps # Name in the yaml of the spar cap laminate on the suction side
+        peak_thrust_shaving: False
+        thrust_shaving_coeff: 0.77
+        n_span: 30
+    TowerSE:
+        flag: True
+    DriveSE:
+        flag: True
+    BOS:
+        flag: True

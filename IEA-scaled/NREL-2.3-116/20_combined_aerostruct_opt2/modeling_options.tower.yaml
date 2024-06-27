@@ -1,0 +1,23 @@
+# loading generated from /home/rscott/openfast-turbine-models/IEA-scaled/NREL-2.3-116/20_combined_aerostruct_opt2/aerostruct.1/NREL-2.pkl
+General:
+  verbosity: false    # When set to True, the code prints to screen lots of info
+
+WISDEM:
+  RotorSE:
+    flag: false
+  TowerSE:
+    flag: true
+  DriveSE:
+    flag: false
+  BOS:
+    flag: false
+  n_dlc: 1
+  Loading:
+    mass: 136794.95558284337
+    center_of_mass: [-2.8233594855415807, -0.07312577212645838, 1.1940947791649752]
+    moment_of_inertia: [18454737.398453094, 13859251.542530453, 13758321.626242626,
+      -5.647470059988791, 48781.24524487495, 8688.412776673757]
+    loads:
+    - force: [431925.8643694635, -790.3585841342501, -945101.1307818708]
+      moment: [39872.36227868631, -491769.79827915516, 69734.67871592203]
+      velocity: 9.721861032599708

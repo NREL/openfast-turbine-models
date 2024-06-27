@@ -1,0 +1,135 @@
+general:
+    folder_output: aerostruct.1
+    fname_output: NREL-2.3-116
+design_variables:
+    blade:
+        aero_shape:
+            twist: # nDV: 6
+                flag: True             # Flag to optimize the twist
+                inverse: False         # Flag to determine twist from the user-defined desired margin to stall (defined in constraints)
+                n_opt: 8               # Number of control points along blade span
+                max_decrease: 0.08722222222222221 # Maximum decrease for the twist in [rad] at the n_opt locations
+                max_increase: 0.08722222222222221 # Maximum increase for the twist in [rad] at the n_opt locations
+                index_start: 2         # Lock the first two DVs from blade root
+                index_end: 8           # All DVs close to blade tip are active
+            chord: # nDV: 6
+                flag: True             # Flag to optimize the chord
+                n_opt: 8               # Number of control points along blade span
+                max_decrease: 0.3      # Minimum multiplicative gain on existing chord at the n_opt locations
+                max_increase: 3.       # Maximum multiplicative gain on existing chord at the n_opt locations
+                index_start: 2         # Lock the first two DVs from blade root
+                index_end: 8           # All DVs close to blade tip are active
+        structure: # nDV: 5 + 6 + 6 + 6 + 6 + 6 = 35
+            - layer_name: Shell_skin
+              n_opt: 8               # Number of control points along blade span
+              max_decrease: 0.2      # Maximum nondimensional decrease at the n_opt locations
+              max_increase: 5.       # Maximum nondimensional increase at the n_opt locations
+              index_start: 3         # Lock the first DV from blade root
+              index_end: 8           # The last DV at blade tip is locked
+            - layer_name: Spar_cap_ss
+              n_opt: 8               # Number of control points along blade span
+              max_decrease: 0.2      # Maximum nondimensional decrease at the n_opt locations
+              max_increase: 5.       # Maximum nondimensional increase at the n_opt locations
+              index_start: 1         # Lock the first DV from blade root
+              index_end: 7           # The last DV at blade tip is locked
+            - layer_name: Spar_cap_ps
+              n_opt: 8               # Number of control points along blade span
+              max_decrease: 0.2      # Maximum nondimensional decrease at the n_opt locations
+              max_increase: 5.       # Maximum nondimensional increase at the n_opt locations
+              index_start: 1         # Lock the first DV from blade root
+              index_end: 7           # The last DV at blade tip is locked
+            - layer_name: LE_reinf
+              n_opt: 8               # Number of control points along blade span
+              max_decrease: 0.2      # Maximum nondimensional decrease at the n_opt locations
+              max_increase: 5.       # Maximum nondimensional increase at the n_opt locations
+              index_start: 1         # Lock the first DV from blade root
+              index_end: 7           # The last DV at blade tip is locked
+            - layer_name: TE_reinforcement_PS
+              n_opt: 8               # Number of control points along blade span
+              max_decrease: 0.2      # Maximum nondimensional decrease at the n_opt locations
+              max_increase: 5.       # Maximum nondimensional increase at the n_opt locations
+              index_start: 1         # Lock the first DV from blade root
+              index_end: 7           # The last DV at blade tip is locked
+            - layer_name: TE_reinforcement_SS
+              n_opt: 8               # Number of control points along blade span
+              max_decrease: 0.2      # Maximum nondimensional decrease at the n_opt locations
+              max_increase: 5.       # Maximum nondimensional increase at the n_opt locations
+              index_start: 1         # Lock the first DV from blade root
+              index_end: 7           # The last DV at blade tip is locked
+
+merit_figure: LCOE
+
+constraints:
+    blade:
+        strains_spar_cap_ss:
+            flag: True         # Flag to impose constraints on maximum strains (absolute value) in the spar cap on the blade suction side
+            max:    3500.e-6   # Value of maximum strains [-]
+            index_start: 1     # Do not enforce constraint at the first station from blade root of the n_opt from spar_cap_ss
+            index_end: 3       # Do not enforce constraint at the last station at blade tip of the n_opt from spar_cap_ss
+        strains_spar_cap_ps:
+            flag: True         # Flag to impose constraints on maximum strains (absolute value) in the spar cap on the blade pressure side
+            max:    3500.e-6   # Value of maximum strains [-]
+            index_start: 1     # Do not enforce constraint at the first station from blade root of the n_opt from spar_cap_ps
+            index_end: 3       # Do not enforce constraint at the last station at blade tip of the n_opt from spar_cap_ps
+        strains_te_ss:
+            flag: False        # Flag to impose constraints on maximum strains (absolute value) in the spar cap on the blade suction side
+            max:    3500.e-6   # Value of maximum strains [-]
+            index_start: 1     # Do not enforce constraint at the first station from blade root of the n_opt from spar_cap_ss
+            index_end: 3       # Do not enforce constraint at the last station at blade tip of the n_opt from spar_cap_ss
+        strains_te_ps:
+            flag: False        # Flag to impose constraints on maximum strains (absolute value) in the spar cap on the blade pressure side
+            max:    3500.e-6   # Value of maximum strains [-]
+            index_start: 1     # Do not enforce constraint at the first station from blade root of the n_opt from spar_cap_ps
+            index_end: 3       # Do not enforce constraint at the last station at blade tip of the n_opt from spar_cap_ps
+        tip_deflection:
+            flag: True
+            margin: 1.4175 # Max tip deflection is 70% of the parked distance (default)
+        stall:
+            flag: True
+            margin: 0.05236 # Value of minimum stall margin in [rad] == 3 deg
+        chord:
+            flag: False  # Constraint on maximum chord
+            max: 4.5     # Value of maximum chord in [m]
+        moment_coefficient:
+            flag: True
+            max: 0.16
+        frequency:                      # 3P freq is 0.675 Hz
+            first_flap: 
+                flag: True
+                target: 0.6075          # 10% margin
+                acceptable_error: 0.03  # 5% of 3P
+            first_edge: 
+                flag: True
+                target: 0.7425          # 10% margin
+                acceptable_error: 0.03  # 5% of 3P
+            # second_flap: 
+            #     flag: False
+            #     target: 1.3
+            #     acceptable_error: 0.1
+            # second_edge: 
+            #     flag: False
+            #     target: 2.1
+            #     acceptable_error: 0.1
+            # first_torsion: 
+            #     flag: True
+            #     target: 6.3
+            #     acceptable_error: 0.2
+        mass:
+            flag: True
+            target: 11450. # WISDEM manual: https://wisdem.readthedocs.io/en/master/_images/BladeMass.png
+            acceptable_error: 1400. # range of masses for blades w/ and w/o carbon: 12.5 to 16 tons
+
+driver:
+    optimization:
+        flag: True         # Flag to enable optimization
+        tol: 1.e-5          # Optimality tolerance
+        # max_major_iter: 10  # Maximum number of major design iterations (SNOPT)
+        # max_minor_iter: 100 # Maximum number of minor design iterations (SNOPT)
+        max_iter: 100         # Maximum number of iterations (SLSQP)
+        solver: SLSQP       # Optimization solver. Other options are 'SLSQP' - 'CONMIN'
+        step_size: 1.e-3    # Step size for finite differencing
+        form: central       # Finite differencing mode, either forward or central
+
+recorder:
+    flag: True             # Flag to activate OpenMDAO recorder
+    file_name: log_opt.sql # Name of OpenMDAO recorder
