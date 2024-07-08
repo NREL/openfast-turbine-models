@@ -1,7 +1,5 @@
 # Generic turbine models scaled from IEA models
 
-Based on reference turbines from https://github.com/IEAWindTask37.
-New turbines were redesigned using the
-[WISDEM Interface](https://github.com/ewquon/WisdemInterface) tool.
+These turbine models are based on reference turbines from https://github.com/IEAWindTask37.
 
-* `NREL-2.8-127` - downscaled from IEA-3.4-130-RWT
+Please look in `NREL-*-*/OpenFAST` for turbine models tested with OpenFAST v3.5.2 using ROSCO v2.9.0.
