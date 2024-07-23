@@ -109,7 +109,7 @@
 97.0                ! WE_GearboxRatio	- Gearbox ratio [>=1],  [-]
 9161178.82420      ! WE_Jtot			- Total drivetrain inertia, including blades, hub and casted generator inertia to LSS, [kg m^2]
 1.225               ! WE_RhoAir			- Air density, [kg m^-3]
-"NREL-1p72-103_000_Cp_Ct_Cq.txt"      ! PerfFileName      - File containing rotor performance tables (Cp,Ct,Cq) (absolute path or relative to this file)
+"NREL-1p72-103_Cp_Ct_Cq.txt"      ! PerfFileName      - File containing rotor performance tables (Cp,Ct,Cq) (absolute path or relative to this file)
 20      20          ! PerfTableSize     - Size of rotor performance tables, first number refers to number of blade pitch angles, second number referse to number of tip-speed ratios
 60                  ! WE_FOPoles_N      - Number of first-order system poles used in EKF
 3.0000 3.2138 3.4276 3.6414 3.8552 4.0690 4.2828 4.4966 4.7103 4.9241 5.1379 5.3517 5.5655 5.7793 5.9931 6.2069 6.4207 6.6345 6.8483 7.0621 7.2759 7.4897 7.7034 7.9172 8.1310 8.3448 8.5586 8.7724 8.9862 9.2000 9.7267 10.2533 10.7800 11.3067 11.8333 12.3600 12.8867 13.4133 13.9400 14.4667 14.9933 15.5200 16.0467 16.5733 17.1000 17.6267 18.1533 18.6800 19.2067 19.7333 20.2600 20.7867 21.3133 21.8400 22.3667 22.8933 23.4200 23.9467 24.4733 25.0000               ! WE_FOPoles_v      - Wind speeds corresponding to first-order system poles [m/s]
