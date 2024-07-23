@@ -1,7 +1,7 @@
 # NREL-2.3-116
 _2.3 MW turbine with 116 m diameter rotor, hub height is 90 m_
 
-**AWAKEN modelers should use the OpenFAST model**
+**AWAKEN modelers should use this OpenFAST model**
 
 The WISDEM model was designed with the following software stack:
 

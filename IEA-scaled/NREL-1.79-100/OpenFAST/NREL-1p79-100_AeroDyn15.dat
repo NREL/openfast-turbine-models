@@ -33,7 +33,7 @@ Default                IndToler    - Convergence tolerance for BEMT nonlinear so
 2                      DBEMT_Mod   - Type of dynamic BEMT (DBEMT) model {1=constant tau1, 2=time-dependent tau1, 3=constant tau1 with continuous formulation} (-) [used only when WakeMod=2]
 28.8769292412895       tau1_const  - Time constant for DBEMT (s) [used only when WakeMod=2 and DBEMT_Mod=1]
 ======  OLAF -- cOnvecting LAgrangian Filaments (Free Vortex Wake) Theory Options  ================== [used only when WakeMod=3]
-NREL-1p79-100_000_OLAF.dat OLAFInputFileName - Input file for OLAF [used only when WakeMod=3]
+NREL-1p79-100_OLAF.dat OLAFInputFileName - Input file for OLAF [used only when WakeMod=3]
 ======  Beddoes-Leishman Unsteady Airfoil Aerodynamics Options  ===================================== [used only when AFAeroMod=2]
 3                      UAMod       - Unsteady Aero Model Switch (switch) {1=Baseline model (Original), 2=Gonzalez's variant (changes in Cn,Cc,Cm), 3=Minnema/Pierce variant (changes in Cc and Cm)} [used only when AFAeroMod=2]
 True                   FLookup     - Flag to indicate whether a lookup for f' will be calculated (TRUE) or whether best-fit exponential equations will be used (FALSE); if FALSE S1-S4 must be provided in airfoil input files (flag) [used only when AFAeroMod=2]
@@ -47,41 +47,41 @@ True                   FLookup     - Flag to indicate whether a lookup for f' wi
 4                      InCol_Cm    - The column in the airfoil tables that contains the pitching-moment coefficient; use zero if there is no Cm column (-)
 0                      InCol_Cpmin - The column in the airfoil tables that contains the Cpmin coefficient; use zero if there is no Cpmin column (-)
 30                     NumAFfiles  - Number of airfoil files used (-)
-"Airfoils/NREL-1p79-100_000_AeroDyn15_Polar_00.dat"    AFNames            - Airfoil file names (NumAFfiles lines) (quoted strings)
-"Airfoils/NREL-1p79-100_000_AeroDyn15_Polar_01.dat"
-"Airfoils/NREL-1p79-100_000_AeroDyn15_Polar_02.dat"
-"Airfoils/NREL-1p79-100_000_AeroDyn15_Polar_03.dat"
-"Airfoils/NREL-1p79-100_000_AeroDyn15_Polar_04.dat"
-"Airfoils/NREL-1p79-100_000_AeroDyn15_Polar_05.dat"
-"Airfoils/NREL-1p79-100_000_AeroDyn15_Polar_06.dat"
-"Airfoils/NREL-1p79-100_000_AeroDyn15_Polar_07.dat"
-"Airfoils/NREL-1p79-100_000_AeroDyn15_Polar_08.dat"
-"Airfoils/NREL-1p79-100_000_AeroDyn15_Polar_09.dat"
-"Airfoils/NREL-1p79-100_000_AeroDyn15_Polar_10.dat"
-"Airfoils/NREL-1p79-100_000_AeroDyn15_Polar_11.dat"
-"Airfoils/NREL-1p79-100_000_AeroDyn15_Polar_12.dat"
-"Airfoils/NREL-1p79-100_000_AeroDyn15_Polar_13.dat"
-"Airfoils/NREL-1p79-100_000_AeroDyn15_Polar_14.dat"
-"Airfoils/NREL-1p79-100_000_AeroDyn15_Polar_15.dat"
-"Airfoils/NREL-1p79-100_000_AeroDyn15_Polar_16.dat"
-"Airfoils/NREL-1p79-100_000_AeroDyn15_Polar_17.dat"
-"Airfoils/NREL-1p79-100_000_AeroDyn15_Polar_18.dat"
-"Airfoils/NREL-1p79-100_000_AeroDyn15_Polar_19.dat"
-"Airfoils/NREL-1p79-100_000_AeroDyn15_Polar_20.dat"
-"Airfoils/NREL-1p79-100_000_AeroDyn15_Polar_21.dat"
-"Airfoils/NREL-1p79-100_000_AeroDyn15_Polar_22.dat"
-"Airfoils/NREL-1p79-100_000_AeroDyn15_Polar_23.dat"
-"Airfoils/NREL-1p79-100_000_AeroDyn15_Polar_24.dat"
-"Airfoils/NREL-1p79-100_000_AeroDyn15_Polar_25.dat"
-"Airfoils/NREL-1p79-100_000_AeroDyn15_Polar_26.dat"
-"Airfoils/NREL-1p79-100_000_AeroDyn15_Polar_27.dat"
-"Airfoils/NREL-1p79-100_000_AeroDyn15_Polar_28.dat"
-"Airfoils/NREL-1p79-100_000_AeroDyn15_Polar_29.dat"
+"Airfoils/NREL-1p79-100_AeroDyn15_Polar_00.dat"    AFNames            - Airfoil file names (NumAFfiles lines) (quoted strings)
+"Airfoils/NREL-1p79-100_AeroDyn15_Polar_01.dat"
+"Airfoils/NREL-1p79-100_AeroDyn15_Polar_02.dat"
+"Airfoils/NREL-1p79-100_AeroDyn15_Polar_03.dat"
+"Airfoils/NREL-1p79-100_AeroDyn15_Polar_04.dat"
+"Airfoils/NREL-1p79-100_AeroDyn15_Polar_05.dat"
+"Airfoils/NREL-1p79-100_AeroDyn15_Polar_06.dat"
+"Airfoils/NREL-1p79-100_AeroDyn15_Polar_07.dat"
+"Airfoils/NREL-1p79-100_AeroDyn15_Polar_08.dat"
+"Airfoils/NREL-1p79-100_AeroDyn15_Polar_09.dat"
+"Airfoils/NREL-1p79-100_AeroDyn15_Polar_10.dat"
+"Airfoils/NREL-1p79-100_AeroDyn15_Polar_11.dat"
+"Airfoils/NREL-1p79-100_AeroDyn15_Polar_12.dat"
+"Airfoils/NREL-1p79-100_AeroDyn15_Polar_13.dat"
+"Airfoils/NREL-1p79-100_AeroDyn15_Polar_14.dat"
+"Airfoils/NREL-1p79-100_AeroDyn15_Polar_15.dat"
+"Airfoils/NREL-1p79-100_AeroDyn15_Polar_16.dat"
+"Airfoils/NREL-1p79-100_AeroDyn15_Polar_17.dat"
+"Airfoils/NREL-1p79-100_AeroDyn15_Polar_18.dat"
+"Airfoils/NREL-1p79-100_AeroDyn15_Polar_19.dat"
+"Airfoils/NREL-1p79-100_AeroDyn15_Polar_20.dat"
+"Airfoils/NREL-1p79-100_AeroDyn15_Polar_21.dat"
+"Airfoils/NREL-1p79-100_AeroDyn15_Polar_22.dat"
+"Airfoils/NREL-1p79-100_AeroDyn15_Polar_23.dat"
+"Airfoils/NREL-1p79-100_AeroDyn15_Polar_24.dat"
+"Airfoils/NREL-1p79-100_AeroDyn15_Polar_25.dat"
+"Airfoils/NREL-1p79-100_AeroDyn15_Polar_26.dat"
+"Airfoils/NREL-1p79-100_AeroDyn15_Polar_27.dat"
+"Airfoils/NREL-1p79-100_AeroDyn15_Polar_28.dat"
+"Airfoils/NREL-1p79-100_AeroDyn15_Polar_29.dat"
 ======  Rotor/Blade Properties  =====================================================================
 True                   UseBlCm     - Include aerodynamic pitching moment in calculations?  (flag)
-"NREL-1p79-100_000_AeroDyn15_blade.dat" ADBlFile(1) - Name of file containing distributed aerodynamic properties for Blade #1 (-)
-"NREL-1p79-100_000_AeroDyn15_blade.dat" ADBlFile(2) - Name of file containing distributed aerodynamic properties for Blade #2 (-) [unused if NumBl < 2]
-"NREL-1p79-100_000_AeroDyn15_blade.dat" ADBlFile(3) - Name of file containing distributed aerodynamic properties for Blade #3 (-) [unused if NumBl < 3]
+"NREL-1p79-100_AeroDyn15_blade.dat" ADBlFile(1) - Name of file containing distributed aerodynamic properties for Blade #1 (-)
+"NREL-1p79-100_AeroDyn15_blade.dat" ADBlFile(2) - Name of file containing distributed aerodynamic properties for Blade #2 (-) [unused if NumBl < 2]
+"NREL-1p79-100_AeroDyn15_blade.dat" ADBlFile(3) - Name of file containing distributed aerodynamic properties for Blade #3 (-) [unused if NumBl < 3]
 ======  Hub Properties ============================================================================== [used only when Buoyancy=True]
 0                      VolHub      - Hub volume (m^3)
 0                      HubCenBx    - Hub center of buoyancy x direction offset (m)

@@ -1,7 +1,7 @@
 # NREL-1.79-100
 _1.79 MW turbine with 100 m diameter rotor, default hub height is 80 m_
 
-**AWAKEN modelers should use the OpenFAST model**
+**AWAKEN modelers should use this OpenFAST model**
 
 The WISDEM model was designed with the following software stack:
 
