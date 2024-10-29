@@ -1,0 +1,5 @@
+*.bat
+*.sum
+*.out
+*.outb
+Makefile

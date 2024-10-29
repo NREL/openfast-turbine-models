@@ -2,7 +2,7 @@
 
 This repository contains turbine aeroservoelastic models developed for research activities at the National Renewable Energy Laboratory (NREL). 
 
-NREL researchers should refer to the internal repository at https://github.nrel.gov/NWTC/openfast-turbine-models.
+**NREL researchers should refer to the internal repository at https://github.nrel.gov/NWTC/openfast-turbine-models.**
 
 ## Overview of Design Process
 The design process involves rescaling an existing reference wind turbine (RWT) to have specified turbine characteristics and then optimizing the resulting geometry.
